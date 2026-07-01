@@ -2,6 +2,18 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.2] — Repositório consolidado — 2026-07-01
+
+Auditoria da integração GitHub + Vercel (motivada pela pergunta "existe só uma fonte de verdade?"). Nenhuma mudança de código ou visual — só estrutura de repositório.
+
+### Corrigido
+- Achatada a estrutura do repositório: todos os arquivos estavam aninhados uma pasta a mais (`workshop-carnes-premium/` dentro do próprio repo, herança do primeiro upload manual). Agora a raiz do repositório = raiz do site, sem pasta extra
+- Eliminado o clone paralelo (`wcp-deploy-tmp`) usado como intermediário manual entre a pasta de trabalho e o GitHub — a pasta de trabalho **é** agora o repositório Git oficial, sem passo de cópia entre pastas
+
+### Documentação
+- `DEPLOY.md`: removida a seção de workaround (estrutura duplicada); adicionada nota histórica curta
+- Necessário atualizar manualmente o **Root Directory** do projeto na Vercel para vazio/raiz (configuração de painel, fora do repositório — ver instruções que acompanham esta versão)
+
 ## [1.0.1] — Publicação corrigida — 2026-07-01
 
 Auditoria completa da versão publicada, motivada pelas fotos das proteínas não aparecendo em produção. Nenhum código foi alterado nesta entrada — o problema era de publicação, não de código.

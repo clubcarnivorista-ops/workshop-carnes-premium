@@ -4,46 +4,11 @@ Guia único para publicar, mover de hospedagem ou atualizar o Workshop de Carnes
 
 ---
 
-## ⚠️ Estrutura real do repositório (leia antes de publicar)
+## Fonte única de verdade
 
-O repositório [`clubcarnivorista-ops/workshop-carnes-premium`](https://github.com/clubcarnivorista-ops/workshop-carnes-premium) tem uma particularidade histórica: o primeiro upload (feito arrastando arquivos direto pela interface do GitHub) criou **uma pasta `workshop-carnes-premium/` a mais dentro do próprio repositório**:
+Esta pasta **é** a raiz do repositório [`clubcarnivorista-ops/workshop-carnes-premium`](https://github.com/clubcarnivorista-ops/workshop-carnes-premium) — não existe pasta extra, clone paralelo ou passo de cópia manual. Editou aqui, `git push` publica.
 
-```
-workshop-carnes-premium (repo no GitHub)
-└── workshop-carnes-premium/     ← pasta extra, criada no primeiro upload manual
-    ├── index.html
-    ├── style.css
-    └── ...
-```
-
-A Vercel está configurada com **Root Directory = `workshop-carnes-premium`**, então o site funciona normalmente apesar dessa pasta duplicada. Mas isso significa que **esta pasta local (onde você edita os arquivos) não é a raiz do repositório Git** — ela corresponde à subpasta `workshop-carnes-premium/` de dentro do repo.
-
-### Fluxo correto para publicar (enquanto essa estrutura não for corrigida)
-
-Não dê `git init` direto nesta pasta. Em vez disso:
-
-```bash
-# 1. Clone o repositório numa pasta separada (só precisa fazer isso 1x)
-git clone https://github.com/clubcarnivorista-ops/workshop-carnes-premium.git wcp-deploy
-
-# 2. Sempre que for publicar uma atualização, copie o conteúdo desta pasta
-#    de trabalho para dentro da subpasta do clone (sobrescrevendo):
-#    (ajuste os caminhos conforme o seu sistema)
-cp -r /caminho/para/workshop-carnes-premium/. wcp-deploy/workshop-carnes-premium/
-
-# 3. Commit e push a partir do clone
-cd wcp-deploy
-git add -A
-git commit -m "Descreva a atualização aqui"
-git push origin main
-```
-
-### Correção definitiva (recomendada, mas opcional)
-
-Pra eliminar esse passo extra permanentemente:
-1. No GitHub, mova todo o conteúdo de dentro de `workshop-carnes-premium/` para a raiz do repositório (ou recrie o repositório já na estrutura certa).
-2. Na Vercel, vá em **Settings → General → Root Directory** e deixe em branco (raiz).
-3. A partir daí, esta pasta local passa a corresponder exatamente à raiz do repositório, e o fluxo simples de "Como atualizar" (mais abaixo) volta a valer sem o passo de cópia extra.
+> **Nota histórica:** até 2026-07-01 este repositório teve todos os arquivos aninhados uma pasta a mais (`workshop-carnes-premium/` dentro do próprio repo), resultado de um upload manual antigo pela interface do GitHub, com a Vercel compensando via **Root Directory**. Essa estrutura foi achatada — se você tem um clone antigo com esse aninhamento extra, apague-o e clone de novo.
 
 ---
 
