@@ -2,6 +2,22 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.1] — Publicação corrigida — 2026-07-01
+
+Auditoria completa da versão publicada, motivada pelas fotos das proteínas não aparecendo em produção. Nenhum código foi alterado nesta entrada — o problema era de publicação, não de código.
+
+### Diagnóstico
+- Os arquivos locais estavam 100% corretos (nomes, caminhos, maiúsculas/minúsculas conferidos byte a byte)
+- O repositório GitHub (`clubcarnivorista-ops/workshop-carnes-premium`) tinha um único commit (`b95b2d1`, "Add files via upload") feito por upload manual, parado numa versão antiga (~RC-1) — nunca atualizado com nada publicado depois disso, inclusive as fotos das proteínas
+- Esse upload manual também criou uma pasta `workshop-carnes-premium/` extra dentro do próprio repositório (a Vercel compensa isso com **Root Directory = `workshop-carnes-premium`** nas configurações do projeto) — documentado em [DEPLOY.md](DEPLOY.md#️-estrutura-real-do-repositório-leia-antes-de-publicar)
+
+### Corrigido
+- Publicado o commit `b418d8d` no GitHub (com `b95b2d1` como pai — push normal, sem sobrescrever histórico), sincronizando a produção com todo o trabalho local: rodapé institucional, segurança, SEO, páginas institucionais e as 5 fotos das proteínas
+- Vercel republicou automaticamente a partir desse push
+
+### Documentação
+- `DEPLOY.md`: nova seção explicando a estrutura de pastas duplicada do repositório e o fluxo correto de publicação enquanto ela não for corrigida na raiz
+
 ## [1.0.1] — 2026-07-01
 
 Integração dos ativos visuais reais das proteínas. Identidade visual, layout e UX **não foram alterados** — o CSS já vinha preparado desde a v1.0.0 para receber essas imagens (`.menu-protein-item__media img { object-fit: cover }`), então nenhuma regra nova de estilo foi necessária, só a correção do comentário que descrevia o elemento como placeholder.
