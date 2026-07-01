@@ -1,0 +1,6 @@
+# Configuração local do preview (Claude Code) — não faz parte do site
+.claude/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

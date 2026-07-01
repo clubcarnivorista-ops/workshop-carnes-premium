@@ -57,11 +57,14 @@ Use esta lista, em ordem, toda vez que for publicar a Landing em produção (pri
 - [ ] Modal do PIX abre, mostra QR Code, chave e valor corretos
 - [ ] Botão "Pagar com Cartão" leva ao link correto do Mercado Pago
 - [ ] Pelo menos um depoimento em vídeo abre corretamente no modal
-- [ ] Links de WhatsApp, Instagram e Google Maps no rodapé abrem corretamente
+- [ ] Links de WhatsApp, Instagram, YouTube e Google Maps no rodapé abrem corretamente
+- [ ] Telefone e e-mail do rodapé abrem `tel:`/`mailto:` corretamente
+- [ ] Os 6 links institucionais do rodapé (privacidade, LGPD, termos, cancelamento, reembolso, cookies) abrem sem erro 404
 - [ ] FAQ expande/recolhe
 - [ ] Favicon aparece na aba do navegador
 - [ ] Testar o preview de compartilhamento colando o link real no WhatsApp (deve mostrar imagem, título e descrição)
-- [ ] Rodar o [Rich Results Test do Google](https://search.google.com/test/rich-results) na URL de produção e confirmar que o Schema.org Event é reconhecido sem erros
+- [ ] Rodar o [Rich Results Test do Google](https://search.google.com/test/rich-results) na URL de produção e confirmar que os Schema.org (Event, Organization, LocalBusiness, BreadcrumbList) são reconhecidos sem erros
+- [ ] Rodar [securityheaders.com](https://securityheaders.com) na URL de produção e confirmar nota A ou superior (ver [SECURITY.md](SECURITY.md))
 
 ## 8. SEO pós-publicação
 

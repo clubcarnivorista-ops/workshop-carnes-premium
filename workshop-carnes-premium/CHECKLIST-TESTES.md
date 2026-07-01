@@ -60,7 +60,11 @@ Resoluções de referência para o teste responsivo (rodar em pelo menos 3 delas
 - [ ] Ícone `+`/`−` alterna corretamente
 
 ### Rodapé e links externos
-- [ ] Links de Instagram, WhatsApp e Google Maps abrem corretamente em nova aba
+- [ ] Links de Instagram, YouTube, WhatsApp e Google Maps abrem corretamente em nova aba
+- [ ] Telefone (`tel:`) e e-mail (`mailto:`) do rodapé abrem o app correspondente (discador/cliente de e-mail)
+- [ ] Endereço institucional exibido corretamente (texto vindo do `CONFIG.endereco`)
+- [ ] Os 6 links institucionais (Política de Privacidade, LGPD, Termos de Uso, Política de Cancelamento, Política de Reembolso, Uso de Cookies) abrem a página correspondente sem erro 404
+- [ ] Copyright exibe "© 2026 Clube Carnivorista. Todos os direitos reservados."
 
 ### Acessibilidade
 - [ ] Navegação completa da página só com teclado (Tab/Shift+Tab/Enter/Espaço/ESC)

@@ -11,10 +11,12 @@
   <!-- Ajuste para a URL final após o deploy na Vercel (ver README > Publicar na Vercel) -->
   <link rel="canonical" href="https://workshopcarnespremium.vercel.app/">
 
-  <!-- Favicon -->
+  <!-- Favicon (conjunto completo — ver assets/README.md) -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="favicon.svg">
-  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
 
   <!-- Open Graph (Facebook, WhatsApp, Instagram usam este bloco para o preview de link) -->
@@ -86,6 +88,70 @@
   }
   </script>
 
+  <!-- Schema.org Organization (identidade institucional do Clube Carnivorista)
+       IMPORTANTE: se alterar telefone/e-mail em CONFIG (script.js), atualize também
+       os valores abaixo. Adicione "sameAs" com os links reais de Instagram/YouTube
+       assim que CONFIG.instagram e CONFIG.youtube deixarem de ser '#'. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Clube Carnivorista",
+    "url": "https://workshopcarnespremium.vercel.app/",
+    "logo": "https://workshopcarnespremium.vercel.app/android-chrome-512x512.png",
+    "email": "contato@clubecarnivorista.com.br",
+    "telephone": "+55 47 99999-9999",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Canelinha",
+      "addressRegion": "SC",
+      "addressCountry": "BR"
+    }
+  }
+  </script>
+
+  <!-- Schema.org LocalBusiness (para busca local "Clube Carnivorista Canelinha") -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Clube Carnivorista",
+    "image": "https://workshopcarnespremium.vercel.app/assets/og-image.jpg",
+    "url": "https://workshopcarnespremium.vercel.app/",
+    "telephone": "+55 47 99999-9999",
+    "email": "contato@clubecarnivorista.com.br",
+    "priceRange": "R$220 - R$250",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Canelinha",
+      "addressRegion": "SC",
+      "addressCountry": "BR"
+    }
+  }
+  </script>
+
+  <!-- Schema.org BreadcrumbList (trilha de navegação para resultados de busca) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://workshopcarnespremium.vercel.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Workshop de Carnes Premium — Ingressos",
+        "item": "https://workshopcarnespremium.vercel.app/#ingressos"
+      }
+    ]
+  }
+  </script>
+
   <!-- Preconnect para fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,6 +195,17 @@
     gtag('config', 'SEU_GOOGLE_ADS_ID');
   </script>
   -->
+
+  <!-- Microsoft Clarity -->
+  <!--
+  <script>
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "SEU_CLARITY_ID");
+  </script>
+  -->
 </head>
 <body class="has-navbar">
 
@@ -136,7 +213,7 @@
   <nav class="navbar">
     <div class="container navbar__inner">
       <span class="navbar__logo">Workshop Carnes Premium</span>
-      <a href="#pagamento" class="btn btn--primary navbar__cta">Garantir Minha Vaga</a>
+      <a href="#pagamento" class="btn btn--primary navbar__cta" data-track-event="cta_comprar">Garantir Minha Vaga</a>
     </div>
   </nav>
 
@@ -147,7 +224,7 @@
       <p class="hero__tag">Experiência Gastronômica Exclusiva</p>
       <h1 class="hero__title">WORKSHOP DE<br>CARNES PREMIUM</h1>
       <p class="hero__subtitle">Uma experiência gastronômica exclusiva para quem busca aprender técnicas profissionais, degustar carnes premium e viver uma noite diferenciada.</p>
-      <a href="#ingressos" class="btn btn--primary">GARANTIR MINHA VAGA</a>
+      <a href="#ingressos" class="btn btn--primary" data-track-event="cta_comprar">GARANTIR MINHA VAGA</a>
 
       <ul class="hero__details">
         <li><span class="hero__icon">📅</span> <span id="infoData">29 de julho de 2026 (quarta-feira)</span></li>
@@ -229,23 +306,33 @@
             <h3 class="menu-category__title"><span class="menu-category__icon">🔥</span> Proteínas Premium</h3>
             <ul class="menu-protein-list">
               <li class="menu-protein-item">
-                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__media">
+                  <img src="assets/proteins/picanha-reserva.webp" width="56" height="56" alt="" loading="lazy" decoding="async">
+                </span>
                 <span class="menu-protein-item__text">Picanha Reserva</span>
               </li>
               <li class="menu-protein-item">
-                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__media">
+                  <img src="assets/proteins/entrecot-defumado.webp" width="56" height="56" alt="" loading="lazy" decoding="async">
+                </span>
                 <span class="menu-protein-item__text">Entrecot Defumado</span>
               </li>
               <li class="menu-protein-item">
-                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__media">
+                  <img src="assets/proteins/chuck-eye-steak.webp" width="56" height="56" alt="" loading="lazy" decoding="async">
+                </span>
                 <span class="menu-protein-item__text">Chuck Eye Steak no Black Rub</span>
               </li>
               <li class="menu-protein-item">
-                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__media">
+                  <img src="assets/proteins/entranha-gorgonzola.webp" width="56" height="56" alt="" loading="lazy" decoding="async">
+                </span>
                 <span class="menu-protein-item__text">Entranha ao Molho de Gorgonzola</span>
               </li>
               <li class="menu-protein-item">
-                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__media">
+                  <img src="assets/proteins/fraldinha-crosta-alho.webp" width="56" height="56" alt="" loading="lazy" decoding="async">
+                </span>
                 <span class="menu-protein-item__text">Fraldinha na Crosta de Alho</span>
               </li>
             </ul>
@@ -453,7 +540,7 @@
               <li>Sem taxas adicionais</li>
               <li>Confirmação rápida da inscrição</li>
             </ul>
-            <button type="button" class="btn btn--primary payment-card__btn" id="btnPixOpen">Pagar via PIX</button>
+            <button type="button" class="btn btn--primary payment-card__btn" id="btnPixOpen" data-track-event="cta_pix">Pagar via PIX</button>
           </article>
 
           <article class="payment-card reveal">
@@ -464,7 +551,7 @@
               <li>Parcelamento disponível</li>
               <li>As taxas de parcelamento, quando aplicáveis, são calculadas e exibidas pelo Mercado Pago antes da confirmação da compra</li>
             </ul>
-            <a href="#" class="btn btn--primary payment-card__btn" id="btnCartao" target="_blank" rel="noopener">Pagar com Cartão</a>
+            <a href="#" class="btn btn--primary payment-card__btn" id="btnCartao" target="_blank" rel="noopener" data-track-event="cta_mercado_pago">Pagar com Cartão</a>
           </article>
         </div>
 
@@ -522,7 +609,7 @@
       <div class="container reveal">
         <h2 class="section__title">Grupo Oficial do Evento</h2>
         <p class="section__subtitle">Entre no grupo para receber atualizações, informações exclusivas e interagir com outros participantes.</p>
-        <a href="#" class="btn btn--whatsapp" id="btnWhatsApp">
+        <a href="#" class="btn btn--whatsapp" id="btnWhatsApp" data-track-event="cta_entrar_grupo">
           <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           ENTRAR NO GRUPO DO EVENTO
         </a>
@@ -548,7 +635,13 @@
               </a>
             </li>
             <li>
-              <a href="#" class="footer__link" id="footerWhatsApp" target="_blank" rel="noopener">
+              <a href="#" class="footer__link" id="footerYoutube" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.498 6.186a2.997 2.997 0 0 0-2.11-2.12C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.388.521a2.997 2.997 0 0 0-2.11 2.12A31.32 31.32 0 0 0 0 12a31.32 31.32 0 0 0 .502 5.814 2.997 2.997 0 0 0 2.11 2.12c1.883.521 9.388.521 9.388.521s7.505 0 9.388-.521a2.997 2.997 0 0 0 2.11-2.12A31.32 31.32 0 0 0 24 12a31.32 31.32 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+              </a>
+            </li>
+            <li>
+              <a href="#" class="footer__link" id="footerWhatsApp" target="_blank" rel="noopener" data-track-event="cta_whatsapp">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 WhatsApp
               </a>
@@ -561,15 +654,44 @@
             </li>
           </ul>
         </div>
+        <div class="footer__col">
+          <h4 class="footer__heading">Institucional</h4>
+          <ul class="footer__links">
+            <li>
+              <a href="tel:" class="footer__link" id="footerTelefone">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
+                <span id="footerTelefoneText">Telefone</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:" class="footer__link" id="footerEmail">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 12 4 6.01V6h16zM4 18V8.24l7.42 5.56a1 1 0 0 0 1.16 0L20 8.24V18H4z"/></svg>
+                <span id="footerEmailText">E-mail</span>
+              </a>
+            </li>
+            <li class="footer__link footer__link--static">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+                <span id="footerEndereco">Canelinha/SC</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="lgpd.html">LGPD</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="cancelamento.html">Política de Cancelamento</a>
+        <a href="reembolso.html">Política de Reembolso</a>
+        <a href="cookies.html">Uso de Cookies</a>
       </div>
       <div class="footer__bottom">
-        <p>&copy; 2025 Workshop de Carnes Premium. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Clube Carnivorista. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
 
   <!-- ======================== BOTÃO FLUTUANTE (SOMENTE MOBILE) ======================== -->
-  <a href="#pagamento" class="floating-cta">🔥 Garantir Minha Vaga</a>
+  <a href="#pagamento" class="floating-cta" data-track-event="cta_comprar">🔥 Garantir Minha Vaga</a>
 
   <!-- ======================== MODAL PIX ======================== -->
   <div class="modal-overlay" id="pixModalOverlay">
@@ -605,7 +727,7 @@
         </div>
       </div>
 
-      <a href="#" class="btn btn--whatsapp modal-pix__btn" id="pixSendProof" target="_blank" rel="noopener">Enviar comprovante</a>
+      <a href="#" class="btn btn--whatsapp modal-pix__btn" id="pixSendProof" target="_blank" rel="noopener" data-track-event="cta_whatsapp">Enviar comprovante</a>
     </div>
   </div>
 

@@ -16,7 +16,11 @@
     whatsappContact: '5547999999999',            // Número do WhatsApp (com DDI), usado em contato e comprovante
     whatsappGroup: '#',                          // Link do grupo oficial do WhatsApp
     instagram: '#',                              // Link do Instagram
+    youtube: '#',                                // Link do canal do YouTube
     maps: '#',                                   // Link do Google Maps
+    telefone: '+55 47 99999-9999',               // Telefone institucional (exibido formatado, usado em tel:)
+    email: 'contato@clubecarnivorista.com.br',   // E-mail institucional (usado em mailto:)
+    endereco: 'Canelinha/SC',                    // Endereço institucional exibido no rodapé
     vagasAtuais: 32,                             // Número de inscritos atual
     vagasMax: 50,
     dataEvento: '29 de julho de 2026 (quarta-feira)', // Data oficial do evento
@@ -56,11 +60,27 @@
     var footerIG = document.getElementById('footerInstagram');
     if (footerIG) footerIG.href = CONFIG.instagram;
 
+    var footerYT = document.getElementById('footerYoutube');
+    if (footerYT) footerYT.href = CONFIG.youtube;
+
     var footerWA = document.getElementById('footerWhatsApp');
     if (footerWA) footerWA.href = 'https://wa.me/' + CONFIG.whatsappContact;
 
     var footerMaps = document.getElementById('footerMaps');
     if (footerMaps) footerMaps.href = CONFIG.maps;
+
+    var footerTelefone = document.getElementById('footerTelefone');
+    var footerTelefoneText = document.getElementById('footerTelefoneText');
+    if (footerTelefone) footerTelefone.href = 'tel:' + CONFIG.telefone.replace(/[^\d+]/g, '');
+    if (footerTelefoneText) footerTelefoneText.textContent = CONFIG.telefone;
+
+    var footerEmail = document.getElementById('footerEmail');
+    var footerEmailText = document.getElementById('footerEmailText');
+    if (footerEmail) footerEmail.href = 'mailto:' + CONFIG.email;
+    if (footerEmailText) footerEmailText.textContent = CONFIG.email;
+
+    var footerEndereco = document.getElementById('footerEndereco');
+    if (footerEndereco) footerEndereco.textContent = CONFIG.endereco;
   }
 
   /* ========== INFORMAÇÕES DO EVENTO (DATA E HORÁRIOS) ========== */
@@ -281,10 +301,16 @@
    */
   var TESTIMONIALS = [
     {
-      titulo: 'Fernando & Sorocaba',
+      titulo: 'Fernando',
       descricao: 'Depoimento sobre a experiência.',
       youtubeId: '',
       thumb: 'assets/videos/fernando.jpg'
+    },
+    {
+      titulo: 'Sorocaba',
+      descricao: 'Depoimento sobre a experiência.',
+      youtubeId: '',
+      thumb: 'assets/videos/sorocaba.jpg'
     },
     {
       titulo: 'Thauane',
@@ -299,7 +325,7 @@
       thumb: 'assets/videos/sampaio.jpg'
     },
     {
-      titulo: 'Participantes',
+      titulo: 'Clientes',
       descricao: 'Veja a opinião de quem participou.',
       youtubeId: '',
       thumb: 'assets/videos/clientes.jpg'
@@ -434,7 +460,7 @@
   var PATROCINADORES = {
     realizacao: {
       nome: 'Clube Carnivorista',
-      logo: '' // ex: 'assets/sponsors/clube-carnivorista.png' — sem logo, exibe o nome em texto
+      logo: '' // ex: 'assets/patrocinadores/clube-carnivorista.png' — sem logo, exibe o nome em texto
     },
     master: {
       nome: '',
@@ -598,6 +624,35 @@
     });
   }
 
+  /* ========== RASTREAMENTO DE CONVERSÃO (Meta Pixel / GA4 / Google Ads / Clarity) ==========
+   * Dispara um evento em cada plataforma configurada, se ela estiver carregada (ver
+   * placeholders de pixels no <head> de index.html). Enquanto nenhum pixel estiver
+   * ativo, as checagens abaixo simplesmente não fazem nada — sem erro no console.
+   *
+   * Os CTAs que disparam eventos têm um atributo data-track-event no HTML:
+   *   cta_comprar        → botões "Garantir Minha Vaga" (navbar, hero, flutuante)
+   *   cta_entrar_grupo    → botão "Entrar no Grupo" do WhatsApp
+   *   cta_whatsapp        → links de contato via WhatsApp (rodapé, comprovante do PIX)
+   *   cta_pix              → botão "Pagar via PIX"
+   *   cta_mercado_pago      → botão "Pagar com Cartão" (Mercado Pago)
+   *
+   * Para adicionar um novo CTA rastreado, basta adicionar data-track-event="nome_do_evento"
+   * no elemento em qualquer página que carregue este script.js — nada mais precisa mudar aqui.
+   */
+  function trackEvent(eventName) {
+    if (typeof window.fbq === 'function') window.fbq('trackCustom', eventName);
+    if (typeof window.gtag === 'function') window.gtag('event', eventName);
+    if (typeof window.clarity === 'function') window.clarity('event', eventName);
+  }
+
+  function setupConversionTracking() {
+    document.querySelectorAll('[data-track-event]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        trackEvent(el.getAttribute('data-track-event'));
+      });
+    });
+  }
+
   /* ========== INIT ========== */
   function init() {
     setupLinks();
@@ -607,6 +662,7 @@
     setupVagasCounter();
     setupTestimonials();
     setupPatrocinadores();
+    setupConversionTracking();
     setupScrollReveal();
     setupSmoothScroll();
   }

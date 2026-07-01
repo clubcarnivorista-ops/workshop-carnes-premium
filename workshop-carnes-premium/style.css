@@ -417,7 +417,8 @@ ul, ol {
 .testimonials-nav:focus-visible,
 .sponsor-logo:focus-visible,
 .faq-item__question:focus-visible,
-.footer__link:focus-visible {
+.footer__link:focus-visible,
+.footer__legal a:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
@@ -809,8 +810,10 @@ ul, ol {
   background: rgba(201, 169, 97, 0.06);
 }
 
-/* Placeholder reservado para futura imagem do corte — basta inserir uma <img>
-   dentro deste elemento (object-fit: cover já cobre o espaço automaticamente) */
+/* Miniatura circular do corte (assets/proteins/*.webp). O gradiente de fundo
+   permanece visível como placeholder enquanto a imagem carrega (loading="lazy")
+   ou caso o arquivo não seja encontrado. object-fit: cover em .menu-protein-item__media
+   img garante o mesmo enquadramento independentemente da proporção da foto original. */
 .menu-protein-item__media {
   flex-shrink: 0;
   width: 56px;
@@ -1318,7 +1321,7 @@ ul, ol {
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 40px;
   margin-bottom: 40px;
 }
@@ -1357,6 +1360,29 @@ ul, ol {
 
 .footer__link svg {
   flex-shrink: 0;
+}
+
+.footer__link--static {
+  cursor: default;
+}
+
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer__legal a {
+  font-size: 0.78rem;
+  color: var(--gray);
+  transition: var(--transition);
+}
+
+.footer__legal a:hover {
+  color: var(--gold);
 }
 
 .footer__bottom {

@@ -15,7 +15,11 @@ const CONFIG = {
   whatsappContact: '5547999999999',
   whatsappGroup: '#',
   instagram: '#',
+  youtube: '#',
   maps: '#',
+  telefone: '+55 47 99999-9999',
+  email: 'contato@clubecarnivorista.com.br',
+  endereco: 'Canelinha/SC',
   vagasAtuais: 32,
   vagasMax: 50,
   dataEvento: '29 de julho de 2026 (quarta-feira)',
@@ -37,7 +41,11 @@ const CONFIG = {
 | `whatsappContact` | Número de WhatsApp usado para receber comprovante e contato direto no rodapé. | Somente dígitos, com DDI: `'55DDNNNNNNNNN'` |
 | `whatsappGroup` | Link de convite do grupo oficial do WhatsApp. | URL completa: `'https://chat.whatsapp.com/xxxxxxx'` |
 | `instagram` | Link do perfil do Instagram (rodapé). | URL completa: `'https://instagram.com/seuusuario'` |
+| `youtube` | Link do canal do YouTube (rodapé). | URL completa: `'https://youtube.com/@seucanal'` |
 | `maps` | Link do Google Maps com a localização do evento (rodapé). | URL completa do Google Maps |
+| `telefone` | Telefone institucional, exibido formatado no rodapé e usado no link `tel:`. | Texto: `'+55 47 99999-9999'` |
+| `email` | E-mail institucional, exibido e usado no link `mailto:` (rodapé e páginas institucionais). | Texto: `'contato@seudominio.com.br'` |
+| `endereco` | Endereço institucional exibido como texto no rodapé. | Texto livre: `'Canelinha/SC'` |
 | `vagasAtuais` | Número de inscritos já confirmados — alimenta a barra de progresso da seção "Vagas". | Número inteiro: `32` |
 | `vagasMax` | Capacidade máxima de vagas do evento. | Número inteiro: `50` |
 | `dataEvento` | Data do evento, exibida no topo da página e no FAQ. | Texto livre: `'29 de julho de 2026 (quarta-feira)'` |
@@ -49,6 +57,8 @@ const CONFIG = {
 - **`vagasMin` (mínimo de 20 participantes)** não está no `CONFIG` porque raramente muda — está na variável `VAGAS_MIN`, logo abaixo do `CONFIG` em `script.js`. Se precisar alterar, edite ali.
 - **Não existem `precoMasculino`/`precoFeminino` separados do preço do PIX.** `pixMaleValue` e `pixFemaleValue` são usados tanto para calcular o total do PIX quanto para exibir o preço nos cards de ingresso — um único valor, uma única fonte de verdade.
 - Depois de editar `CONFIG`, se você publicou as versões minificadas (`style.min.css` / `script.min.js`), rode o passo de "Atualizar a Landing" do [README.md](README.md#como-atualizar-a-landing-page) para regenerá-las.
+- `telefone` só precisa ser digitado no formato "bonito" (`'+55 47 99999-9999'`) — o link `tel:` do rodapé remove automaticamente os espaços/traços/parênteses, não precisa deixar dois campos (um formatado, um só com dígitos).
+- **Schema.org (SEO):** os telefones/e-mail/endereço também aparecem nos blocos `Organization` e `LocalBusiness` (JSON-LD) no `<head>` de `index.html`. Esses blocos são estáticos (não lêem o `CONFIG` via JavaScript, de propósito — ficam disponíveis a qualquer rastreador mesmo sem executar JS). Se alterar `telefone`, `email` ou `endereco` no `CONFIG`, atualize também os mesmos valores nesses blocos JSON-LD — ver comentário acima de cada bloco em `index.html`.
 
 ---
 
@@ -59,18 +69,19 @@ Seção "Quem Já Viveu Essa Experiência". Assim como o `CONFIG`, fica no topo 
 ```js
 var TESTIMONIALS = [
   {
-    titulo: 'Fernando & Sorocaba',
+    titulo: 'Fernando',
     descricao: 'Depoimento sobre a experiência.',
     youtubeId: '',
     thumb: 'assets/videos/fernando.jpg'
   },
-  // ...
+  // ... Sorocaba, Thauane, Sampaio, Clientes — hoje são 5 itens, mas o array
+  // aceita quantidade ilimitada, sem qualquer alteração de HTML ou CSS
 ];
 ```
 
 | Chave | O que controla | Formato / exemplo |
 |---|---|---|
-| `titulo` | Nome do depoente, exibido no card e no título do modal. | Texto: `'Fernando & Sorocaba'` |
+| `titulo` | Nome do depoente, exibido no card e no título do modal. | Texto: `'Fernando'` |
 | `descricao` | Texto curto abaixo do nome no card. | Texto livre, uma frase |
 | `youtubeId` | ID do vídeo no YouTube (o trecho depois de `v=` na URL, ex: `youtube.com/watch?v=dQw4w9WgXcQ` → `dQw4w9WgXcQ`). | Texto: `'dQw4w9WgXcQ'` |
 | `thumb` | Caminho da miniatura personalizada do card. | Caminho relativo: `'assets/videos/fernando.jpg'` |
@@ -114,7 +125,7 @@ Cada logomarca (`master`, cada item de `patrocinadores` e de `apoiadores`) aceit
 | Chave | O que controla | Formato / exemplo |
 |---|---|---|
 | `nome` | Nome do patrocinador/apoiador. Usado como texto alternativo da imagem e tooltip ao passar o mouse. | Texto: `'Casa de Carnes XYZ'` |
-| `logo` | Caminho da logomarca. | Caminho relativo: `'assets/sponsors/xyz.png'` |
+| `logo` | Caminho da logomarca. | Caminho relativo: `'assets/patrocinadores/xyz.png'` |
 | `instagram` | Link do Instagram (opcional). | URL completa |
 | `site` | Link do site (opcional). | URL completa |
 | `link` | Link de destino ao clicar na logomarca (opcional). Tem prioridade sobre `site` e `instagram` se os três forem preenchidos. | URL completa |
@@ -126,7 +137,7 @@ Preencha os três campos de `master` em `PATROCINADORES`:
 ```js
 master: {
   nome: 'Casa de Carnes XYZ',
-  logo: 'assets/sponsors/master-xyz.png',
+  logo: 'assets/patrocinadores/master-xyz.png',
   url: 'https://instagram.com/xyz'
 }
 ```
@@ -139,7 +150,7 @@ Insira um novo objeto no array `patrocinadores`:
 
 ```js
 patrocinadores: [
-  { nome: 'Casa de Carnes XYZ', logo: 'assets/sponsors/xyz.png', instagram: 'https://instagram.com/xyz' }
+  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', instagram: 'https://instagram.com/xyz' }
 ]
 ```
 
@@ -151,7 +162,7 @@ Mesma lógica, no array `apoiadores`:
 
 ```js
 apoiadores: [
-  { nome: 'Fornecedor ABC', logo: 'assets/sponsors/abc.png', site: 'https://abc.com.br' }
+  { nome: 'Fornecedor ABC', logo: 'assets/patrocinadores/abc.png', site: 'https://abc.com.br' }
 ]
 ```
 
@@ -162,3 +173,43 @@ Edite `link`, `site` ou `instagram` do item correspondente (master, patrocinador
 ### Bloco "Realização"
 
 Sempre visível — é a identidade fixa do Clube Carnivorista. Se `realizacao.logo` estiver vazio, o nome (`realizacao.nome`) aparece como texto estilizado no lugar da imagem, então a seção nunca fica com um espaço vazio ou uma imagem quebrada.
+
+---
+
+## Pixels de Analytics/Anúncios
+
+Os quatro placeholders ficam no `<head>` de `index.html`, comentados, logo abaixo do `<link rel="stylesheet">`:
+
+| Pixel | O que faz | ID a substituir |
+|---|---|---|
+| Google Analytics 4 | Métricas de audiência e comportamento | `SEU_GA_ID` (Measurement ID, formato `G-XXXXXXX`) |
+| Meta Pixel (Facebook/Instagram) | Rastreamento para campanhas no Meta Ads | `SEU_PIXEL_META_ID` |
+| Google Ads Tag | Conversões de campanhas no Google Ads | `SEU_GOOGLE_ADS_ID` |
+| Microsoft Clarity | Gravação de sessão e heatmap (gratuito) | `SEU_CLARITY_ID` |
+
+### Como ativar um pixel
+
+1. Abra `index.html`, encontre o bloco do pixel desejado (comentário `<!-- ... Pixel ... -->`).
+2. Remova as tags `<!--` e `-->` que envolvem o `<script>`.
+3. Substitua o ID de exemplo (`SEU_GA_ID`, `SEU_PIXEL_META_ID`, `SEU_GOOGLE_ADS_ID` ou `SEU_CLARITY_ID`) pelo ID real da sua conta.
+4. Salve, teste localmente e publique. Nenhuma outra alteração é necessária — os eventos de conversão (ver abaixo) já detectam automaticamente qualquer pixel ativo.
+
+## Eventos de conversão
+
+Qualquer elemento HTML com o atributo `data-track-event="nome_do_evento"` dispara esse evento (via `fbq`, `gtag` e `clarity`, para qualquer um que estiver ativo) quando clicado. A lógica está em `setupConversionTracking()`, em `script.js`.
+
+Eventos já configurados nos CTAs principais:
+
+| Evento | Onde está |
+|---|---|
+| `cta_comprar` | Botões "Garantir Minha Vaga" (navbar, hero, flutuante) |
+| `cta_entrar_grupo` | Botão "Entrar no Grupo do Evento" (WhatsApp) |
+| `cta_whatsapp` | Link de WhatsApp do rodapé e botão "Enviar comprovante" do modal PIX |
+| `cta_pix` | Botão "Pagar via PIX" |
+| `cta_mercado_pago` | Botão "Pagar com Cartão" |
+
+### Como adicionar um novo CTA rastreado
+
+Adicione `data-track-event="nome_do_evento"` no elemento (botão ou link) em qualquer página que carregue `script.js`. Não precisa editar `script.js` — a busca por `[data-track-event]` já cobre qualquer elemento novo automaticamente.
+
+Ver checklist de testes desses eventos em [CHECKLIST-LANCAMENTO.md](CHECKLIST-LANCAMENTO.md).
