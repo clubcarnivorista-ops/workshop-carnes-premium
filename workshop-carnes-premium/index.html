@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Workshop de Carnes Premium em Canelinha/SC. Aprenda técnicas profissionais, deguste cortes premium e viva uma experiência gastronômica exclusiva.">
+  <meta name="keywords" content="workshop carnes, carnes premium, churrasco, Canelinha SC, curso de carnes, workshop gastronômico">
+  <meta name="author" content="Workshop Carnes Premium">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <!-- Ajuste para a URL final após o deploy na Vercel (ver README > Publicar na Vercel) -->
+  <link rel="canonical" href="https://workshopcarnespremium.vercel.app/">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Open Graph (Facebook, WhatsApp, Instagram usam este bloco para o preview de link) -->
+  <meta property="og:title" content="Workshop de Carnes Premium — Canelinha/SC">
+  <meta property="og:description" content="Uma experiência gastronômica exclusiva para quem busca aprender técnicas profissionais, degustar carnes premium e viver uma noite diferenciada.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Workshop de Carnes Premium">
+  <meta property="og:url" content="https://workshopcarnespremium.vercel.app/">
+  <meta property="og:image" content="https://workshopcarnespremium.vercel.app/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Workshop de Carnes Premium — Canelinha/SC">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Workshop de Carnes Premium — Canelinha/SC">
+  <meta name="twitter:description" content="Uma experiência gastronômica exclusiva para quem busca aprender técnicas profissionais, degustar carnes premium e viver uma noite diferenciada.">
+  <meta name="twitter:image" content="https://workshopcarnespremium.vercel.app/assets/og-image.jpg">
+
+  <title>Workshop de Carnes Premium — Canelinha/SC</title>
+
+  <!-- Schema.org Event (Google Rich Results / SEO)
+       IMPORTANTE: se alterar data, horário ou preços em CONFIG (script.js),
+       atualize também os valores abaixo — este bloco é estático para ficar
+       disponível a qualquer rastreador, mesmo sem executar JavaScript. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Workshop de Carnes Premium",
+    "description": "Uma experiência gastronômica exclusiva para quem busca aprender técnicas profissionais, degustar carnes premium e viver uma noite diferenciada.",
+    "startDate": "2026-07-29T19:00:00-03:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Canelinha, SC",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Canelinha",
+        "addressRegion": "SC",
+        "addressCountry": "BR"
+      }
+    },
+    "image": ["https://workshopcarnespremium.vercel.app/assets/og-image.jpg"],
+    "organizer": {
+      "@type": "Organization",
+      "name": "Clube Carnivorista"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Ingresso Masculino",
+        "price": "250.00",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "https://workshopcarnespremium.vercel.app/#ingressos"
+      },
+      {
+        "@type": "Offer",
+        "name": "Ingresso Feminino",
+        "price": "220.00",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "https://workshopcarnespremium.vercel.app/#ingressos"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Preconnect para fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.min.css">
+
+  <!-- ========== PIXELS / ANALYTICS (descomentar e preencher) ========== -->
+
+  <!-- Google Analytics -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=SEU_GA_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'SEU_GA_ID');
+  </script>
+  -->
+
+  <!-- Meta Pixel (Facebook) -->
+  <!--
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'SEU_PIXEL_META_ID');
+    fbq('track', 'PageView');
+  </script>
+  -->
+
+  <!-- Google Ads Pixel -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=SEU_GOOGLE_ADS_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'SEU_GOOGLE_ADS_ID');
+  </script>
+  -->
+</head>
+<body class="has-navbar">
+
+  <!-- ======================== BARRA FIXA SUPERIOR ======================== -->
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <span class="navbar__logo">Workshop Carnes Premium</span>
+      <a href="#pagamento" class="btn btn--primary navbar__cta">Garantir Minha Vaga</a>
+    </div>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <header class="hero" id="inicio">
+    <div class="hero__overlay"></div>
+    <div class="hero__content reveal">
+      <p class="hero__tag">Experiência Gastronômica Exclusiva</p>
+      <h1 class="hero__title">WORKSHOP DE<br>CARNES PREMIUM</h1>
+      <p class="hero__subtitle">Uma experiência gastronômica exclusiva para quem busca aprender técnicas profissionais, degustar carnes premium e viver uma noite diferenciada.</p>
+      <a href="#ingressos" class="btn btn--primary">GARANTIR MINHA VAGA</a>
+
+      <ul class="hero__details">
+        <li><span class="hero__icon">📅</span> <span id="infoData">29 de julho de 2026 (quarta-feira)</span></li>
+        <li><span class="hero__icon">📍</span> Canelinha/SC</li>
+        <li><span class="hero__icon">🕖</span> Recepção <span id="infoRecepcao">19:00</span></li>
+        <li><span class="hero__icon">🎓</span> Workshop <span id="infoWorkshop">19:30</span></li>
+        <li><span class="hero__icon">🍖</span> Open Food</li>
+        <li><span class="hero__icon">🍷</span> Bebidas à la carte</li>
+        <li><span class="hero__icon">📜</span> Certificado Digital</li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ======================== O QUE VOCÊ VAI APRENDER ======================== -->
+    <section class="section section--dark" id="aprender">
+      <div class="container">
+        <h2 class="section__title reveal">O que você vai aprender</h2>
+        <p class="section__subtitle reveal">Conteúdo pensado para elevar seu nível na arte do preparo de carnes</p>
+
+        <div class="cards-grid">
+          <article class="card reveal">
+            <div class="card__icon">🥩</div>
+            <h3 class="card__title">Cortes Premium</h3>
+            <p class="card__text">Conheça os melhores cortes e como identificar a qualidade de cada peça.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon">🔪</div>
+            <h3 class="card__title">Técnicas Profissionais</h3>
+            <p class="card__text">Domine as técnicas usadas pelos melhores pitmesters do país.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon">🌡️</div>
+            <h3 class="card__title">Ponto Perfeito</h3>
+            <p class="card__text">Aprenda a acertar o ponto ideal para cada tipo de corte.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon">🧂</div>
+            <h3 class="card__title">Temperos</h3>
+            <p class="card__text">Descubra combinações que realçam o sabor sem mascarar a carne.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon">🍷</div>
+            <h3 class="card__title">Harmonização</h3>
+            <p class="card__text">Saiba como harmonizar cada corte com a bebida perfeita.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon">⚙️</div>
+            <h3 class="card__title">Equipamentos</h3>
+            <p class="card__text">Conheça os melhores equipamentos e como utilizá-los.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon">✨</div>
+            <h3 class="card__title">Finalização</h3>
+            <p class="card__text">Técnicas de finalização para apresentação profissional.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== MENU DA EXPERIÊNCIA ======================== -->
+    <section class="section section--dark" id="menu">
+      <div class="container">
+        <h2 class="section__title reveal">Menu da Experiência</h2>
+        <p class="section__subtitle reveal">Um cardápio pensado a cada etapa da noite, dos aperitivos à sobremesa</p>
+
+        <div class="menu-grid">
+          <article class="menu-category reveal">
+            <h3 class="menu-category__title"><span class="menu-category__icon">🥩</span> Aperitivos</h3>
+            <ul class="menu-category__list">
+              <li>Linguicinha com chimichurri fresco</li>
+              <li>Choripán à la JM</li>
+            </ul>
+          </article>
+
+          <article class="menu-category menu-category--featured reveal">
+            <span class="menu-category__badge">Destaque</span>
+            <h3 class="menu-category__title"><span class="menu-category__icon">🔥</span> Proteínas Premium</h3>
+            <ul class="menu-protein-list">
+              <li class="menu-protein-item">
+                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__text">Picanha Reserva</span>
+              </li>
+              <li class="menu-protein-item">
+                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__text">Entrecot Defumado</span>
+              </li>
+              <li class="menu-protein-item">
+                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__text">Chuck Eye Steak no Black Rub</span>
+              </li>
+              <li class="menu-protein-item">
+                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__text">Entranha ao Molho de Gorgonzola</span>
+              </li>
+              <li class="menu-protein-item">
+                <span class="menu-protein-item__media" aria-hidden="true"></span>
+                <span class="menu-protein-item__text">Fraldinha na Crosta de Alho</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="menu-category reveal">
+            <h3 class="menu-category__title"><span class="menu-category__icon">🧄</span> Acompanhamentos</h3>
+            <ul class="menu-category__list">
+              <li>Farofa Tradicional</li>
+              <li>Nachos</li>
+            </ul>
+          </article>
+
+          <article class="menu-category reveal">
+            <h3 class="menu-category__title"><span class="menu-category__icon">🍚</span> Carboidrato</h3>
+            <ul class="menu-category__list">
+              <li>Arroz da Terra</li>
+            </ul>
+          </article>
+
+          <article class="menu-category reveal">
+            <h3 class="menu-category__title"><span class="menu-category__icon">🥗</span> Saladas</h3>
+            <ul class="menu-category__list">
+              <li>Mix de Saladas</li>
+            </ul>
+          </article>
+
+          <article class="menu-category reveal">
+            <h3 class="menu-category__title"><span class="menu-category__icon">🍮</span> Sobremesa</h3>
+            <ul class="menu-category__list">
+              <li>Panqueca com Doce de Leite</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="menu-highlight reveal">
+          <span class="menu-highlight__icon">🥂</span>
+          <span class="menu-highlight__text">Bebidas à la carte <em>(não inclusas no ingresso)</em></span>
+        </div>
+
+        <p class="menu-note reveal">O menu poderá sofrer pequenas alterações conforme a disponibilidade de ingredientes, mantendo sempre o padrão de qualidade da experiência.</p>
+      </div>
+    </section>
+
+    <!-- ======================== QUEM JÁ VIVEU ESSA EXPERIÊNCIA ======================== -->
+    <section class="section section--light" id="depoimentos">
+      <div class="container">
+        <h2 class="section__title reveal">Quem Já Viveu Essa Experiência</h2>
+        <p class="section__subtitle reveal">Depoimentos de quem já participou de uma edição do Clube Carnivorista</p>
+
+        <div class="testimonials-carousel reveal">
+          <button type="button" class="testimonials-nav testimonials-nav--prev" id="testimonialsPrev" aria-label="Depoimento anterior">‹</button>
+          <div class="testimonials-track" id="testimonialsTrack"></div>
+          <button type="button" class="testimonials-nav testimonials-nav--next" id="testimonialsNext" aria-label="Próximo depoimento">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== O QUE ESTÁ INCLUSO ======================== -->
+    <section class="section section--light" id="incluso">
+      <div class="container">
+        <h2 class="section__title reveal">O que está incluso</h2>
+        <p class="section__subtitle reveal">Tudo pensado para você aproveitar ao máximo</p>
+
+        <div class="incluso-grid">
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Open Food</span>
+          </div>
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Workshop Completo</span>
+          </div>
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Networking</span>
+          </div>
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Certificado Digital</span>
+          </div>
+          <div class="incluso-item incluso-item--no reveal">
+            <span class="incluso-x">✘</span>
+            <span>Bebidas (à la carte)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== PATROCINADORES ======================== -->
+    <section class="section section--dark" id="patrocinadores">
+      <div class="container">
+        <h2 class="section__title reveal">Patrocinadores</h2>
+
+        <div class="sponsors-block reveal">
+          <span class="sponsors-block__label">Realização</span>
+          <div class="sponsors-realizacao" id="sponsorsRealizacao"></div>
+        </div>
+
+        <div class="sponsors-block reveal" id="sponsorsMasterBlock" hidden>
+          <span class="sponsors-block__label">Patrocinador Master</span>
+          <div class="sponsors-master" id="sponsorsMaster"></div>
+        </div>
+
+        <div class="sponsors-block reveal" id="sponsorsListBlock" hidden>
+          <span class="sponsors-block__label">Patrocinadores</span>
+          <div class="sponsors-grid" id="sponsorsGrid"></div>
+        </div>
+
+        <div class="sponsors-block reveal" id="sponsorsApoiadoresBlock" hidden>
+          <span class="sponsors-block__label">Apoiadores</span>
+          <div class="sponsors-grid" id="sponsorsApoiadoresGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== INGRESSOS ======================== -->
+    <section class="section section--dark" id="ingressos">
+      <div class="container">
+        <h2 class="section__title reveal">Ingressos</h2>
+        <p class="section__subtitle reveal">Selecione a quantidade de ingressos desejada</p>
+
+        <div class="quantity-grid reveal">
+          <div class="quantity-card">
+            <h3 class="quantity-card__title">Ingresso Masculino</h3>
+            <p class="quantity-card__price">R$<span id="precoMasculino">250</span></p>
+            <div class="quantity-selector">
+              <button type="button" class="quantity-btn" id="qtyMaleMinus" aria-label="Diminuir quantidade de ingressos masculinos">−</button>
+              <span class="quantity-value" id="qtyMaleValue">0</span>
+              <button type="button" class="quantity-btn" id="qtyMalePlus" aria-label="Aumentar quantidade de ingressos masculinos">+</button>
+            </div>
+          </div>
+
+          <div class="quantity-card">
+            <h3 class="quantity-card__title">Ingresso Feminino</h3>
+            <p class="quantity-card__price">R$<span id="precoFeminino">220</span></p>
+            <div class="quantity-selector">
+              <button type="button" class="quantity-btn" id="qtyFemaleMinus" aria-label="Diminuir quantidade de ingressos femininos">−</button>
+              <span class="quantity-value" id="qtyFemaleValue">0</span>
+              <button type="button" class="quantity-btn" id="qtyFemalePlus" aria-label="Aumentar quantidade de ingressos femininos">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary reveal">
+          <h3 class="order-summary__title">Resumo da Compra</h3>
+          <div class="order-summary__row">
+            <span>Masculino</span>
+            <span id="summaryMale">0 unidades</span>
+          </div>
+          <div class="order-summary__row">
+            <span>Feminino</span>
+            <span id="summaryFemale">0 unidades</span>
+          </div>
+          <div class="order-summary__row order-summary__row--total">
+            <span>Total</span>
+            <span id="summaryTotal">R$ 0,00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== VAGAS ======================== -->
+    <section class="section section--light" id="vagas">
+      <div class="container">
+        <h2 class="section__title reveal">Vagas</h2>
+        <p class="section__subtitle reveal">Ingressos exclusivos e limitados. Venda antecipada.</p>
+
+        <div class="vagas-counter reveal">
+          <div class="vagas-counter__bar-wrap">
+            <div class="vagas-counter__bar" id="vagasBar"></div>
+          </div>
+          <div class="vagas-counter__info">
+            <div class="vagas-counter__block">
+              <span class="vagas-counter__number" id="vagasMin">20</span>
+              <span class="vagas-counter__label">Mínimo</span>
+            </div>
+            <div class="vagas-counter__block">
+              <span class="vagas-counter__number vagas-counter__number--gold" id="vagasAtual">0</span>
+              <span class="vagas-counter__label">Inscritos</span>
+            </div>
+            <div class="vagas-counter__block">
+              <span class="vagas-counter__number" id="vagasMax">50</span>
+              <span class="vagas-counter__label">Máximo</span>
+            </div>
+          </div>
+          <p class="vagas-counter__msg">Garanta sua vaga antes que esgotem!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== ESCOLHA SUA FORMA DE PAGAMENTO ======================== -->
+    <section class="section section--dark" id="pagamento">
+      <div class="container">
+        <h2 class="section__title reveal">Escolha sua forma de pagamento</h2>
+        <p class="section__subtitle reveal">Garanta sua vaga de forma rápida e segura</p>
+
+        <div class="payment-grid">
+          <article class="payment-card payment-card--featured reveal">
+            <span class="payment-card__badge">Recomendado</span>
+            <div class="payment-card__icon">💠</div>
+            <h3 class="payment-card__title">Pagamento via PIX</h3>
+            <ul class="payment-card__list">
+              <li>Pagamento instantâneo</li>
+              <li>Sem taxas adicionais</li>
+              <li>Confirmação rápida da inscrição</li>
+            </ul>
+            <button type="button" class="btn btn--primary payment-card__btn" id="btnPixOpen">Pagar via PIX</button>
+          </article>
+
+          <article class="payment-card reveal">
+            <div class="payment-card__icon">💳</div>
+            <h3 class="payment-card__title">Cartão de Crédito</h3>
+            <ul class="payment-card__list">
+              <li>Pagamento seguro via Mercado Pago</li>
+              <li>Parcelamento disponível</li>
+              <li>As taxas de parcelamento, quando aplicáveis, são calculadas e exibidas pelo Mercado Pago antes da confirmação da compra</li>
+            </ul>
+            <a href="#" class="btn btn--primary payment-card__btn" id="btnCartao" target="_blank" rel="noopener">Pagar com Cartão</a>
+          </article>
+        </div>
+
+        <div class="trust-box reveal">
+          <div class="trust-box__icon">🔒</div>
+          <div class="trust-box__text">
+            <p>Pagamento 100% seguro.</p>
+            <p>Sua vaga será confirmada após a aprovação do pagamento.</p>
+            <p>Caso tenha dúvidas, fale conosco pelo WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== FAQ ======================== -->
+    <section class="section section--dark" id="faq">
+      <div class="container">
+        <h2 class="section__title reveal">Perguntas Frequentes</h2>
+
+        <div class="faq-list">
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">Preciso ter experiência com carnes?</summary>
+            <p class="faq-item__answer">Não! O workshop é para todos os níveis, desde iniciantes até quem já tem experiência e quer aprimorar técnicas.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">O que é Open Food?</summary>
+            <p class="faq-item__answer">Significa que toda a alimentação durante o evento está inclusa no ingresso. Você vai degustar todos os cortes preparados durante o workshop.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">As bebidas estão inclusas?</summary>
+            <p class="faq-item__answer">As bebidas são à la carte, ou seja, cada participante escolhe e paga separadamente suas bebidas.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">Quando e qual o horário do evento?</summary>
+            <p class="faq-item__answer">O workshop acontece no dia <span id="faqData">29 de julho de 2026 (quarta-feira)</span>. A recepção começa às <span id="faqRecepcao">19:00</span> e o workshop propriamente dito tem início às <span id="faqWorkshop">19:30</span>.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">Onde é o evento?</summary>
+            <p class="faq-item__answer">O evento acontece em Canelinha/SC. O endereço completo será enviado no grupo oficial do WhatsApp após a confirmação da compra.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">Posso cancelar meu ingresso?</summary>
+            <p class="faq-item__answer">Sim, entre em contato pelo WhatsApp para tratar sobre cancelamentos e reembolsos conforme as políticas do evento.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary class="faq-item__question">Como recebo o certificado?</summary>
+            <p class="faq-item__answer">O certificado digital será enviado por e-mail após a conclusão do workshop.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== GRUPO WHATSAPP ======================== -->
+    <section class="section section--light" id="grupo">
+      <div class="container reveal">
+        <h2 class="section__title">Grupo Oficial do Evento</h2>
+        <p class="section__subtitle">Entre no grupo para receber atualizações, informações exclusivas e interagir com outros participantes.</p>
+        <a href="#" class="btn btn--whatsapp" id="btnWhatsApp">
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          ENTRAR NO GRUPO DO EVENTO
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================== RODAPÉ ======================== -->
+  <footer class="footer" id="contato">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <h4 class="footer__heading">Workshop de Carnes Premium</h4>
+          <p class="footer__text">Uma experiência gastronômica exclusiva em Canelinha/SC.</p>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading">Contato</h4>
+          <ul class="footer__links">
+            <li>
+              <a href="#" class="footer__link" id="footerInstagram" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="#" class="footer__link" id="footerWhatsApp" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a href="#" class="footer__link" id="footerMaps" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+                Localização
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Workshop de Carnes Premium. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================== BOTÃO FLUTUANTE (SOMENTE MOBILE) ======================== -->
+  <a href="#pagamento" class="floating-cta">🔥 Garantir Minha Vaga</a>
+
+  <!-- ======================== MODAL PIX ======================== -->
+  <div class="modal-overlay" id="pixModalOverlay">
+    <div class="modal-pix" role="dialog" aria-modal="true" aria-labelledby="pixModalTitle">
+      <button type="button" class="modal-pix__close" id="pixModalClose" aria-label="Fechar">&times;</button>
+      <h3 class="modal-pix__title" id="pixModalTitle">Pagamento via PIX</h3>
+
+      <div class="modal-pix__info">
+        <div class="modal-pix__row">
+          <span class="modal-pix__label">Quantidade Masculino</span>
+          <span class="modal-pix__value" id="pixQtyMale"></span>
+        </div>
+        <div class="modal-pix__row">
+          <span class="modal-pix__label">Quantidade Feminino</span>
+          <span class="modal-pix__value" id="pixQtyFemale"></span>
+        </div>
+        <div class="modal-pix__row">
+          <span class="modal-pix__label">Valor Total</span>
+          <span class="modal-pix__value modal-pix__value--total" id="pixTotalValue"></span>
+        </div>
+      </div>
+
+      <img class="modal-pix__qr" id="pixQRImage" src="" alt="QR Code para pagamento via PIX" loading="lazy" decoding="async">
+
+      <div class="modal-pix__info">
+        <div class="modal-pix__row">
+          <span class="modal-pix__label">Chave PIX</span>
+          <span class="modal-pix__value" id="pixKeyValue"></span>
+        </div>
+        <div class="modal-pix__row">
+          <span class="modal-pix__label">Favorecido</span>
+          <span class="modal-pix__value" id="pixNameValue"></span>
+        </div>
+      </div>
+
+      <a href="#" class="btn btn--whatsapp modal-pix__btn" id="pixSendProof" target="_blank" rel="noopener">Enviar comprovante</a>
+    </div>
+  </div>
+
+  <!-- ======================== MODAL VÍDEO DEPOIMENTO ======================== -->
+  <div class="modal-overlay" id="videoModalOverlay">
+    <div class="modal-video" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
+      <button type="button" class="modal-video__close" id="videoModalClose" aria-label="Fechar">&times;</button>
+      <h3 class="modal-video__title" id="videoModalTitle"></h3>
+      <div class="modal-video__frame" id="videoModalFrame"></div>
+    </div>
+  </div>
+
+  <script src="script.min.js"></script>
+</body>
+</html>

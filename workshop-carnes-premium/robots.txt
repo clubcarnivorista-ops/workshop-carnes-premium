@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://workshopcarnespremium.vercel.app/sitemap.xml

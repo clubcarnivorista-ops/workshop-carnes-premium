@@ -1,0 +1,20 @@
+{
+  "name": "Workshop de Carnes Premium",
+  "short_name": "Carnes Premium",
+  "description": "Experiência gastronômica exclusiva em Canelinha/SC — técnicas profissionais, cortes premium e degustação.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
