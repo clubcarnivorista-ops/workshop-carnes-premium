@@ -41,6 +41,30 @@ O único arquivo disponível (`carvao-superfogo.webp.png`) está em formato retr
 - `CONFIG.md`: seção "Patrocinadores" reescrita para `PATROCINADORES.categorias`
 - `04-HISTORICO.md`: versão atual atualizada para v1.0.7
 
+### Ajustado (mesmo dia, refinamento da estrutura — ainda v1.0.7)
+Depois do primeiro cadastro, a estrutura foi ajustada para bater exatamente com o padrão pedido de exibição: **Patrocinador Master → Parceiros Oficiais → Apoio** (com Ouro e Prata reservadas entre Master e Parceiros Oficiais).
+
+- `PATROCINADORES` (objeto separado) foi eliminado — `realizacao` e `parceiros` migraram para dentro do próprio `CONFIG`, reforçando a fonte única de verdade
+- `CONFIG.parceiros` passou de um array de categorias (`categorias: [{ id, label, itens }]`) para um objeto com uma chave por tier (`master`, `ouro`, `prata`, `oficiais`, `apoio` — cada uma um array de itens), mais próximo do "exemplo lógico" pedido (`CONFIG.parceiros.master`, `.oficiais`, `.apoio`)
+- Nova tier **`apoio`** (rótulo "Apoio"), reservada e vazia — junta-se a `master`, `ouro` e `prata` como tiers hoje sem itens
+- `CATEGORIAS_PARCEIROS` (`script.js`, logo abaixo do `CONFIG`): define a ordem fixa de exibição (Master → Ouro → Prata → Parceiros Oficiais → Apoio) e o rótulo de cada tier — criar uma tier nova é uma chave em `CONFIG.parceiros` + uma linha aqui, nenhum HTML
+- `setupPatrocinadores()` reescrita para iterar `CATEGORIAS_PARCEIROS` e ler `CONFIG.parceiros[chave]`, em vez de `PATROCINADORES.categorias`
+- `.sponsor-logo:hover` trocado de `translateY(-2px)` para `scale(1.05)` — "leve aumento de escala", conforme especificado, sem alterar tipografia nem cores da Landing
+- `window.WORKSHOP_PATROCINADORES` removido (redundante — tudo já está em `window.WORKSHOP_CONFIG`)
+
+### Verificado (rodada adicional)
+- Overflow horizontal checado em 320px, 375px, 390px, 768px, 1024px e 1440px — nenhum
+- Console sem erros após a migração
+- Só "Realização" e "Parceiros Oficiais" renderizam hoje (Master/Ouro/Prata/Apoio vazios corretamente ocultos, sem título "fantasma")
+- Regra de hover confirmada via inspeção do CSS computado: `scale(1.05)` no contêiner + revelação de cor na imagem
+- Logomarcas seguem sem `href` quando Instagram/site são `'#'`, com `loading="lazy"` mantido
+- Restante da Landing (CTAs, WhatsApp, vagas, bloco Realização) sem regressão
+
+### Documentação (rodada adicional)
+- `CONFIG.md`: seção "Patrocinadores" reescrita para `CONFIG.realizacao`/`CONFIG.parceiros`/`CATEGORIAS_PARCEIROS`
+- `README.md`: referências a `PATROCINADORES` trocadas por `CONFIG.parceiros`, ordem de exibição documentada
+- `assets/README.md`: referências e âncora de link atualizadas
+
 ---
 
 ## [1.0.6] — Página de Link in Bio (`links.html`) — 2026-07-02

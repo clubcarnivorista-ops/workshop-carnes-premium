@@ -1206,7 +1206,7 @@ ul, ol {
 }
 
 .sponsor-logo:hover {
-  transform: translateY(-2px);
+  transform: scale(1.05);
 }
 
 .sponsor-logo:hover img {

@@ -144,76 +144,97 @@ O botão "Assistir vídeo" daquele card fica **desabilitado automaticamente** (v
 
 ---
 
-## Patrocinadores — `PATROCINADORES`
+## Patrocinadores — `CONFIG.realizacao` e `CONFIG.parceiros`
 
-Seção "Patrocinadores", posicionada logo antes da seção de Ingressos. Também fica no topo de `script.js`, logo após o `VIDEO_GROUPS`.
+Seção "Patrocinadores", posicionada logo antes da seção de Ingressos. Os dados vivem dentro do próprio `CONFIG` (topo de `script.js`) — não existe mais um objeto separado (`PATROCINADORES`) fora do `CONFIG`.
 
-Desde a v1.0.7, a estrutura é **por categoria** (`categorias`, um array), em vez de chaves fixas (`master`/`patrocinadores`/`apoiadores`). Isso permite criar tiers novas (ex: Patrocinador Master, Ouro, Prata) só editando o `CONFIG` — nenhuma categoria nova exige tocar no HTML.
+Desde a v1.0.7, a estrutura de parceiros é **por tier** (`CONFIG.parceiros`, um objeto com uma chave por tier), com a ordem de exibição e o rótulo de cada tier centralizados em `CATEGORIAS_PARCEIROS` (logo abaixo do `CONFIG`, em `script.js`). Isso permite criar uma tier nova (ex: uma faixa "Bronze") só editando esses dois pontos — nenhuma tier nova exige tocar no HTML.
 
 ```js
-var PATROCINADORES = {
-  realizacao: { nome: 'Clube Carnivorista', logo: '' },
-  categorias: [
-    {
-      id: 'parceiros-oficiais',
-      label: 'Parceiros Oficiais',
-      itens: [
-        { nome: 'Faroeste Beer Co.', logo: 'assets/patrocinadores/chopp-faroeste3.jpg', categoria: 'parceiros-oficiais', instagram: '#', site: '#', link: '', descricao: '' },
-        { nome: 'Super Fogo', logo: 'assets/patrocinadores/carvao-superfogo.webp.png', categoria: 'parceiros-oficiais', instagram: '#', site: '#', link: '', descricao: '' }
-      ]
-    },
-    { id: 'patrocinador-master', label: 'Patrocinador Master', itens: [] },
-    { id: 'patrocinadores-ouro', label: 'Patrocinadores Ouro', itens: [] },
-    { id: 'patrocinadores-prata', label: 'Patrocinadores Prata', itens: [] }
-  ]
-};
+// dentro de CONFIG:
+realizacao: { nome: 'Clube Carnivorista', logo: '' },
+parceiros: {
+  master: [],
+  ouro: [],
+  prata: [],
+  oficiais: [
+    { nome: 'Faroeste Beer Co.', logo: 'assets/patrocinadores/chopp-faroeste3.jpg', categoria: 'oficiais', instagram: '#', site: '#', link: '', descricao: '' },
+    { nome: 'Super Fogo', logo: 'assets/patrocinadores/carvao-superfogo.webp.png', categoria: 'oficiais', instagram: '#', site: '#', link: '', descricao: '' }
+  ],
+  apoio: []
+}
+
+// logo abaixo do CONFIG — ordem de exibição + rótulo de cada tier:
+var CATEGORIAS_PARCEIROS = [
+  { chave: 'master', label: 'Patrocinador Master' },
+  { chave: 'ouro', label: 'Patrocinadores Ouro' },
+  { chave: 'prata', label: 'Patrocinadores Prata' },
+  { chave: 'oficiais', label: 'Parceiros Oficiais' },
+  { chave: 'apoio', label: 'Apoio' }
+];
 ```
 
-Cada item de `itens` aceita os mesmos campos:
+A página renderiza os blocos **na ordem de `CATEGORIAS_PARCEIROS`**: Patrocinador Master → Patrocinadores Ouro → Patrocinadores Prata → Parceiros Oficiais → Apoio. Hoje só "Parceiros Oficiais" tem itens, então é o único bloco (além de "Realização") que aparece na página — as demais tiers ficam com `[]` e não geram bloco nenhum.
+
+Cada item de uma tier aceita os mesmos campos:
 
 | Chave | O que controla | Formato / exemplo |
 |---|---|---|
 | `nome` | Nome do parceiro/patrocinador. Usado como texto alternativo da imagem e tooltip ao passar o mouse (junto com `descricao`, se preenchida). | Texto: `'Casa de Carnes XYZ'` |
 | `logo` | Caminho da logomarca. | Caminho relativo: `'assets/patrocinadores/xyz.png'` |
-| `categoria` | Apenas identifica a que categoria o item pertence (informativo — quem decide onde ele aparece é o array `itens` em que o objeto está). | Texto: mesmo `id` da categoria, ex: `'parceiros-oficiais'` |
+| `categoria` | Apenas identifica a que tier o item pertence (informativo — quem decide onde ele aparece é a chave de `CONFIG.parceiros` em que o objeto está). | Texto: mesma chave da tier, ex: `'oficiais'` |
 | `instagram` | Link do Instagram. Use `'#'` enquanto não tiver sido informado — a logomarca não vira um link clicável até que `instagram`, `site` ou `link` tenham uma URL real. | URL completa, ou `'#'` |
 | `site` | Link do site. Mesma regra do `instagram` acima. | URL completa, ou `'#'` |
 | `link` | Link de destino ao clicar na logomarca (opcional). Tem prioridade sobre `site` e `instagram` se os três forem preenchidos. | URL completa |
 | `descricao` | Descrição curta, opcional — some ao tooltip da logomarca (`"Nome — descrição"`). Deixe `''` se não houver. | Texto livre e curto |
 
-### Como criar uma categoria nova (ex: quando fechar o primeiro Patrocinador Master)
+### Como cadastrar o primeiro Patrocinador Master (ou Ouro/Prata/Apoio)
 
-Edite os `itens` da categoria já reservada — não precisa criar a categoria, ela já existe vazia:
+A tier já existe vazia em `CONFIG.parceiros` — só insira o item no array certo:
 
 ```js
-{ id: 'patrocinador-master', label: 'Patrocinador Master', itens: [
-  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/master-xyz.png', categoria: 'patrocinador-master', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
-] }
+parceiros: {
+  master: [
+    { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/master-xyz.png', categoria: 'master', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
+  ],
+  // ...
+}
 ```
 
-O bloco "Patrocinador Master" (com o logo em destaque, maior que os demais — classe `sponsor-logo--master`, aplicada automaticamente pelo `id` da categoria) só aparece na página quando `itens` tiver pelo menos 1 objeto. Enquanto `itens: []`, a categoria inteira fica invisível — sem espaço vazio, sem título "fantasma".
+O bloco "Patrocinador Master" (com o logo em destaque, maior que os demais — classe `sponsor-logo--master`, aplicada automaticamente pela chave `master`) só aparece na página quando o array tiver pelo menos 1 objeto. Enquanto `master: []`, o bloco inteiro fica invisível — sem espaço vazio, sem título "fantasma".
 
-### Como adicionar um novo parceiro/patrocinador numa categoria existente
+### Como adicionar um novo parceiro/patrocinador numa tier existente
 
-Insira um novo objeto no array `itens` da categoria certa:
+Insira um novo objeto no array da tier certa, dentro de `CONFIG.parceiros`:
 
 ```js
-itens: [
-  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', categoria: 'parceiros-oficiais', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
+oficiais: [
+  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', categoria: 'oficiais', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
 ]
 ```
 
-A grade (flexível, centralizada, quebra linha sozinha) se ajusta automaticamente à quantidade de itens — não existe mais número fixo de colunas por tela.
+A grade (flexível, centralizada, quebra linha sozinha) se ajusta automaticamente à quantidade de itens — não existe número fixo de colunas por tela.
 
-### Como criar uma categoria totalmente nova (além das 4 já reservadas)
+### Como criar uma tier totalmente nova (além das 4 já reservadas)
 
-Adicione um novo objeto no array `categorias`, com `id`, `label` e `itens`:
+Adicione uma chave nova em `CONFIG.parceiros` e uma linha correspondente em `CATEGORIAS_PARCEIROS`, na posição em que ela deve aparecer:
 
 ```js
-categorias: [
-  // ... categorias existentes ...
-  { id: 'apoiadores', label: 'Apoiadores', itens: [] }
-]
+// CONFIG.parceiros
+parceiros: {
+  // ... tiers existentes ...
+  bronze: []
+}
+
+// CATEGORIAS_PARCEIROS
+var CATEGORIAS_PARCEIROS = [
+  { chave: 'master', label: 'Patrocinador Master' },
+  { chave: 'ouro', label: 'Patrocinadores Ouro' },
+  { chave: 'prata', label: 'Patrocinadores Prata' },
+  { chave: 'bronze', label: 'Patrocinadores Bronze' }, // nova
+  { chave: 'oficiais', label: 'Parceiros Oficiais' },
+  { chave: 'apoio', label: 'Apoio' }
+];
 ```
 
 ### Como alterar os links de um item
@@ -222,7 +243,7 @@ Edite `link`, `site` ou `instagram` do item correspondente. Ao clicar na logomar
 
 ### Bloco "Realização"
 
-Sempre visível — é a identidade fixa do Clube Carnivorista, separado do sistema de categorias acima. Se `realizacao.logo` estiver vazio, o nome (`realizacao.nome`) aparece como texto estilizado no lugar da imagem, então a seção nunca fica com um espaço vazio ou uma imagem quebrada.
+Sempre visível — é a identidade fixa do Clube Carnivorista, em `CONFIG.realizacao`, separado das tiers de parceiros acima. Se `realizacao.logo` estiver vazio, o nome (`realizacao.nome`) aparece como texto estilizado no lugar da imagem, então a seção nunca fica com um espaço vazio ou uma imagem quebrada.
 
 ---
 

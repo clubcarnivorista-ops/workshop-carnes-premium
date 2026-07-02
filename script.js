@@ -32,8 +32,57 @@
     links: {                                     // Destinos usados na página links.html (Link in Bio)
       garantirVaga: 'https://workshop-carnes-premium.vercel.app/',      // Landing principal
       calculadora: 'https://creative-licorice-04e925.netlify.app/'      // EventCalc Pro v7
+    },
+    realizacao: {                                // Crédito de realização, na seção "Patrocinadores" (não é uma tier de parceiro)
+      nome: 'Clube Carnivorista',
+      logo: '' // ex: 'assets/patrocinadores/clube-carnivorista.png' — sem logo, exibe o nome em texto
+    },
+    parceiros: {                                 // Seção "Patrocinadores" — cada chave é uma tier. Tier vazia (`[]`) não aparece na página.
+      master: [
+        // { nome: '', logo: '', categoria: 'master', instagram: '#', site: '#', link: '', descricao: '' }
+      ],
+      ouro: [
+        // { nome: '', logo: '', categoria: 'ouro', instagram: '#', site: '#', link: '', descricao: '' }
+      ],
+      prata: [
+        // { nome: '', logo: '', categoria: 'prata', instagram: '#', site: '#', link: '', descricao: '' }
+      ],
+      oficiais: [ // Parceiros por permuta — hoje todos os cadastrados ficam aqui
+        {
+          nome: 'Faroeste Beer Co.',
+          logo: 'assets/patrocinadores/chopp-faroeste3.jpg',
+          categoria: 'oficiais',
+          instagram: '#', // pendente — Instagram ainda não informado
+          site: '#',      // pendente — site ainda não informado
+          link: '',
+          descricao: ''
+        },
+        {
+          nome: 'Super Fogo',
+          logo: 'assets/patrocinadores/carvao-superfogo.webp.png',
+          categoria: 'oficiais',
+          instagram: '#', // pendente — Instagram ainda não informado
+          site: '#',      // pendente — site ainda não informado
+          link: '',
+          descricao: ''
+        }
+      ],
+      apoio: [
+        // { nome: '', logo: '', categoria: 'apoio', instagram: '#', site: '#', link: '', descricao: '' }
+      ]
     }
   };
+
+  // Ordem de exibição das tiers de CONFIG.parceiros na seção "Patrocinadores" e o rótulo de
+  // cada uma. Uma tier nova (ex: uma faixa "Bronze") só exige adicionar uma linha aqui + a
+  // chave correspondente em CONFIG.parceiros — nenhum HTML precisa ser tocado.
+  var CATEGORIAS_PARCEIROS = [
+    { chave: 'master', label: 'Patrocinador Master' },
+    { chave: 'ouro', label: 'Patrocinadores Ouro' },
+    { chave: 'prata', label: 'Patrocinadores Prata' },
+    { chave: 'oficiais', label: 'Parceiros Oficiais' },
+    { chave: 'apoio', label: 'Apoio' }
+  ];
 
   var VAGAS_MIN = 20;         // mínimo de participantes para o evento acontecer
   var QTY_MAX_POR_TIPO = 10;  // limite de ingressos por tipo no seletor de quantidade
@@ -644,52 +693,12 @@
   }
 
   /* ========== PATROCINADORES ==========
-   * Objeto central com o logo de realização e as categorias de parceiros/patrocinadores.
-   * Cada categoria em `categorias` só aparece na página se tiver ao menos 1 item em
-   * `itens` — para criar uma categoria nova (ex: uma tier futura), basta adicionar um
-   * objeto novo no array `categorias`; nenhum HTML precisa ser tocado. Para adicionar
-   * ou remover um parceiro/patrocinador dentro de uma categoria, basta inserir/remover
-   * um objeto no array `itens` correspondente.
+   * Dados em CONFIG.realizacao e CONFIG.parceiros (ver topo do arquivo). Cada tier de
+   * CONFIG.parceiros só aparece na página se tiver ao menos 1 item — para criar uma tier
+   * nova, basta adicionar a chave em CONFIG.parceiros e uma linha em CATEGORIAS_PARCEIROS;
+   * nenhum HTML precisa ser tocado. Para adicionar/remover um parceiro, basta
+   * inserir/remover um objeto no array da tier correspondente.
    */
-  var PATROCINADORES = {
-    realizacao: {
-      nome: 'Clube Carnivorista',
-      logo: '' // ex: 'assets/patrocinadores/clube-carnivorista.png' — sem logo, exibe o nome em texto
-    },
-    categorias: [
-      {
-        id: 'parceiros-oficiais',
-        label: 'Parceiros Oficiais',
-        itens: [
-          {
-            nome: 'Faroeste Beer Co.',
-            logo: 'assets/patrocinadores/chopp-faroeste3.jpg',
-            categoria: 'parceiros-oficiais',
-            instagram: '#', // pendente — Instagram ainda não informado
-            site: '#',      // pendente — site ainda não informado
-            link: '',
-            descricao: ''
-          },
-          {
-            nome: 'Super Fogo',
-            logo: 'assets/patrocinadores/carvao-superfogo.webp.png',
-            categoria: 'parceiros-oficiais',
-            instagram: '#', // pendente — Instagram ainda não informado
-            site: '#',      // pendente — site ainda não informado
-            link: '',
-            descricao: ''
-          }
-        ]
-      },
-      // Tiers futuras — hoje sem itens, cada uma só aparece quando ganhar o primeiro item
-      { id: 'patrocinador-master', label: 'Patrocinador Master', itens: [] },
-      { id: 'patrocinadores-ouro', label: 'Patrocinadores Ouro', itens: [] },
-      { id: 'patrocinadores-prata', label: 'Patrocinadores Prata', itens: [] }
-    ]
-  };
-
-  // Exposto para reuso/depuração, mesmo padrão do WORKSHOP_CONFIG
-  window.WORKSHOP_PATROCINADORES = PATROCINADORES;
 
   // Prioridade de link ao clicar na logomarca: link explícito > site > instagram ("#" não conta como link)
   function buildSponsorLink(item) {
@@ -720,22 +729,23 @@
 
   function setupPatrocinadores() {
     var realizacaoEl = document.getElementById('sponsorsRealizacao');
-    if (realizacaoEl && PATROCINADORES.realizacao) {
-      if (PATROCINADORES.realizacao.logo) {
-        realizacaoEl.appendChild(createSponsorLogo(PATROCINADORES.realizacao, 'sponsor-logo--realizacao'));
+    if (realizacaoEl && CONFIG.realizacao) {
+      if (CONFIG.realizacao.logo) {
+        realizacaoEl.appendChild(createSponsorLogo(CONFIG.realizacao, 'sponsor-logo--realizacao'));
       } else {
         var wordmark = document.createElement('span');
         wordmark.className = 'sponsors-realizacao__wordmark';
-        wordmark.textContent = PATROCINADORES.realizacao.nome || 'Clube Carnivorista';
+        wordmark.textContent = CONFIG.realizacao.nome || 'Clube Carnivorista';
         realizacaoEl.appendChild(wordmark);
       }
     }
 
     var categoriasEl = document.getElementById('sponsorsCategorias');
-    if (!categoriasEl || !PATROCINADORES.categorias) return;
+    if (!categoriasEl || !CONFIG.parceiros) return;
 
-    PATROCINADORES.categorias.forEach(function (categoria) {
-      if (!categoria.itens || !categoria.itens.length) return;
+    CATEGORIAS_PARCEIROS.forEach(function (categoria) {
+      var itens = CONFIG.parceiros[categoria.chave];
+      if (!itens || !itens.length) return;
 
       var block = document.createElement('div');
       block.className = 'sponsors-block reveal';
@@ -747,8 +757,8 @@
 
       var grid = document.createElement('div');
       grid.className = 'sponsors-grid';
-      var extraClass = categoria.id === 'patrocinador-master' ? 'sponsor-logo--master' : '';
-      categoria.itens.forEach(function (item) {
+      var extraClass = categoria.chave === 'master' ? 'sponsor-logo--master' : '';
+      itens.forEach(function (item) {
         grid.appendChild(createSponsorLogo(item, extraClass));
       });
       block.appendChild(grid);

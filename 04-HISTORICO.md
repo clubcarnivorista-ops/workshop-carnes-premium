@@ -4,7 +4,7 @@ Registro resumido de cada versão publicada. Para o detalhe técnico completo de
 
 ## Versão atual: **v1.0.7**
 
-Primeiros parceiros oficiais cadastrados na seção "Patrocinadores": Faroeste Beer Co. (chopp) e Super Fogo (carvão), ambos vindos de permuta e listados em "Parceiros Oficiais". A estrutura de `PATROCINADORES` passou a ser por categoria, já preparada para as tiers futuras (Patrocinador Master, Ouro, Prata) sem precisar mexer em HTML de novo.
+Primeiros parceiros oficiais cadastrados na seção "Patrocinadores": Faroeste Beer Co. (chopp) e Super Fogo (carvão), ambos vindos de permuta e listados em "Parceiros Oficiais". A estrutura passou a viver dentro do próprio `CONFIG` (`CONFIG.realizacao` e `CONFIG.parceiros`), organizada por tier, com ordem fixa de exibição **Patrocinador Master → Patrocinadores Ouro → Patrocinadores Prata → Parceiros Oficiais → Apoio** — já preparada para as tiers futuras sem precisar mexer em HTML de novo.
 
 ---
 
@@ -12,7 +12,7 @@ Primeiros parceiros oficiais cadastrados na seção "Patrocinadores": Faroeste B
 
 | Versão | Resumo |
 |---|---|
-| **v1.0.7** | Primeiros parceiros oficiais (Faroeste Beer Co., Super Fogo) + `PATROCINADORES` reestruturado por categorias |
+| **v1.0.7** | Primeiros parceiros oficiais (Faroeste Beer Co., Super Fogo) + `CONFIG.parceiros` organizado por tier (Master/Ouro/Prata/Oficiais/Apoio) |
 | **v1.0.6** | Página `links.html` (Link in Bio) para o Instagram, com 5 botões e `CONFIG.links` |
 | **v1.0.5** | Seção "Conheça a Experiência" (player em destaque) + 11 vídeos oficiais em 3 grupos (Mentor, Depoimentos, Reconhecimento) na seção de depoimentos |
 | **v1.0.4** | QR Code PIX oficial funcionando (corrigido bug que impedia o carregamento) + botão "Copiar PIX Copia e Cola" |
