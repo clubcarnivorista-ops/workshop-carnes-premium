@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.3** — dados oficiais do Clube Carnivorista publicados (WhatsApp, e-mail, Instagram, YouTube, Google Maps, PIX e Mercado Pago). Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.4** — QR Code PIX oficial integrado, com botão "Copiar PIX Copia e Cola". Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -210,14 +210,37 @@ var VAGAS_MIN = 20;
 
 ## Como trocar o QR Code PIX
 
-1. Gere o QR Code estático do seu PIX no app do seu banco (a maioria tem a opção "QR Code para receber" com valor livre) ou em um gerador de PIX Copia e Cola.
-2. Salve a imagem como PNG, de preferência quadrada (ex: 400×400px), com fundo branco.
-3. Coloque o arquivo na pasta `assets/`, com o nome `pix-qrcode.png` (ou outro nome, desde que você atualize o caminho no passo 4).
-4. No `CONFIG` em `script.js`, confirme/ajuste o caminho:
-   ```js
-   pixQRCode: 'assets/pix-qrcode.png',
-   ```
-5. Aproveite também para preencher a chave, o tipo da chave e o nome do favorecido, que aparecem junto do QR Code no modal:
+A imagem (`assets/pix-qrcode.png`) e o código "Pix Copia e Cola" (`CONFIG.pixCopiaECola`) precisam **sempre representar o mesmo pagamento** — se um mudar (chave, valor, nome do favorecido), o outro também precisa ser atualizado.
+
+**Caminho mais simples (recomendado):** gere a cobrança no próprio app do banco (opção "Cobrar"/"Gerar QR Code para receber"). O banco entrega os dois juntos: a imagem do QR Code (salve como `assets/pix-qrcode.png`) e o texto Copia e Cola correspondente (cole em `CONFIG.pixCopiaECola`, abaixo). Como vêm da mesma cobrança, já ficam garantidamente sincronizados.
+
+```js
+pixCopiaECola: '00020101021226850014br.gov.bcb.pix...6304XXXX', // não edite manualmente — vem do banco, com checksum no final
+```
+
+**Se você só tiver o texto Copia e Cola** (sem a imagem do banco à mão), dá pra gerar a imagem do QR Code a partir dele — é a mesma imagem que qualquer leitor de QR Code PIX vai decodificar de volta para esse texto. Com Python instalado:
+```bash
+pip install "qrcode[pil]"
+python -c "
+import qrcode
+payload = 'COLE_AQUI_O_TEXTO_COPIA_E_COLA'
+img = qrcode.make(payload, error_correction=qrcode.constants.ERROR_CORRECT_M)
+img.save('assets/pix-qrcode.png')
+"
+```
+
+**Sempre confirme que a imagem final é legível** antes de publicar — escaneando com o app de um banco real, ou decodificando programaticamente:
+```bash
+pip install opencv-python-headless
+python -c "
+import cv2
+img = cv2.imread('assets/pix-qrcode.png')
+data, _, _ = cv2.QRCodeDetector().detectAndDecode(img)
+print('OK' if data == 'COLE_AQUI_O_MESMO_TEXTO' else 'ERRO: não bate com o Copia e Cola')
+"
+```
+
+Aproveite também para conferir a chave, o tipo da chave e o nome do favorecido, que aparecem junto do QR Code no modal:
    ```js
    pixKey: '03362258905',   // sem pontuação — é o valor copiado pelo botão "Copiar Chave PIX"
    pixKeyType: 'CPF',       // 'CPF', 'CNPJ', 'E-mail', 'Telefone' ou 'Aleatória'
@@ -225,7 +248,13 @@ var VAGAS_MIN = 20;
    ```
    Quando `pixKeyType` é `'CPF'` e a chave tem 11 dígitos, o modal formata a **exibição** automaticamente como `000.000.000-00` — não precisa digitar a pontuação em `pixKey`.
 
-O modal também tem um botão **"Copiar Chave PIX"**, que copia `pixKey` para a área de transferência (sem pontuação) e mostra a mensagem "Chave PIX copiada." por alguns segundos — útil para quem prefere colar a chave manualmente no app do banco em vez de escanear o QR Code.
+O modal tem dois botões de cópia:
+- **"Copiar Chave PIX"** — copia `pixKey` (sem pontuação), para quem prefere colar a chave manualmente no app do banco.
+- **"Copiar PIX Copia e Cola"** — copia `pixCopiaECola` (o código completo), para colar direto na tela de pagamento do banco.
+
+Os dois mostram uma mensagem de confirmação por alguns segundos ("Chave PIX copiada." / "PIX copiado com sucesso.") e funcionam mesmo em navegadores sem suporte à Clipboard API moderna (fallback automático).
+
+> **Nota técnica:** a imagem do QR Code no modal **não usa `loading="lazy"`** de propósito — ela fica dentro de um modal que começa escondido (`display: none`), e o carregamento preguiçoso do navegador nunca detecta esse tipo de imagem como "próxima da tela", então ela nunca carregaria. Se outras imagens forem adicionadas dentro de modais no futuro, aplique a mesma regra.
 
 ---
 

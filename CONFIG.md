@@ -11,6 +11,7 @@ const CONFIG = {
   pixKeyType: 'CPF',
   pixName: 'Juliomar Andrucho Meskiu',
   pixQRCode: 'assets/pix-qrcode.png',
+  pixCopiaECola: '00020101021226850014br.gov.bcb.pix2563qrcodepix.bb.com.br/pix/v2/fac1e30b-d093-4ee2-9a78-8c4bb8e6bc095204000053039865406250.005802BR5924JULIOMAR_ANDRUCHO_MESKIU6007ITAPEMA62070503***6304C8B5',
   pixMaleValue: 250.00,
   pixFemaleValue: 220.00,
   whatsappContact: '5547996681010',
@@ -39,7 +40,8 @@ const CONFIG = {
 | `pixKey` | Chave PIX usada para copiar (botão "Copiar Chave PIX") — **somente dígitos**, sem pontuação. | Texto: CPF/CNPJ, e-mail, telefone ou chave aleatória |
 | `pixKeyType` | Tipo da chave PIX, exibido no modal ("Tipo da chave"). Quando é `'CPF'` e a chave tem 11 dígitos, `formatPixKeyDisplay()` em `script.js` formata a **exibição** como `000.000.000-00` (o valor copiado continua sem pontuação). | Texto: `'CPF'`, `'CNPJ'`, `'E-mail'`, `'Telefone'` ou `'Aleatória'` |
 | `pixName` | Nome do favorecido, exibido no modal PIX. | Texto: `'Nome Completo ou Razão Social'` |
-| `pixQRCode` | Caminho da imagem do QR Code PIX. | Caminho relativo: `'assets/pix-qrcode.png'` |
+| `pixQRCode` | Caminho da imagem do QR Code PIX. **Deve ser a imagem que codifica o mesmo valor de `pixCopiaECola`** — se um mudar, o outro também precisa mudar (ver "Como trocar o QR Code PIX" no README). | Caminho relativo: `'assets/pix-qrcode.png'` |
+| `pixCopiaECola` | Código completo "Pix Copia e Cola" (padrão EMV/BR Code), copiado pelo botão "Copiar PIX Copia e Cola". Inclui um checksum (CRC16) nos últimos 4 caracteres — **nunca edite manualmente**, sempre gere um código novo se algum dado do PIX mudar. | Texto: string longa terminando em `6304XXXX` |
 | `pixMaleValue` | Preço do ingresso masculino. Aparece no card de ingressos, no resumo da compra e no total do PIX. | Número: `250.00` (sem `R$`, use ponto para centavos) |
 | `pixFemaleValue` | Preço do ingresso feminino. Mesma lógica do item acima. | Número: `220.00` |
 | `whatsappContact` | Número de WhatsApp usado para receber comprovante e contato direto no rodapé. | Somente dígitos, com DDI: `'55DDNNNNNNNNN'` |

@@ -11,7 +11,8 @@
     pixKey: '03362258905',                       // Chave PIX (CPF, somente dígitos — formato usado para copiar)
     pixKeyType: 'CPF',                           // Tipo da chave PIX, exibido no modal
     pixName: 'Juliomar Andrucho Meskiu',         // Nome do favorecido
-    pixQRCode: 'assets/pix-qrcode.png',          // Imagem do QR Code PIX (ainda não cadastrada — ver assets/README.md)
+    pixQRCode: 'assets/pix-qrcode.png',          // Imagem do QR Code PIX oficial (gerado a partir de pixCopiaECola)
+    pixCopiaECola: '00020101021226850014br.gov.bcb.pix2563qrcodepix.bb.com.br/pix/v2/fac1e30b-d093-4ee2-9a78-8c4bb8e6bc095204000053039865406250.005802BR5924JULIOMAR_ANDRUCHO_MESKIU6007ITAPEMA62070503***6304C8B5', // Código Pix Copia e Cola — não alterar (contém checksum CRC16 no final)
     pixMaleValue: 250.00,                        // Valor do ingresso masculino
     pixFemaleValue: 220.00,                      // Valor do ingresso feminino
     whatsappContact: '5547996681010',            // Número do WhatsApp (com DDI), usado em contato e comprovante
@@ -245,10 +246,11 @@
     return { open: open, close: close };
   }
 
-  // Copia a chave PIX para a área de transferência. Usa a Clipboard API moderna
-  // e cai para document.execCommand('copy') (via textarea temporário) em
-  // navegadores mais antigos ou quando a API moderna não está disponível.
-  function copyPixKeyToClipboard(text) {
+  // Copia um texto (chave PIX ou código Copia e Cola) para a área de transferência.
+  // Usa a Clipboard API moderna e cai para document.execCommand('copy') (via
+  // textarea temporário) em navegadores mais antigos ou quando a API moderna
+  // não está disponível.
+  function copyTextToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(text);
     }
@@ -308,6 +310,8 @@
     var sendProof = document.getElementById('pixSendProof');
     var copyBtn = document.getElementById('pixCopyKey');
     var copyFeedback = document.getElementById('pixCopyFeedback');
+    var copyPasteBtn = document.getElementById('pixCopyPasteAndCopy');
+    var copyPasteFeedback = document.getElementById('pixCopyPasteFeedback');
 
     keyValue.textContent = formatPixKeyDisplay(CONFIG.pixKey, CONFIG.pixKeyType);
     if (keyTypeValue) keyTypeValue.textContent = CONFIG.pixKeyType;
@@ -315,10 +319,20 @@
 
     if (copyBtn) {
       copyBtn.addEventListener('click', function () {
-        copyPixKeyToClipboard(CONFIG.pixKey).then(function () {
+        copyTextToClipboard(CONFIG.pixKey).then(function () {
           showCopyFeedback(copyFeedback, 'Chave PIX copiada.');
         }).catch(function () {
           showCopyFeedback(copyFeedback, 'Não foi possível copiar. Selecione a chave manualmente.');
+        });
+      });
+    }
+
+    if (copyPasteBtn) {
+      copyPasteBtn.addEventListener('click', function () {
+        copyTextToClipboard(CONFIG.pixCopiaECola).then(function () {
+          showCopyFeedback(copyPasteFeedback, 'PIX copiado com sucesso.');
+        }).catch(function () {
+          showCopyFeedback(copyPasteFeedback, 'Não foi possível copiar. Tente novamente.');
         });
       });
     }

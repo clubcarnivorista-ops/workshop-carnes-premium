@@ -2,6 +2,31 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.4] — QR Code PIX oficial — 2026-07-01
+
+Integração definitiva do QR Code PIX oficial e do código Copia e Cola. Nenhuma mudança de layout, identidade visual, UX, SEO ou performance — só a substituição do QR Code (antes ausente/quebrado) e uma nova forma de pagamento manual (Copia e Cola) no modal já existente.
+
+### Adicionado
+- `assets/pix-qrcode.png`: QR Code PIX oficial, gerado pelo próprio banco na mesma cobrança do código Copia e Cola — os dois representam exatamente o mesmo pagamento. Validado por decodificação reversa com OpenCV: a imagem decodifica de volta para o texto de `CONFIG.pixCopiaECola`, byte a byte. Otimizado de 88KB para 2KB (conversão para paleta de 2 cores, sem perda — o QR é puro preto e branco) sem alterar nenhum pixel nem afetar a legibilidade
+- `CONFIG.pixCopiaECola` (`script.js`): código Pix Copia e Cola completo (padrão EMV/BR Code, com checksum CRC16)
+- Modal PIX: rótulo "QR Code Oficial" acima da imagem; novo botão **"Copiar PIX Copia e Cola"**, com feedback "PIX copiado com sucesso." — reaproveita a mesma função de cópia (com fallback) já usada pelo botão "Copiar Chave PIX"
+
+### Corrigido
+- **QR Code do modal não carregava.** A imagem tinha `loading="lazy"`, mas como o modal começa com `display: none`, o navegador nunca considerava a imagem "próxima da tela" e ela nunca era buscada — mesmo com o arquivo existindo e sendo servido corretamente (HTTP 200). Removido `loading="lazy"` dessa imagem especificamente (as demais imagens lazy do site, fora de modais, continuam como estavam)
+- Função `copyPixKeyToClipboard()` renomeada para `copyTextToClipboard()` em `script.js`, já que agora copia dois valores diferentes (chave e Copia e Cola) — mesmo comportamento, nome mais preciso
+
+### Verificado
+- QR Code decodificado programaticamente (OpenCV) confirma match exato com `CONFIG.pixCopiaECola`
+- Ambos os botões de cópia testados interceptando `navigator.clipboard.writeText` — confirmado que cada um copia o valor certo (`pixKey` sem pontuação / `pixCopiaECola` completo) e mostra a mensagem de confirmação correta
+- Modal testado em desktop (1280px), tablet (768px) e mobile (375px): QR Code visível, sem overflow horizontal, botões cabem dentro do modal
+- Console sem erros em todos os tamanhos de tela
+
+### Documentação
+- `README.md`: seção "Como trocar o QR Code PIX" reescrita — agora explica que o QR é gerado a partir do Copia e Cola (com comandos Python prontos para gerar e validar a imagem), e documenta os dois botões de cópia
+- `CONFIG.md`: `pixCopiaECola` documentado, com aviso para nunca editar manualmente (contém checksum)
+- `assets/README.md`: `pix-qrcode.png` marcado como "em uso" (antes constava como possivelmente ausente)
+- `CHECKLIST-PUBLICACAO.md`: itens de QR Code e dos dois botões de cópia adicionados ao smoke test
+
 ## [1.0.3] — Dados oficiais publicados — 2026-07-01
 
 Substituição definitiva de todos os placeholders pelos dados reais do Clube Carnivorista. Nenhuma informação de contato/pagamento fica duplicada em HTML — tudo centralizado no objeto `CONFIG` (`script.js`).

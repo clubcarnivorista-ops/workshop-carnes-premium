@@ -5,7 +5,7 @@ Use esta lista, em ordem, toda vez que for publicar a Landing em produção (pri
 ## 1. Conteúdo e configuração (`script.js`)
 
 - [ ] `CONFIG.checkoutMercadoPago` preenchido com o link real do Mercado Pago
-- [ ] `CONFIG.pixKey`, `CONFIG.pixKeyType` e `CONFIG.pixName` preenchidos com dados reais
+- [ ] `CONFIG.pixKey`, `CONFIG.pixKeyType`, `CONFIG.pixName` e `CONFIG.pixCopiaECola` preenchidos com dados reais
 - [ ] `CONFIG.whatsappContact` e `CONFIG.whatsappGroup` preenchidos
 - [ ] `CONFIG.instagram`, `CONFIG.youtube` e `CONFIG.maps` preenchidos
 - [ ] `CONFIG.telefone`, `CONFIG.email` e `CONFIG.endereco` preenchidos
@@ -17,7 +17,8 @@ Use esta lista, em ordem, toda vez que for publicar a Landing em produção (pri
 
 ## 2. Imagens (`assets/`)
 
-- [ ] `assets/pix-qrcode.png` (400×400px, fundo branco)
+- [ ] `assets/pix-qrcode.png` gerado a partir de `CONFIG.pixCopiaECola` (os dois precisam representar o mesmo pagamento — ver [README.md](README.md#como-trocar-o-qr-code-pix))
+- [ ] QR Code testado: escaneado com o app de um banco real e/ou decodificado programaticamente, confirmando que bate com `CONFIG.pixCopiaECola`
 - [ ] `assets/og-image.jpg` (1200×630px, até 300KB) — preview do link no WhatsApp/Instagram/Facebook
 - [ ] `assets/videos/*.jpg` — uma miniatura por depoimento cadastrado em `TESTIMONIALS`
 - [ ] `assets/patrocinadores/*.png` — logos de realização/master/patrocinadores/apoiadores cadastrados
@@ -55,7 +56,9 @@ Use esta lista, em ordem, toda vez que for publicar a Landing em produção (pri
 
 - [ ] Console do navegador sem erros (F12 → Console)
 - [ ] Seletor de quantidade de ingressos funciona e atualiza o resumo da compra
-- [ ] Modal do PIX abre, mostra QR Code, chave e valor corretos
+- [ ] Modal do PIX abre, mostra QR Code (renderizado e legível), favorecido, tipo da chave, chave e valor corretos
+- [ ] Botão "Copiar Chave PIX" copia a chave sem pontuação e mostra "Chave PIX copiada."
+- [ ] Botão "Copiar PIX Copia e Cola" copia o código completo e mostra "PIX copiado com sucesso."
 - [ ] Botão "Pagar com Cartão" leva ao link correto do Mercado Pago
 - [ ] Pelo menos um depoimento em vídeo abre corretamente no modal
 - [ ] Links de WhatsApp, Instagram, YouTube e Google Maps no rodapé abrem corretamente

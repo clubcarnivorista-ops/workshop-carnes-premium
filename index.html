@@ -720,7 +720,10 @@
         </div>
       </div>
 
-      <img class="modal-pix__qr" id="pixQRImage" src="" alt="QR Code para pagamento via PIX" loading="lazy" decoding="async">
+      <!-- Sem loading="lazy" de propósito: dentro de um modal que começa
+           display:none, o lazy-load nunca dispara, então a imagem some -->
+      <p class="modal-pix__qr-label">QR Code Oficial</p>
+      <img class="modal-pix__qr" id="pixQRImage" src="" alt="QR Code para pagamento via PIX" decoding="async">
 
       <div class="modal-pix__info">
         <div class="modal-pix__row">
@@ -739,6 +742,9 @@
 
       <button type="button" class="btn btn--primary modal-pix__btn" id="pixCopyKey">Copiar Chave PIX</button>
       <p class="modal-pix__feedback" id="pixCopyFeedback" role="status" aria-live="polite"></p>
+
+      <button type="button" class="btn btn--primary modal-pix__btn" id="pixCopyPasteAndCopy">Copiar PIX Copia e Cola</button>
+      <p class="modal-pix__feedback" id="pixCopyPasteFeedback" role="status" aria-live="polite"></p>
 
       <a href="#" class="btn btn--whatsapp modal-pix__btn" id="pixSendProof" target="_blank" rel="noopener" data-track-event="cta_whatsapp">Enviar comprovante</a>
     </div>
