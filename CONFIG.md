@@ -71,54 +71,74 @@ const CONFIG = {
 
 ---
 
-## Depoimentos em vídeo — `TESTIMONIALS`
+## Vídeos em grupo — `VIDEO_GROUPS`
 
-Seção "Quem Já Viveu Essa Experiência". Assim como o `CONFIG`, fica no topo de `script.js`, logo antes de `setupVideoModal()`. É um **array** — a seção inteira (carrossel, cards e modal) é gerada automaticamente a partir dele.
+Seção "Quem Já Viveu Essa Experiência". Assim como o `CONFIG`, fica no topo de `script.js`, logo antes de `setupVideoModal()`. É um **array de grupos** — cada grupo vira um carrossel próprio, com seu próprio título, dentro da mesma seção. A seção inteira (título de cada grupo, carrossel, cards e modal) é gerada automaticamente a partir daqui.
 
 ```js
-var TESTIMONIALS = [
+var VIDEO_GROUPS = [
   {
-    titulo: 'Fernando',
-    descricao: 'Depoimento sobre a experiência.',
-    youtubeId: '',
-    thumb: 'assets/videos/fernando.jpg'
+    titulo: 'Conheça seu Mentor',
+    items: [
+      { titulo: 'Vídeo Currículo', descricao: 'A trajetória por trás do Clube Carnivorista.', youtubeId: 'LggWGNBIojk', thumb: '' }
+    ]
   },
-  // ... Sorocaba, Thauane, Sampaio, Clientes — hoje são 5 itens, mas o array
-  // aceita quantidade ilimitada, sem qualquer alteração de HTML ou CSS
+  {
+    titulo: 'Depoimentos',
+    items: [
+      { titulo: 'Caroline', descricao: 'Depoimento sobre a experiência.', youtubeId: '-Ve5ZvQKFvU', thumb: '' },
+      // ... mais 5 itens
+    ]
+  },
+  {
+    titulo: 'Reconhecimento',
+    items: [
+      { titulo: 'Fernando e Sorocaba 01', descricao: 'Reconhecimento ao Clube Carnivorista.', youtubeId: 'F_ejLw9n8Nc', thumb: '' },
+      // ... mais 3 itens
+    ]
+  }
+  // Novos grupos podem ser adicionados livremente, sem alterar HTML/CSS
 ];
 ```
 
-| Chave | O que controla | Formato / exemplo |
-|---|---|---|
-| `titulo` | Nome do depoente, exibido no card e no título do modal. | Texto: `'Fernando'` |
-| `descricao` | Texto curto abaixo do nome no card. | Texto livre, uma frase |
-| `youtubeId` | ID do vídeo no YouTube (o trecho depois de `v=` na URL, ex: `youtube.com/watch?v=dQw4w9WgXcQ` → `dQw4w9WgXcQ`). | Texto: `'dQw4w9WgXcQ'` |
-| `thumb` | Caminho da miniatura personalizada do card. | Caminho relativo: `'assets/videos/fernando.jpg'` |
+| Chave | Nível | O que controla | Formato / exemplo |
+|---|---|---|---|
+| `titulo` | grupo | Nome do grupo, exibido como subtítulo acima do carrossel. | Texto: `'Depoimentos'` |
+| `items` | grupo | Lista de vídeos daquele grupo — mesmo formato de item em qualquer grupo. | Array de objetos |
+| `titulo` | item | Nome exibido no card e no título do modal. | Texto: `'Caroline'` |
+| `descricao` | item | Texto curto abaixo do nome no card. | Texto livre, uma frase |
+| `youtubeId` | item | ID do vídeo no YouTube. Para links do tipo Shorts (`youtube.com/shorts/ID`), o ID é o trecho depois de `/shorts/`; para links normais (`youtube.com/watch?v=ID`), é o trecho depois de `v=`. | Texto: `'LggWGNBIojk'` |
+| `thumb` | item | Caminho de uma miniatura customizada. **Opcional** — deixe `''` (vazio) para usar automaticamente a miniatura oficial do próprio vídeo no YouTube, sem precisar cadastrar nenhum arquivo. | Caminho relativo ou `''` |
 
-### Como adicionar um novo vídeo/depoimento
+### Como adicionar um novo vídeo
 
-1. Abra `script.js` e encontre o array `TESTIMONIALS` (logo após o comentário `DEPOIMENTOS EM VÍDEO`).
-2. Copie um dos objetos existentes e cole como um novo item do array, preenchendo `titulo`, `descricao`, `youtubeId` e `thumb`.
-3. Salve. O carrossel, o card e o modal desse novo depoimento aparecem automaticamente — nada no HTML precisa ser tocado.
+1. Abra `script.js` e encontre o array `VIDEO_GROUPS` (logo após o comentário `VÍDEOS EM GRUPO`).
+2. Encontre o grupo certo (ou crie um novo grupo, se for o caso) e copie um dos objetos existentes dentro de `items`, preenchendo `titulo`, `descricao`, `youtubeId` e, se quiser uma miniatura customizada, `thumb`.
+3. Salve. O card aparece automaticamente no carrossel do grupo certo — nada no HTML precisa ser tocado.
 
-### Como trocar uma miniatura
+### Como criar um novo grupo
 
-Troque apenas o caminho em `thumb` para o arquivo novo (veja o formato recomendado em [assets/README.md](assets/README.md)).
+Insira um novo objeto `{ titulo, items }` em `VIDEO_GROUPS`. Um carrossel novo, com seu próprio título e navegação independente, aparece automaticamente logo abaixo dos grupos existentes.
+
+### Miniaturas (thumbnails)
+
+Por padrão, a miniatura de cada vídeo é buscada **automaticamente do YouTube** (`https://img.youtube.com/vi/ID/hqdefault.jpg`) — não é preciso cadastrar nenhuma imagem. Só preencha `thumb` com um caminho em `assets/videos/` se quiser uma miniatura diferente da oficial do YouTube (ver [assets/README.md](assets/README.md)).
 
 ### Enquanto `youtubeId` estiver vazio
 
-O botão "Assistir depoimento" daquele card fica **desabilitado automaticamente** (visual acinzentado, sem clique) até que um ID de vídeo real seja preenchido — evita abrir um modal com vídeo quebrado.
+O botão "Assistir vídeo" daquele card fica **desabilitado automaticamente** (visual acinzentado, sem clique) até que um ID real seja preenchido — evita abrir um modal com vídeo quebrado.
 
 ### Como funciona o modal de vídeo
 
-- O iframe do YouTube só é criado no momento em que o usuário clica em "Assistir depoimento" (sem `autoplay`).
+- O iframe do YouTube só é criado no momento em que o usuário clica em "Assistir vídeo" (sem `autoplay`), usando `youtube-nocookie.com` e o parâmetro `rel=0` (reduz vídeos relacionados de outros canais ao final — o YouTube não permite removê-los por completo).
 - Ao fechar o modal (X, ESC ou clique fora), o iframe é removido do DOM — isso interrompe a reprodução automaticamente, sem precisar de nenhuma biblioteca externa.
+- O mesmo modal é reaproveitado por qualquer grupo — não existe um modal por grupo, só um modal compartilhado.
 
 ---
 
 ## Patrocinadores — `PATROCINADORES`
 
-Seção "Patrocinadores", posicionada logo antes da seção de Ingressos. Também fica no topo de `script.js`, logo após o `TESTIMONIALS`.
+Seção "Patrocinadores", posicionada logo antes da seção de Ingressos. Também fica no topo de `script.js`, logo após o `VIDEO_GROUPS`.
 
 ```js
 var PATROCINADORES = {

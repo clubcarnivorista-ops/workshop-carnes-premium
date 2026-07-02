@@ -367,48 +367,49 @@
     btnOpen.addEventListener('click', openModal);
   }
 
-  /* ========== DEPOIMENTOS EM VÍDEO (CARROSSEL + MODAL) ==========
-   * Lista de depoimentos — única fonte de verdade para o carrossel da seção
-   * "Quem Já Viveu Essa Experiência". Para adicionar um novo depoimento, basta
-   * inserir um novo objeto neste array (título, descrição, ID do YouTube e
-   * caminho da miniatura). A seção inteira é gerada automaticamente a partir
-   * daqui — nenhum HTML precisa ser tocado.
+  /* ========== VÍDEOS EM GRUPO (CARROSSÉIS + MODAL) ==========
+   * Fonte de verdade da seção "Quem Já Viveu Essa Experiência" — um array de
+   * grupos, cada um com seu próprio título e sua própria lista de vídeos.
+   * Para adicionar um vídeo, insira um objeto na lista do grupo certo. Para
+   * criar um grupo novo, insira um objeto `{ titulo, items }` neste array.
+   * A seção inteira (um carrossel por grupo) é gerada automaticamente a
+   * partir daqui — nenhum HTML precisa ser tocado.
+   *
+   * `thumb` é opcional: se vazio, a miniatura é buscada automaticamente no
+   * próprio YouTube (https://img.youtube.com/vi/ID/hqdefault.jpg), sem
+   * precisar cadastrar nenhuma imagem em assets/.
    */
-  var TESTIMONIALS = [
+  var VIDEO_GROUPS = [
     {
-      titulo: 'Fernando',
-      descricao: 'Depoimento sobre a experiência.',
-      youtubeId: '',
-      thumb: 'assets/videos/fernando.jpg'
+      titulo: 'Conheça seu Mentor',
+      items: [
+        { titulo: 'Vídeo Currículo', descricao: 'A trajetória por trás do Clube Carnivorista.', youtubeId: 'LggWGNBIojk', thumb: '' }
+      ]
     },
     {
-      titulo: 'Sorocaba',
-      descricao: 'Depoimento sobre a experiência.',
-      youtubeId: '',
-      thumb: 'assets/videos/sorocaba.jpg'
+      titulo: 'Depoimentos',
+      items: [
+        { titulo: 'Caroline', descricao: 'Depoimento sobre a experiência.', youtubeId: '-Ve5ZvQKFvU', thumb: '' },
+        { titulo: 'Edu Barbosa', descricao: 'Depoimento sobre a experiência.', youtubeId: 'uP0dvhQBS_M', thumb: '' },
+        { titulo: 'Fábio', descricao: 'Depoimento sobre a experiência.', youtubeId: 'OwFPRmUVftI', thumb: '' },
+        { titulo: 'João Pedro', descricao: 'Depoimento sobre a experiência.', youtubeId: 'bj7Bpea12sM', thumb: '' },
+        { titulo: 'Mônica', descricao: 'Depoimento sobre a experiência.', youtubeId: 'Bbc7Zh_HuEQ', thumb: '' },
+        { titulo: 'Nogueira', descricao: 'Depoimento sobre a experiência.', youtubeId: 'qzpw9ykXYwU', thumb: '' }
+      ]
     },
     {
-      titulo: 'Thauane',
-      descricao: 'Participação especial.',
-      youtubeId: '',
-      thumb: 'assets/videos/thauane.jpg'
-    },
-    {
-      titulo: 'Sampaio (Teodoro & Sampaio)',
-      descricao: 'Experiência no evento.',
-      youtubeId: '',
-      thumb: 'assets/videos/sampaio.jpg'
-    },
-    {
-      titulo: 'Clientes',
-      descricao: 'Veja a opinião de quem participou.',
-      youtubeId: '',
-      thumb: 'assets/videos/clientes.jpg'
+      titulo: 'Reconhecimento',
+      items: [
+        { titulo: 'Fernando e Sorocaba 01', descricao: 'Reconhecimento ao Clube Carnivorista.', youtubeId: 'F_ejLw9n8Nc', thumb: '' },
+        { titulo: 'Fernando e Sorocaba 02', descricao: 'Reconhecimento ao Clube Carnivorista.', youtubeId: 'uCscu0JA8to', thumb: '' },
+        { titulo: 'Sampaio', descricao: 'Reconhecimento ao Clube Carnivorista.', youtubeId: 'nRy3q789WHU', thumb: '' },
+        { titulo: 'Thauane', descricao: 'Reconhecimento ao Clube Carnivorista.', youtubeId: 'tO70chPZI8w', thumb: '' }
+      ]
     }
   ];
 
   // Exposto para reuso/depuração em outras páginas, mesmo padrão do WORKSHOP_CONFIG
-  window.WORKSHOP_TESTIMONIALS = TESTIMONIALS;
+  window.WORKSHOP_VIDEO_GROUPS = VIDEO_GROUPS;
 
   // Modal de vídeo — cria o iframe do YouTube somente quando o usuário clica em
   // "Assistir depoimento" (sem autoplay) e o remove ao fechar, interrompendo a reprodução
@@ -431,7 +432,7 @@
 
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube-nocookie.com/embed/' + item.youtubeId + '?rel=0';
-      iframe.title = 'Depoimento de ' + item.titulo;
+      iframe.title = item.titulo;
       iframe.setAttribute('allow', 'accelerometer; encrypted-media; gyroscope; picture-in-picture');
       iframe.allowFullscreen = true;
       frameEl.innerHTML = '';
@@ -441,67 +442,59 @@
     };
   }
 
-  // Gera os cards do carrossel a partir de TESTIMONIALS e liga a navegação (setas + swipe nativo)
-  function setupTestimonials() {
-    var section = document.getElementById('depoimentos');
-    var track = document.getElementById('testimonialsTrack');
-    var prevBtn = document.getElementById('testimonialsPrev');
-    var nextBtn = document.getElementById('testimonialsNext');
+  // Miniatura oficial do YouTube para quem não tem thumb próprio cadastrado
+  function youtubeThumbUrl(youtubeId) {
+    return 'https://img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg';
+  }
 
-    if (!section || !track) return;
+  // Cria um <article> de card de vídeo (thumb + nome + descrição + botão assistir)
+  function createVideoCard(item, openVideo) {
+    var card = document.createElement('article');
+    card.className = 'testimonial-card';
 
-    if (!TESTIMONIALS.length) {
-      section.hidden = true;
-      return;
-    }
+    var thumbWrap = document.createElement('div');
+    thumbWrap.className = 'testimonial-card__thumb-wrap';
 
-    var openVideo = setupVideoModal();
+    var img = document.createElement('img');
+    img.className = 'testimonial-card__thumb';
+    img.src = item.thumb || (item.youtubeId ? youtubeThumbUrl(item.youtubeId) : '');
+    img.alt = '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
 
-    TESTIMONIALS.forEach(function (item) {
-      var card = document.createElement('article');
-      card.className = 'testimonial-card';
+    var play = document.createElement('span');
+    play.className = 'testimonial-card__play';
+    play.setAttribute('aria-hidden', 'true');
+    play.textContent = '▶';
 
-      var thumbWrap = document.createElement('div');
-      thumbWrap.className = 'testimonial-card__thumb-wrap';
+    thumbWrap.appendChild(img);
+    thumbWrap.appendChild(play);
 
-      var img = document.createElement('img');
-      img.className = 'testimonial-card__thumb';
-      img.src = item.thumb;
-      img.alt = '';
-      img.loading = 'lazy';
-      img.decoding = 'async';
+    var name = document.createElement('h3');
+    name.className = 'testimonial-card__name';
+    name.textContent = item.titulo;
 
-      var play = document.createElement('span');
-      play.className = 'testimonial-card__play';
-      play.setAttribute('aria-hidden', 'true');
-      play.textContent = '▶';
+    var desc = document.createElement('p');
+    desc.className = 'testimonial-card__desc';
+    desc.textContent = item.descricao;
 
-      thumbWrap.appendChild(img);
-      thumbWrap.appendChild(play);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn--primary testimonial-card__btn';
+    btn.innerHTML = '<span aria-hidden="true">▶</span> Assistir vídeo';
+    btn.setAttribute('aria-label', 'Assistir vídeo: ' + item.titulo);
+    btn.disabled = !item.youtubeId; // sem ID de vídeo cadastrado, o botão fica desabilitado
+    btn.addEventListener('click', function () { openVideo(item, btn); });
 
-      var name = document.createElement('h3');
-      name.className = 'testimonial-card__name';
-      name.textContent = item.titulo;
+    card.appendChild(thumbWrap);
+    card.appendChild(name);
+    card.appendChild(desc);
+    card.appendChild(btn);
+    return card;
+  }
 
-      var desc = document.createElement('p');
-      desc.className = 'testimonial-card__desc';
-      desc.textContent = item.descricao;
-
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn--primary testimonial-card__btn';
-      btn.innerHTML = '<span aria-hidden="true">▶</span> Assistir depoimento';
-      btn.setAttribute('aria-label', 'Assistir depoimento de ' + item.titulo);
-      btn.disabled = !item.youtubeId; // sem ID de vídeo cadastrado, o botão fica desabilitado
-      btn.addEventListener('click', function () { openVideo(item, btn); });
-
-      card.appendChild(thumbWrap);
-      card.appendChild(name);
-      card.appendChild(desc);
-      card.appendChild(btn);
-      track.appendChild(card);
-    });
-
+  // Liga a navegação (setas + swipe nativo) de um carrossel específico
+  function setupCarouselNav(track, prevBtn, nextBtn) {
     if (!prevBtn || !nextBtn) return;
 
     function scrollByCard(direction) {
@@ -524,6 +517,66 @@
     window.addEventListener('resize', updateNavState);
 
     updateNavState();
+  }
+
+  // Gera um carrossel por grupo de VIDEO_GROUPS, cada um com seu próprio título,
+  // trilha e navegação independentes — reaproveita o mesmo card/modal de sempre
+  function setupVideoGroups() {
+    var section = document.getElementById('depoimentos');
+    var container = document.getElementById('videoGroups');
+
+    if (!section || !container) return;
+
+    var totalItems = VIDEO_GROUPS.reduce(function (sum, group) { return sum + group.items.length; }, 0);
+    if (!totalItems) {
+      section.hidden = true;
+      return;
+    }
+
+    var openVideo = setupVideoModal();
+
+    VIDEO_GROUPS.forEach(function (group, groupIndex) {
+      if (!group.items.length) return;
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'video-group reveal';
+
+      var heading = document.createElement('h3');
+      heading.className = 'video-group__title';
+      heading.textContent = group.titulo;
+      wrapper.appendChild(heading);
+
+      var carousel = document.createElement('div');
+      carousel.className = 'testimonials-carousel';
+
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.className = 'testimonials-nav testimonials-nav--prev';
+      prevBtn.setAttribute('aria-label', 'Vídeo anterior de ' + group.titulo);
+      prevBtn.textContent = '‹';
+
+      var track = document.createElement('div');
+      track.className = 'testimonials-track';
+      track.id = 'videoGroupTrack' + groupIndex;
+
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'testimonials-nav testimonials-nav--next';
+      nextBtn.setAttribute('aria-label', 'Próximo vídeo de ' + group.titulo);
+      nextBtn.textContent = '›';
+
+      group.items.forEach(function (item) {
+        track.appendChild(createVideoCard(item, openVideo));
+      });
+
+      carousel.appendChild(prevBtn);
+      carousel.appendChild(track);
+      carousel.appendChild(nextBtn);
+      wrapper.appendChild(carousel);
+      container.appendChild(wrapper);
+
+      setupCarouselNav(track, prevBtn, nextBtn);
+    });
   }
 
   /* ========== VÍDEO DA EXPERIÊNCIA (SEÇÃO "CONHEÇA A EXPERIÊNCIA") ==========
@@ -775,7 +828,7 @@
     setupPixModal();
     setupVagasCounter();
     setupExperienciaVideo();
-    setupTestimonials();
+    setupVideoGroups();
     setupPatrocinadores();
     setupConversionTracking();
     setupScrollReveal();

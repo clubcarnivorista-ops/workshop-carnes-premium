@@ -4,7 +4,7 @@ Registro resumido de cada versão publicada. Para o detalhe técnico completo de
 
 ## Versão atual: **v1.0.5**
 
-Nova seção "Conheça a Experiência", com player de vídeo em destaque entre o Menu da Experiência e os Depoimentos. Vídeo ainda pendente de gravação — seção já publicada com placeholder, pronta para ativar assim que o ID do YouTube for cadastrado.
+Duas entregas: (1) nova seção "Conheça a Experiência", com player de vídeo em destaque — ainda pendente de gravação, publicada com placeholder; (2) os 11 vídeos oficiais do YouTube (Mentor, Depoimentos, Reconhecimento) publicados na seção "Quem Já Viveu Essa Experiência", organizados em três grupos com carrossel próprio cada.
 
 ---
 
@@ -12,7 +12,7 @@ Nova seção "Conheça a Experiência", com player de vídeo em destaque entre o
 
 | Versão | Resumo |
 |---|---|
-| **v1.0.5** | Nova seção "Conheça a Experiência" (player de vídeo em destaque + botão "Quero viver essa experiência") |
+| **v1.0.5** | Seção "Conheça a Experiência" (player em destaque) + 11 vídeos oficiais em 3 grupos (Mentor, Depoimentos, Reconhecimento) na seção de depoimentos |
 | **v1.0.4** | QR Code PIX oficial funcionando (corrigido bug que impedia o carregamento) + botão "Copiar PIX Copia e Cola" |
 | **v1.0.3** | Dados oficiais do Clube Carnivorista publicados: WhatsApp, e-mail, Instagram, YouTube, Google Maps, PIX e Mercado Pago — fim dos placeholders |
 | **v1.0.2** | Repositório Git consolidado (estrutura de pastas duplicada corrigida) + correção de nomenclatura no cardápio ("Nachos" → "Farofa de Nachos") |

@@ -1003,6 +1003,23 @@ ul, ol {
   margin-top: 32px;
 }
 
+/* ---------- GRUPOS DE VÍDEO (um carrossel por grupo, dentro de "Quem Já Viveu Essa Experiência") ---------- */
+.video-group {
+  margin-bottom: 40px;
+}
+
+.video-group:last-child {
+  margin-bottom: 0;
+}
+
+.video-group__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
 /* ---------- QUEM JÁ VIVEU ESSA EXPERIÊNCIA (CARROSSEL DE DEPOIMENTOS) ---------- */
 .testimonials-carousel {
   position: relative;

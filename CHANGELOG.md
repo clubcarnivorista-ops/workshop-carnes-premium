@@ -23,6 +23,34 @@ Nova seção com player de vídeo em destaque, entre "Menu da Experiência" e "Q
 - `README.md`: nova seção "Como ativar o vídeo da seção 'Conheça a Experiência'"
 - `CONFIG.md`: `videoExperienciaId` documentado
 
+---
+
+### CODE 003 — Vídeos oficiais em três grupos — 2026-07-02
+
+Substituição de todos os placeholders de vídeo pelos 11 links oficiais do YouTube, reorganizados em três grupos dentro da seção "Quem Já Viveu Essa Experiência". Mesma versão 1.0.5 — segunda entrega do dia.
+
+### Adicionado
+- `VIDEO_GROUPS` (`script.js`) substitui o antigo array plano `TESTIMONIALS` — agora é um array de grupos, cada um com título próprio e sua lista de vídeos: **Conheça seu Mentor** (1 vídeo), **Depoimentos** (6 vídeos: Caroline, Edu Barbosa, Fábio, João Pedro, Mônica, Nogueira) e **Reconhecimento** (4 vídeos: Fernando e Sorocaba 01, Fernando e Sorocaba 02, Sampaio, Thauane) — 11 vídeos oficiais no total
+- `setupVideoGroups()` substitui `setupTestimonials()`: gera um carrossel independente por grupo (título, trilha e navegação próprios), reaproveitando o mesmo card e o mesmo modal de vídeo já existentes — nenhuma duplicação de componente visual
+- Miniaturas passam a vir automaticamente do YouTube (`img.youtube.com/vi/ID/hqdefault.jpg`) quando `thumb` não é preenchido — elimina a dependência de arquivos locais em `assets/videos/` que nunca chegaram a ser cadastrados
+- Classe `.video-group__title`, reutilizando o restante do visual do carrossel de depoimentos já existente (sem alteração de layout)
+
+### Corrigido
+- Rótulos genéricos ("Assistir depoimento", "Depoimento de X") trocados por termos neutros ("Assistir vídeo", título do item) já que nem todo vídeo é um depoimento (o do Mentor e os de Reconhecimento não são)
+
+### Verificado
+- Os 11 vídeos mapeados na ordem exata fornecida (01 a 11) para os três grupos, confirmado item a item via `window.WORKSHOP_VIDEO_GROUPS`
+- Cada vídeo testado individualmente: iframe criado só no clique, sem `autoplay`, com `rel=0`, título correto no modal, iframe removido ao fechar (interrompe a reprodução)
+- Navegação por seta testada em carrossel com mais de uma tela de cards (grupo Depoimentos)
+- Responsivo em desktop (1280px), tablet (768px) e mobile (375px), sem overflow horizontal
+- Carrinho, modal PIX e seção "Conheça a Experiência" testados após a mudança — nenhuma regressão
+- Console sem erros em todos os testes
+
+### Documentação
+- `CONFIG.md`: seção reescrita de `TESTIMONIALS` para `VIDEO_GROUPS`, com a estrutura de grupos documentada
+- `README.md`: seção "Como adicionar vídeos e patrocinadores" atualizada para os três grupos
+- `assets/README.md`: `videos/*.jpg` marcado como opcional (thumbnail automática do YouTube por padrão)
+
 ## [1.0.4] — QR Code PIX oficial — 2026-07-01
 
 Integração definitiva do QR Code PIX oficial e do código Copia e Cola. Nenhuma mudança de layout, identidade visual, UX, SEO ou performance — só a substituição do QR Code (antes ausente/quebrado) e uma nova forma de pagamento manual (Copia e Cola) no modal já existente.

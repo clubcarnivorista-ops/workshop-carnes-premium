@@ -21,7 +21,7 @@ workshop-carnes-premium/
 ├── cookies.html                     → Uso de Cookies (página institucional, em preparação)
 ├── style.css                          → estilos (versão legível, para editar)
 ├── style.min.css                        → estilos minificados (para produção)
-├── script.js                              → toda a lógica do site + objetos CONFIG, TESTIMONIALS e PATROCINADORES (para editar)
+├── script.js                              → toda a lógica do site + objetos CONFIG, VIDEO_GROUPS e PATROCINADORES (para editar)
 ├── script.min.js                            → script minificado (para produção)
 ├── favicon.svg                                → ícone do site em SVG (navegadores modernos)
 ├── favicon.ico                                  → ícone em formato .ico (compatibilidade ampla)
@@ -306,11 +306,13 @@ O rodapé também tem uma linha de links institucionais (Política de Privacidad
 
 ---
 
-## Como adicionar depoimentos em vídeo e patrocinadores
+## Como adicionar vídeos e patrocinadores
 
-A seção **"Quem Já Viveu Essa Experiência"** (carrossel de depoimentos em vídeo) e a seção **"Patrocinadores"** também são geradas automaticamente a partir de objetos `TESTIMONIALS` e `PATROCINADORES` no topo de `script.js` — mesmo padrão do `CONFIG`. Basta inserir um novo objeto no array correspondente para adicionar um vídeo, um patrocinador ou um apoiador; nenhum HTML precisa ser tocado.
+A seção **"Quem Já Viveu Essa Experiência"** exibe três grupos de vídeo lado a lado — **Conheça seu Mentor**, **Depoimentos** e **Reconhecimento** — cada um com seu próprio carrossel. Isso e a seção **"Patrocinadores"** são geradas automaticamente a partir dos objetos `VIDEO_GROUPS` e `PATROCINADORES` no topo de `script.js` — mesmo padrão do `CONFIG`. Basta inserir um novo objeto no array/grupo correspondente para adicionar um vídeo, um grupo novo, um patrocinador ou um apoiador; nenhum HTML precisa ser tocado.
 
-Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#depoimentos-em-vídeo--testimonials) e [CONFIG.md](CONFIG.md#patrocinadores--patrocinadores).
+As miniaturas dos vídeos vêm automaticamente do próprio YouTube — não é preciso cadastrar nenhuma imagem em `assets/`.
+
+Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#vídeos-em-grupo--video_groups) e [CONFIG.md](CONFIG.md#patrocinadores--patrocinadores).
 
 ---
 
@@ -340,7 +342,7 @@ Para valor 100% dinâmico no cartão, é necessário integrar a **API de Prefere
 - `robots.txt` e `sitemap.xml` já estão prontos — depois do primeiro deploy, atualize a URL neles (troque `workshop-carnes-premium.vercel.app` pela URL real do seu projeto).
 - As meta tags de Open Graph/Twitter Card (em `index.html`) controlam o preview do link quando compartilhado no WhatsApp, Instagram ou Facebook. Elas apontam para `assets/og-image.jpg` — adicione essa imagem (1200×630px) para o preview aparecer com foto. Sem ela, o link ainda funciona, só aparece sem imagem.
 - Depois de publicar na Vercel com a URL final, atualize também a tag `<link rel="canonical">` e as tags `og:url`/`og:image`/`twitter:image` no `<head>` do `index.html`.
-- Os vídeos de depoimento não usam `<iframe>` do YouTube na carga da página — só quando o usuário clica em "Assistir depoimento". Isso mantém o Lighthouse (Performance e Best Practices) alto mesmo com vários vídeos cadastrados em `TESTIMONIALS`.
+- Nenhum vídeo (dos três grupos, nem o da seção "Conheça a Experiência") usa `<iframe>` do YouTube na carga da página — só quando o usuário clica em "Assistir vídeo". Isso mantém o Lighthouse (Performance e Best Practices) alto mesmo com vários vídeos cadastrados em `VIDEO_GROUPS`.
 - `index.html` inclui dados estruturados **Schema.org Event** (JSON-LD, no `<head>`) para habilitar Rich Results do Google. Sempre que a data, o horário ou os preços mudarem no `CONFIG`, atualize também esse bloco — ele é estático de propósito (não é gerado por JavaScript) para ficar disponível a qualquer rastreador.
 
 ## Favicon completo
