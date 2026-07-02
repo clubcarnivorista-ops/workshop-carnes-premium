@@ -456,20 +456,11 @@
           <div class="sponsors-realizacao" id="sponsorsRealizacao"></div>
         </div>
 
-        <div class="sponsors-block reveal" id="sponsorsMasterBlock" hidden>
-          <span class="sponsors-block__label">Patrocinador Master</span>
-          <div class="sponsors-master" id="sponsorsMaster"></div>
-        </div>
-
-        <div class="sponsors-block reveal" id="sponsorsListBlock" hidden>
-          <span class="sponsors-block__label">Patrocinadores</span>
-          <div class="sponsors-grid" id="sponsorsGrid"></div>
-        </div>
-
-        <div class="sponsors-block reveal" id="sponsorsApoiadoresBlock" hidden>
-          <span class="sponsors-block__label">Apoiadores</span>
-          <div class="sponsors-grid" id="sponsorsApoiadoresGrid"></div>
-        </div>
+        <!-- Preenchido por setupPatrocinadores() (script.js) a partir de PATROCINADORES.categorias —
+             um bloco por categoria com itens cadastrados (Parceiros Oficiais, Patrocinador Master,
+             Patrocinadores Ouro, Patrocinadores Prata...). Categoria sem item não gera bloco nenhum,
+             e uma categoria nova não exige nenhuma mudança aqui no HTML. -->
+        <div id="sponsorsCategorias"></div>
       </div>
     </section>
 

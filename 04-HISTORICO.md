@@ -2,9 +2,9 @@
 
 Registro resumido de cada versão publicada. Para o detalhe técnico completo de cada mudança, ver [CHANGELOG.md](CHANGELOG.md) — este arquivo é só o resumo executivo.
 
-## Versão atual: **v1.0.6**
+## Versão atual: **v1.0.7**
 
-Nova página `links.html` (Link in Bio), para uso no link da bio do Instagram — mesma identidade visual da Landing, 5 botões (Garanta sua vaga, Calculadora de Carnes, Grupo WhatsApp, YouTube, Instagram), todos os destinos centralizados em `CONFIG.links` (mais os já existentes `whatsappGroup`/`youtube`/`instagram`, reaproveitados sem duplicação). A Landing (`index.html`) não foi alterada.
+Primeiros parceiros oficiais cadastrados na seção "Patrocinadores": Faroeste Beer Co. (chopp) e Super Fogo (carvão), ambos vindos de permuta e listados em "Parceiros Oficiais". A estrutura de `PATROCINADORES` passou a ser por categoria, já preparada para as tiers futuras (Patrocinador Master, Ouro, Prata) sem precisar mexer em HTML de novo.
 
 ---
 
@@ -12,6 +12,7 @@ Nova página `links.html` (Link in Bio), para uso no link da bio do Instagram �
 
 | Versão | Resumo |
 |---|---|
+| **v1.0.7** | Primeiros parceiros oficiais (Faroeste Beer Co., Super Fogo) + `PATROCINADORES` reestruturado por categorias |
 | **v1.0.6** | Página `links.html` (Link in Bio) para o Instagram, com 5 botões e `CONFIG.links` |
 | **v1.0.5** | Seção "Conheça a Experiência" (player em destaque) + 11 vídeos oficiais em 3 grupos (Mentor, Depoimentos, Reconhecimento) na seção de depoimentos |
 | **v1.0.4** | QR Code PIX oficial funcionando (corrigido bug que impedia o carregamento) + botão "Copiar PIX Copia e Cola" |
@@ -33,6 +34,6 @@ um resumo maior aqui embaixo. Mantenha o "Versão atual" no topo sempre
 atualizado — é a primeira coisa que qualquer pessoa (ou IA) vai ler.
 -->
 
-### v1.0.7 — (ainda não publicada)
+### v1.0.8 — (ainda não publicada)
 
 *Reservado para a próxima versão.*

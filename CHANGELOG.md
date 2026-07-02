@@ -2,6 +2,47 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.7] — Primeiros parceiros oficiais na seção Patrocinadores — 2026-07-02
+
+Cadastro dos dois primeiros parceiros do Clube Carnivorista (Faroeste Beer Co. e Super Fogo), vindos de permuta, e reestruturação de `PATROCINADORES` para um modelo por categorias que já aceita as tiers futuras (Patrocinador Master, Ouro, Prata) sem precisar tocar em `index.html` de novo.
+
+### Adicionado
+- `PATROCINADORES.categorias` (`script.js`): array de categorias (`id`, `label`, `itens`), substituindo as chaves fixas `master`/`patrocinadores`/`apoiadores`. Uma categoria só gera bloco na página quando `itens.length > 0`
+- Categoria **Parceiros Oficiais**, com os dois primeiros parceiros cadastrados
+- Três categorias reservadas para o futuro, hoje vazias: **Patrocinador Master**, **Patrocinadores Ouro**, **Patrocinadores Prata**
+- Campo `descricao` (opcional) por item — some no tooltip da logomarca junto com o nome
+- `<div id="sponsorsCategorias">` em `index.html`, substituindo os três blocos fixos (`sponsorsMasterBlock`, `sponsorsListBlock`, `sponsorsApoiadoresBlock`) que exigiam HTML novo para cada tier
+
+### Alterado
+- `setupPatrocinadores()` (`script.js`) reescrita para renderizar dinamicamente uma categoria por vez, a partir de `PATROCINADORES.categorias`
+- `buildSponsorLink()`: agora trata `'#'` como "sem link" (não só string vazia) — evita logomarca virar um link morto (`href="#"`) quando Instagram/site ainda não foram informados
+- `.sponsors-grid` (`style.css`): trocado de grid fixo (4/3/2 colunas por breakpoint) para flexbox centralizado, com quebra de linha automática — com poucos itens (como hoje, só 2), a grade fica centralizada em vez de "grudada" à esquerda numa grade de 4 colunas vazias. Simplifica também as duas media queries que só existiam para ajustar esse número de colunas
+- `.sponsor-logo:hover` ganhou um leve `translateY(-2px)`, além da troca de tom (cinza → cor), para reforçar o destaque no hover sem exagero
+
+### Escolha da logomarca do Chopp (Faroeste Beer Co.)
+Existiam 4 versões da mesma logomarca em `assets/patrocinadores/` (`chopp-faroeste1.jpg` a `chopp-faroeste4.jpg`). Escolhida: **`chopp-faroeste3.jpg`** (letras creme sobre fundo verde sólido). Motivo: a grade de patrocinadores aplica `grayscale(1)` + `opacity: 0.7` na logomarca em repouso (mesmo tratamento já usado antes desta versão) — nas versões 1 e 2 (fundo branco) e 4 (fundo creme), esse filtro gera um retângulo claro/branco que destoa do fundo escuro da Landing. A versão 3, por ter fundo verde escuro, vira um retângulo em tom de cinza médio depois do filtro — integra muito melhor ao `section--dark` — e ainda mantém boa leitura (texto creme sobre verde tem contraste interno mais alto que texto escuro sobre fundo claro depois do filtro). No hover (cor real), o verde e o creme também combinam bem com a paleta dourada/escura do site. As outras 3 versões permanecem na pasta como alternativa, não cadastradas.
+
+### Pendências (registradas no `CONFIG`, usando `'#'`)
+- **Faroeste Beer Co.**: Instagram e site ainda não informados
+- **Super Fogo**: Instagram e site ainda não informados
+
+### Observação sobre a logomarca do Super Fogo
+O único arquivo disponível (`carvao-superfogo.webp.png`) está em formato retrato (quase quadrado/vertical), bem diferente do formato paisagem da Faroeste. Dentro da grade (altura fixa de 70px), isso faz a logomarca do Super Fogo renderizar visivelmente menor/mais estreita que a da Faroeste. Não havia versão alternativa para escolher (só existe 1 arquivo), então mantivemos como está — recomendação registrada no relatório final para pedir uma versão horizontal ou com mais respiro nas laterais, se possível.
+
+### Verificado
+- Desktop, tablet (768px) e mobile (375px): sem overflow horizontal, os 2 parceiros centralizados lado a lado
+- Console sem erros
+- Logomarcas sem `instagram`/`site`/`link` reais renderizam como `<div>` (não como `<a href="#">`) — nenhum link morto exposto ao visitante
+- Bloco "Realização" (Clube Carnivorista) e o restante da Landing (CTAs, contador de vagas, carrinho, modal PIX) testados novamente após a mudança — nenhuma regressão
+- SEO não alterado (nenhuma mudança em `<head>`, `robots.txt` ou `sitemap.xml`)
+
+### Documentação
+- `README.md`: seção "Como adicionar vídeos, parceiros e patrocinadores" atualizada para o modelo de categorias
+- `CONFIG.md`: seção "Patrocinadores" reescrita para `PATROCINADORES.categorias`
+- `04-HISTORICO.md`: versão atual atualizada para v1.0.7
+
+---
+
 ## [1.0.6] — Página de Link in Bio (`links.html`) — 2026-07-02
 
 Nova página `links.html`, para uso no link da bio do Instagram, com os 5 links oficiais do Clube Carnivorista. A Landing (`index.html`) não foi alterada — continua funcionando exatamente como estava na v1.0.5.

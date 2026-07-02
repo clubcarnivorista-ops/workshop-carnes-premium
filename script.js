@@ -644,35 +644,56 @@
   }
 
   /* ========== PATROCINADORES ==========
-   * Objeto central com os logos de realização, patrocinador master, patrocinadores
-   * e apoiadores. Para adicionar/remover um patrocinador ou apoiador, basta
-   * inserir/remover um objeto no array correspondente — a grade é gerada
-   * automaticamente e cada bloco só aparece se tiver conteúdo configurado.
+   * Objeto central com o logo de realização e as categorias de parceiros/patrocinadores.
+   * Cada categoria em `categorias` só aparece na página se tiver ao menos 1 item em
+   * `itens` — para criar uma categoria nova (ex: uma tier futura), basta adicionar um
+   * objeto novo no array `categorias`; nenhum HTML precisa ser tocado. Para adicionar
+   * ou remover um parceiro/patrocinador dentro de uma categoria, basta inserir/remover
+   * um objeto no array `itens` correspondente.
    */
   var PATROCINADORES = {
     realizacao: {
       nome: 'Clube Carnivorista',
       logo: '' // ex: 'assets/patrocinadores/clube-carnivorista.png' — sem logo, exibe o nome em texto
     },
-    master: {
-      nome: '',
-      logo: '',
-      url: ''
-    },
-    patrocinadores: [
-      // { nome: '', logo: '', instagram: '', site: '', link: '' }
-    ],
-    apoiadores: [
-      // { nome: '', logo: '', instagram: '', site: '', link: '' }
+    categorias: [
+      {
+        id: 'parceiros-oficiais',
+        label: 'Parceiros Oficiais',
+        itens: [
+          {
+            nome: 'Faroeste Beer Co.',
+            logo: 'assets/patrocinadores/chopp-faroeste3.jpg',
+            categoria: 'parceiros-oficiais',
+            instagram: '#', // pendente — Instagram ainda não informado
+            site: '#',      // pendente — site ainda não informado
+            link: '',
+            descricao: ''
+          },
+          {
+            nome: 'Super Fogo',
+            logo: 'assets/patrocinadores/carvao-superfogo.webp.png',
+            categoria: 'parceiros-oficiais',
+            instagram: '#', // pendente — Instagram ainda não informado
+            site: '#',      // pendente — site ainda não informado
+            link: '',
+            descricao: ''
+          }
+        ]
+      },
+      // Tiers futuras — hoje sem itens, cada uma só aparece quando ganhar o primeiro item
+      { id: 'patrocinador-master', label: 'Patrocinador Master', itens: [] },
+      { id: 'patrocinadores-ouro', label: 'Patrocinadores Ouro', itens: [] },
+      { id: 'patrocinadores-prata', label: 'Patrocinadores Prata', itens: [] }
     ]
   };
 
   // Exposto para reuso/depuração, mesmo padrão do WORKSHOP_CONFIG
   window.WORKSHOP_PATROCINADORES = PATROCINADORES;
 
-  // Prioridade de link ao clicar na logomarca: link explícito > site > instagram
+  // Prioridade de link ao clicar na logomarca: link explícito > site > instagram ("#" não conta como link)
   function buildSponsorLink(item) {
-    return item.link || item.site || item.instagram || '';
+    return item.link || (item.site && item.site !== '#' ? item.site : '') || (item.instagram && item.instagram !== '#' ? item.instagram : '');
   }
 
   function createSponsorLogo(item, extraClass) {
@@ -685,7 +706,7 @@
       el.target = '_blank';
       el.rel = 'noopener';
     }
-    if (item.nome) el.title = item.nome;
+    if (item.nome) el.title = item.descricao ? item.nome + ' — ' + item.descricao : item.nome;
 
     var img = document.createElement('img');
     img.src = item.logo;
@@ -710,30 +731,30 @@
       }
     }
 
-    var masterBlock = document.getElementById('sponsorsMasterBlock');
-    var masterEl = document.getElementById('sponsorsMaster');
-    if (masterBlock && masterEl && PATROCINADORES.master && PATROCINADORES.master.logo) {
-      masterEl.appendChild(createSponsorLogo(PATROCINADORES.master, 'sponsor-logo--master'));
-      masterBlock.hidden = false;
-    }
+    var categoriasEl = document.getElementById('sponsorsCategorias');
+    if (!categoriasEl || !PATROCINADORES.categorias) return;
 
-    var listBlock = document.getElementById('sponsorsListBlock');
-    var gridEl = document.getElementById('sponsorsGrid');
-    if (listBlock && gridEl && PATROCINADORES.patrocinadores && PATROCINADORES.patrocinadores.length) {
-      PATROCINADORES.patrocinadores.forEach(function (item) {
-        gridEl.appendChild(createSponsorLogo(item));
-      });
-      listBlock.hidden = false;
-    }
+    PATROCINADORES.categorias.forEach(function (categoria) {
+      if (!categoria.itens || !categoria.itens.length) return;
 
-    var apoiadoresBlock = document.getElementById('sponsorsApoiadoresBlock');
-    var apoiadoresGrid = document.getElementById('sponsorsApoiadoresGrid');
-    if (apoiadoresBlock && apoiadoresGrid && PATROCINADORES.apoiadores && PATROCINADORES.apoiadores.length) {
-      PATROCINADORES.apoiadores.forEach(function (item) {
-        apoiadoresGrid.appendChild(createSponsorLogo(item));
+      var block = document.createElement('div');
+      block.className = 'sponsors-block reveal';
+
+      var label = document.createElement('span');
+      label.className = 'sponsors-block__label';
+      label.textContent = categoria.label;
+      block.appendChild(label);
+
+      var grid = document.createElement('div');
+      grid.className = 'sponsors-grid';
+      var extraClass = categoria.id === 'patrocinador-master' ? 'sponsor-logo--master' : '';
+      categoria.itens.forEach(function (item) {
+        grid.appendChild(createSponsorLogo(item, extraClass));
       });
-      apoiadoresBlock.hidden = false;
-    }
+      block.appendChild(grid);
+
+      categoriasEl.appendChild(block);
+    });
   }
 
   /* ========== CONTADOR DE VAGAS ========== */

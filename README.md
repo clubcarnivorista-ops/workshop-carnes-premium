@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.6** — nova página `links.html` (Link in Bio) para o Instagram. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.7** — primeiros parceiros oficiais cadastrados na seção "Patrocinadores" (Faroeste Beer Co. e Super Fogo), com estrutura por categorias. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -307,11 +307,13 @@ O rodapé também tem uma linha de links institucionais (Política de Privacidad
 
 ---
 
-## Como adicionar vídeos e patrocinadores
+## Como adicionar vídeos, parceiros e patrocinadores
 
-A seção **"Quem Já Viveu Essa Experiência"** exibe três grupos de vídeo lado a lado — **Conheça seu Mentor**, **Depoimentos** e **Reconhecimento** — cada um com seu próprio carrossel. Isso e a seção **"Patrocinadores"** são geradas automaticamente a partir dos objetos `VIDEO_GROUPS` e `PATROCINADORES` no topo de `script.js` — mesmo padrão do `CONFIG`. Basta inserir um novo objeto no array/grupo correspondente para adicionar um vídeo, um grupo novo, um patrocinador ou um apoiador; nenhum HTML precisa ser tocado.
+A seção **"Quem Já Viveu Essa Experiência"** exibe três grupos de vídeo lado a lado — **Conheça seu Mentor**, **Depoimentos** e **Reconhecimento** — cada um com seu próprio carrossel. Isso e a seção **"Patrocinadores"** são geradas automaticamente a partir dos objetos `VIDEO_GROUPS` e `PATROCINADORES` no topo de `script.js` — mesmo padrão do `CONFIG`. Basta inserir um novo objeto no array/grupo correspondente para adicionar um vídeo, um grupo novo, um parceiro ou um patrocinador; nenhum HTML precisa ser tocado.
 
 As miniaturas dos vídeos vêm automaticamente do próprio YouTube — não é preciso cadastrar nenhuma imagem em `assets/`.
+
+A partir da v1.0.7, `PATROCINADORES` é organizado **por categoria** (`categorias`): hoje existe **Parceiros Oficiais** (com os primeiros dois parceiros, vindos de permuta) e três categorias já reservadas para o futuro — **Patrocinador Master**, **Patrocinadores Ouro** e **Patrocinadores Prata** — todas vazias até o primeiro fechamento em cada tier. Uma categoria só aparece na página quando tem pelo menos 1 item; criar uma tier nova (ou renomear uma existente) não exige tocar em `index.html`, só em `CONFIG.md`/`script.js`.
 
 Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#vídeos-em-grupo--video_groups) e [CONFIG.md](CONFIG.md#patrocinadores--patrocinadores).
 

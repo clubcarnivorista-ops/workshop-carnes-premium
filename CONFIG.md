@@ -148,68 +148,81 @@ O botão "Assistir vídeo" daquele card fica **desabilitado automaticamente** (v
 
 Seção "Patrocinadores", posicionada logo antes da seção de Ingressos. Também fica no topo de `script.js`, logo após o `VIDEO_GROUPS`.
 
+Desde a v1.0.7, a estrutura é **por categoria** (`categorias`, um array), em vez de chaves fixas (`master`/`patrocinadores`/`apoiadores`). Isso permite criar tiers novas (ex: Patrocinador Master, Ouro, Prata) só editando o `CONFIG` — nenhuma categoria nova exige tocar no HTML.
+
 ```js
 var PATROCINADORES = {
   realizacao: { nome: 'Clube Carnivorista', logo: '' },
-  master: { nome: '', logo: '', url: '' },
-  patrocinadores: [],
-  apoiadores: []
+  categorias: [
+    {
+      id: 'parceiros-oficiais',
+      label: 'Parceiros Oficiais',
+      itens: [
+        { nome: 'Faroeste Beer Co.', logo: 'assets/patrocinadores/chopp-faroeste3.jpg', categoria: 'parceiros-oficiais', instagram: '#', site: '#', link: '', descricao: '' },
+        { nome: 'Super Fogo', logo: 'assets/patrocinadores/carvao-superfogo.webp.png', categoria: 'parceiros-oficiais', instagram: '#', site: '#', link: '', descricao: '' }
+      ]
+    },
+    { id: 'patrocinador-master', label: 'Patrocinador Master', itens: [] },
+    { id: 'patrocinadores-ouro', label: 'Patrocinadores Ouro', itens: [] },
+    { id: 'patrocinadores-prata', label: 'Patrocinadores Prata', itens: [] }
+  ]
 };
 ```
 
-Cada logomarca (`master`, cada item de `patrocinadores` e de `apoiadores`) aceita os mesmos campos:
+Cada item de `itens` aceita os mesmos campos:
 
 | Chave | O que controla | Formato / exemplo |
 |---|---|---|
-| `nome` | Nome do patrocinador/apoiador. Usado como texto alternativo da imagem e tooltip ao passar o mouse. | Texto: `'Casa de Carnes XYZ'` |
+| `nome` | Nome do parceiro/patrocinador. Usado como texto alternativo da imagem e tooltip ao passar o mouse (junto com `descricao`, se preenchida). | Texto: `'Casa de Carnes XYZ'` |
 | `logo` | Caminho da logomarca. | Caminho relativo: `'assets/patrocinadores/xyz.png'` |
-| `instagram` | Link do Instagram (opcional). | URL completa |
-| `site` | Link do site (opcional). | URL completa |
+| `categoria` | Apenas identifica a que categoria o item pertence (informativo — quem decide onde ele aparece é o array `itens` em que o objeto está). | Texto: mesmo `id` da categoria, ex: `'parceiros-oficiais'` |
+| `instagram` | Link do Instagram. Use `'#'` enquanto não tiver sido informado — a logomarca não vira um link clicável até que `instagram`, `site` ou `link` tenham uma URL real. | URL completa, ou `'#'` |
+| `site` | Link do site. Mesma regra do `instagram` acima. | URL completa, ou `'#'` |
 | `link` | Link de destino ao clicar na logomarca (opcional). Tem prioridade sobre `site` e `instagram` se os três forem preenchidos. | URL completa |
+| `descricao` | Descrição curta, opcional — some ao tooltip da logomarca (`"Nome — descrição"`). Deixe `''` se não houver. | Texto livre e curto |
 
-### Como alterar o patrocinador master
+### Como criar uma categoria nova (ex: quando fechar o primeiro Patrocinador Master)
 
-Preencha os três campos de `master` em `PATROCINADORES`:
+Edite os `itens` da categoria já reservada — não precisa criar a categoria, ela já existe vazia:
 
 ```js
-master: {
-  nome: 'Casa de Carnes XYZ',
-  logo: 'assets/patrocinadores/master-xyz.png',
-  url: 'https://instagram.com/xyz'
-}
+{ id: 'patrocinador-master', label: 'Patrocinador Master', itens: [
+  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/master-xyz.png', categoria: 'patrocinador-master', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
+] }
 ```
 
-O bloco "Patrocinador Master" (com o logo em destaque, maior que os demais) só aparece automaticamente quando `logo` está preenchido — deixe `logo: ''` para escondê-lo enquanto não houver master fechado.
+O bloco "Patrocinador Master" (com o logo em destaque, maior que os demais — classe `sponsor-logo--master`, aplicada automaticamente pelo `id` da categoria) só aparece na página quando `itens` tiver pelo menos 1 objeto. Enquanto `itens: []`, a categoria inteira fica invisível — sem espaço vazio, sem título "fantasma".
 
-### Como adicionar um patrocinador
+### Como adicionar um novo parceiro/patrocinador numa categoria existente
 
-Insira um novo objeto no array `patrocinadores`:
+Insira um novo objeto no array `itens` da categoria certa:
 
 ```js
-patrocinadores: [
-  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', instagram: 'https://instagram.com/xyz' }
+itens: [
+  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', categoria: 'parceiros-oficiais', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
 ]
 ```
 
-A grade de patrocinadores (4 colunas no desktop, 3 no tablet, 2 no mobile) só aparece automaticamente quando o array tem pelo menos um item.
+A grade (flexível, centralizada, quebra linha sozinha) se ajusta automaticamente à quantidade de itens — não existe mais número fixo de colunas por tela.
 
-### Como adicionar um apoiador
+### Como criar uma categoria totalmente nova (além das 4 já reservadas)
 
-Mesma lógica, no array `apoiadores`:
+Adicione um novo objeto no array `categorias`, com `id`, `label` e `itens`:
 
 ```js
-apoiadores: [
-  { nome: 'Fornecedor ABC', logo: 'assets/patrocinadores/abc.png', site: 'https://abc.com.br' }
+categorias: [
+  // ... categorias existentes ...
+  { id: 'apoiadores', label: 'Apoiadores', itens: [] }
 ]
 ```
 
-### Como alterar os links
+### Como alterar os links de um item
 
-Edite `link`, `site` ou `instagram` do item correspondente (master, patrocinador ou apoiador). Ao clicar na logomarca, a ordem de prioridade é: `link` → `site` → `instagram`. Se nenhum dos três estiver preenchido, a logomarca não vira um link clicável (fica só a imagem).
+Edite `link`, `site` ou `instagram` do item correspondente. Ao clicar na logomarca, a ordem de prioridade é: `link` → `site` (se não for `'#'`) → `instagram` (se não for `'#'`). Se nenhum dos três tiver uma URL real, a logomarca não vira um link clicável (fica só a imagem, sem `href` quebrado apontando para `#`).
 
 ### Bloco "Realização"
 
-Sempre visível — é a identidade fixa do Clube Carnivorista. Se `realizacao.logo` estiver vazio, o nome (`realizacao.nome`) aparece como texto estilizado no lugar da imagem, então a seção nunca fica com um espaço vazio ou uma imagem quebrada.
+Sempre visível — é a identidade fixa do Clube Carnivorista, separado do sistema de categorias acima. Se `realizacao.logo` estiver vazio, o nome (`realizacao.nome`) aparece como texto estilizado no lugar da imagem, então a seção nunca fica com um espaço vazio ou uma imagem quebrada.
 
 ---
 
