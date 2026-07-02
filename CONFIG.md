@@ -27,7 +27,11 @@ const CONFIG = {
   dataEvento: '29 de julho de 2026 (quarta-feira)',
   horarioRecepcao: '19:00',
   horarioWorkshop: '19:30',
-  videoExperienciaId: ''
+  videoExperienciaId: '',
+  links: {
+    garantirVaga: 'https://workshop-carnes-premium.vercel.app/',
+    calculadora: 'https://creative-licorice-04e925.netlify.app/'
+  }
 };
 ```
 
@@ -59,6 +63,10 @@ const CONFIG = {
 | `horarioRecepcao` | Horário de abertura/recepção. | Texto: `'19:00'` |
 | `horarioWorkshop` | Horário de início do workshop. | Texto: `'19:30'` |
 | `videoExperienciaId` | ID do vídeo do YouTube exibido na seção "Conheça a Experiência". Vazio = seção mostra placeholder com botão desabilitado, sem imagem quebrada. | Texto: `'dQw4w9WgXcQ'` (trecho depois de `v=` na URL do YouTube) |
+| `links.garantirVaga` | Destino do botão principal em `links.html` (página de Link in Bio). | URL completa da Landing |
+| `links.calculadora` | Destino do botão "Calculadora de Carnes" em `links.html`. | URL completa do EventCalc Pro v7 |
+
+Os outros três botões de `links.html` (Grupo do WhatsApp, YouTube, Instagram) **não duplicam link nenhum** — reaproveitam `whatsappGroup`, `youtube` e `instagram` já listados acima.
 
 ## Observações importantes
 

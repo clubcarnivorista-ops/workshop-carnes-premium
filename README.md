@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.5** — nova seção "Conheça a Experiência", com player de vídeo em destaque. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.6** — nova página `links.html` (Link in Bio) para o Instagram. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -12,6 +12,7 @@ Antes de publicar (ou de publicar uma atualização), siga o [CHECKLIST-PUBLICAC
 workshop-carnes-premium/
 ├── index.html          → página principal (landing page)
 ├── obrigado.html        → página de confirmação pós-pagamento
+├── links.html            → página de Link in Bio (Instagram) com os links oficiais
 ├── 404.html               → página de erro personalizada (link quebrado/URL inexistente)
 ├── privacidade.html        → Política de Privacidade (página institucional, em preparação)
 ├── lgpd.html                → LGPD (página institucional, em preparação)
@@ -326,6 +327,27 @@ videoExperienciaId: 'SEU_ID_DO_YOUTUBE', // o trecho depois de v= na URL do víd
 ```
 
 A miniatura (thumbnail) é buscada automaticamente do próprio YouTube (`img.youtube.com/vi/SEU_ID/maxresdefault.jpg`) — não precisa cadastrar nenhuma imagem em `assets/`. O player só carrega (cria o `<iframe>`) quando o visitante clica em assistir — sem autoplay, sem sair da página. O parâmetro `rel=0` é enviado ao YouTube para reduzir vídeos relacionados de outros canais ao final (o YouTube não permite removê-los por completo desde 2018).
+
+---
+
+## Página de Link in Bio (`links.html`)
+
+Página própria para colocar no link da bio do Instagram — usa a mesma identidade visual da Landing (fundo escuro, detalhes dourados, mesmas fontes), mas em uma estrutura simples de 5 botões, sem nenhuma outra seção da Landing.
+
+Todos os destinos vêm do `CONFIG` (`script.js`), sem link hardcoded no HTML:
+
+```js
+links: {
+  garantirVaga: 'https://workshop-carnes-premium.vercel.app/', // Landing principal
+  calculadora: 'https://creative-licorice-04e925.netlify.app/'  // EventCalc Pro v7
+}
+```
+
+Os outros três botões (Grupo do WhatsApp, YouTube, Instagram) reaproveitam os mesmos campos já usados no resto do site — `CONFIG.whatsappGroup`, `CONFIG.youtube`, `CONFIG.instagram` — para não duplicar o mesmo link em dois lugares do `CONFIG`.
+
+Para trocar qualquer destino, edite o `CONFIG` e rode `python tools/minify.py js script.js script.min.js` de novo — `links.html` não precisa ser tocado.
+
+A Landing (`index.html`) não foi alterada por essa página — ela continua funcionando exatamente como antes.
 
 ---
 

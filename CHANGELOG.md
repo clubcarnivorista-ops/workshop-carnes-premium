@@ -2,6 +2,35 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.6] — Página de Link in Bio (`links.html`) — 2026-07-02
+
+Nova página `links.html`, para uso no link da bio do Instagram, com os 5 links oficiais do Clube Carnivorista. A Landing (`index.html`) não foi alterada — continua funcionando exatamente como estava na v1.0.5.
+
+### Adicionado
+- `links.html`: página própria, HTML/CSS/JS puros (sem biblioteca externa), reaproveitando `style.min.css` e `script.min.js` já existentes — nenhuma duplicação de CSS/JS
+- Logotipo em texto ("Clube Carnivorista", com o mesmo gradiente dourado do `hero__title`) + descrição "A arte da carne elevada ao próximo nível." — como não existe ainda um arquivo de logo em `assets/logos/` (pasta reservada para uso futuro), optamos por wordmark em texto em vez de inventar um caminho de imagem inexistente
+- 5 botões, na ordem pedida: **Garanta sua vaga** (botão principal, maior, dourado) → **Calculadora de Carnes** → **Grupo Oficial WhatsApp** → **Canal do YouTube** → **Instagram Oficial**
+- `CONFIG.links` (`script.js`): centraliza os dois destinos exclusivos desta página (`garantirVaga`, `calculadora`). Os outros três botões reaproveitam `CONFIG.whatsappGroup`, `CONFIG.youtube` e `CONFIG.instagram` — já existentes, sem duplicar o mesmo link em dois lugares
+- `setupLinksPage()` (`script.js`): preenche os 5 `href` a partir do `CONFIG`, seguindo o mesmo padrão defensivo (`if (el)`) já usado em `setupLinks()` — nenhum link fica hardcoded no HTML
+- Classes `.links`, `.links__content`, `.links__logo`, `.links__tagline`, `.links__list`, `.links__btn`, `.links__btn--primary`, `.links__icon`, `.links__footer` em `style.css`, reaproveitando variáveis (`--black`, `--gold`, `--font-display`, `--font-body`, `--radius`, `--transition`) e a classe `.reveal` já existentes — nenhuma cor ou fonte nova
+- SEO completo: título "Clube Carnivorista \| Links Oficiais", meta description própria, canonical, Open Graph, Twitter Card, `robots: index, follow`
+- Nova entrada em `sitemap.xml` para `links.html`
+
+### Verificado
+- Desktop, tablet (768px) e mobile (375px): sem overflow horizontal, botões e conteúdo centralizados, sem quebra de layout
+- Todos os 5 `href` resolvidos corretamente a partir do `CONFIG` (nenhum aponta para `#`)
+- Console sem erros em `links.html`
+- `index.html` (Landing) recarregada após a mudança: CTAs, contador de vagas e links do rodapé continuam funcionando normalmente — nenhuma regressão
+- Contraste AA: texto branco/dourado sobre fundo escuro reaproveita as mesmas combinações já usadas (e testadas) no resto do site
+- Foco visível (`:focus-visible`) e `aria-label` em todos os 5 botões
+
+### Documentação
+- `README.md`: nova seção "Página de Link in Bio (`links.html`)", estrutura do projeto atualizada
+- `CONFIG.md`: `links.garantirVaga` e `links.calculadora` documentados
+- `04-HISTORICO.md`: versão atual atualizada para v1.0.6
+
+---
+
 ## [1.0.5] — Seção "Conheça a Experiência" — 2026-07-02
 
 Nova seção com player de vídeo em destaque, entre "Menu da Experiência" e "Quem Já Viveu Essa Experiência". Nenhuma alteração no carrinho, modal PIX, botão Mercado Pago, SEO ou responsividade das seções existentes.

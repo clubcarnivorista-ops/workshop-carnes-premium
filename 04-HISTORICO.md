@@ -2,9 +2,9 @@
 
 Registro resumido de cada versão publicada. Para o detalhe técnico completo de cada mudança, ver [CHANGELOG.md](CHANGELOG.md) — este arquivo é só o resumo executivo.
 
-## Versão atual: **v1.0.5**
+## Versão atual: **v1.0.6**
 
-Duas entregas: (1) nova seção "Conheça a Experiência", com player de vídeo em destaque — ainda pendente de gravação, publicada com placeholder; (2) os 11 vídeos oficiais do YouTube (Mentor, Depoimentos, Reconhecimento) publicados na seção "Quem Já Viveu Essa Experiência", organizados em três grupos com carrossel próprio cada.
+Nova página `links.html` (Link in Bio), para uso no link da bio do Instagram — mesma identidade visual da Landing, 5 botões (Garanta sua vaga, Calculadora de Carnes, Grupo WhatsApp, YouTube, Instagram), todos os destinos centralizados em `CONFIG.links` (mais os já existentes `whatsappGroup`/`youtube`/`instagram`, reaproveitados sem duplicação). A Landing (`index.html`) não foi alterada.
 
 ---
 
@@ -12,6 +12,7 @@ Duas entregas: (1) nova seção "Conheça a Experiência", com player de vídeo 
 
 | Versão | Resumo |
 |---|---|
+| **v1.0.6** | Página `links.html` (Link in Bio) para o Instagram, com 5 botões e `CONFIG.links` |
 | **v1.0.5** | Seção "Conheça a Experiência" (player em destaque) + 11 vídeos oficiais em 3 grupos (Mentor, Depoimentos, Reconhecimento) na seção de depoimentos |
 | **v1.0.4** | QR Code PIX oficial funcionando (corrigido bug que impedia o carregamento) + botão "Copiar PIX Copia e Cola" |
 | **v1.0.3** | Dados oficiais do Clube Carnivorista publicados: WhatsApp, e-mail, Instagram, YouTube, Google Maps, PIX e Mercado Pago — fim dos placeholders |
@@ -32,6 +33,6 @@ um resumo maior aqui embaixo. Mantenha o "Versão atual" no topo sempre
 atualizado — é a primeira coisa que qualquer pessoa (ou IA) vai ler.
 -->
 
-### v1.0.6 — (ainda não publicada)
+### v1.0.7 — (ainda não publicada)
 
 *Reservado para a próxima versão.*

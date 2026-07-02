@@ -1609,6 +1609,108 @@ ul, ol {
   color: var(--gold);
 }
 
+/* ---------- PÁGINA LINKS (LINK IN BIO) ---------- */
+.links {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  padding: 60px 20px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(201, 169, 97, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 100%, rgba(201, 169, 97, 0.06) 0%, transparent 55%),
+    var(--black);
+}
+
+.links__content {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.links__logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--white-pure), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+
+.links__tagline {
+  color: var(--gray-light);
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+}
+
+.links__list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.links__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: var(--radius);
+  background: var(--black-card);
+  border: 1px solid rgba(201, 169, 97, 0.25);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.links__btn:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.links__btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.links__btn--primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--black);
+  border-color: transparent;
+  font-size: 1.05rem;
+  padding: 20px 24px;
+}
+
+.links__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 97, 0.3);
+}
+
+.links__icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.links__footer {
+  color: var(--gray);
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 /* ---------- SCROLL REVEAL ---------- */
 .reveal {
   opacity: 0;

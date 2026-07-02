@@ -28,7 +28,11 @@
     dataEvento: '29 de julho de 2026 (quarta-feira)', // Data oficial do evento
     horarioRecepcao: '19:00',                    // Horário de abertura/recepção
     horarioWorkshop: '19:30',                    // Horário de início do workshop
-    videoExperienciaId: ''                       // ID do vídeo do YouTube da seção "Conheça a Experiência" (vazio = seção mostra placeholder "em breve")
+    videoExperienciaId: '',                      // ID do vídeo do YouTube da seção "Conheça a Experiência" (vazio = seção mostra placeholder "em breve")
+    links: {                                     // Destinos usados na página links.html (Link in Bio)
+      garantirVaga: 'https://workshop-carnes-premium.vercel.app/',      // Landing principal
+      calculadora: 'https://creative-licorice-04e925.netlify.app/'      // EventCalc Pro v7
+    }
   };
 
   var VAGAS_MIN = 20;         // mínimo de participantes para o evento acontecer
@@ -84,6 +88,27 @@
 
     var footerEndereco = document.getElementById('footerEndereco');
     if (footerEndereco) footerEndereco.textContent = CONFIG.endereco;
+  }
+
+  /* ========== PÁGINA LINKS (LINK IN BIO) ==========
+   * Preenche os destinos dos botões de links.html a partir do CONFIG — nenhum
+   * link fica hardcoded no HTML. Reaproveita CONFIG.whatsappGroup/youtube/instagram
+   * (já centralizados para o resto do site) e usa CONFIG.links para os dois
+   * destinos exclusivos desta página.
+   */
+  function setupLinksPage() {
+    var map = {
+      linkGarantirVaga: CONFIG.links.garantirVaga,
+      linkCalculadora: CONFIG.links.calculadora,
+      linkWhatsapp: CONFIG.whatsappGroup,
+      linkYoutube: CONFIG.youtube,
+      linkInstagram: CONFIG.instagram
+    };
+
+    Object.keys(map).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.href = map[id];
+    });
   }
 
   /* ========== INFORMAÇÕES DO EVENTO (DATA E HORÁRIOS) ========== */
@@ -823,6 +848,7 @@
   /* ========== INIT ========== */
   function init() {
     setupLinks();
+    setupLinksPage();
     setupEventInfo();
     setupQuantitySelector();
     setupPixModal();
