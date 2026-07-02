@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.4** — QR Code PIX oficial integrado, com botão "Copiar PIX Copia e Cola". Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.5** — nova seção "Conheça a Experiência", com player de vídeo em destaque. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -311,6 +311,19 @@ O rodapé também tem uma linha de links institucionais (Política de Privacidad
 A seção **"Quem Já Viveu Essa Experiência"** (carrossel de depoimentos em vídeo) e a seção **"Patrocinadores"** também são geradas automaticamente a partir de objetos `TESTIMONIALS` e `PATROCINADORES` no topo de `script.js` — mesmo padrão do `CONFIG`. Basta inserir um novo objeto no array correspondente para adicionar um vídeo, um patrocinador ou um apoiador; nenhum HTML precisa ser tocado.
 
 Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#depoimentos-em-vídeo--testimonials) e [CONFIG.md](CONFIG.md#patrocinadores--patrocinadores).
+
+---
+
+## Como ativar o vídeo da seção "Conheça a Experiência"
+
+Entre "Menu da Experiência" e "Quem Já Viveu Essa Experiência" existe uma seção com um player de vídeo em destaque ("Veja como será a experiência"). Até o vídeo oficial ser gravado e publicado no YouTube, essa seção mostra um placeholder — o botão de assistir fica desabilitado, sem imagem quebrada.
+
+Para ativar, preencha o ID do vídeo em `CONFIG` (`script.js`):
+```js
+videoExperienciaId: 'SEU_ID_DO_YOUTUBE', // o trecho depois de v= na URL do vídeo
+```
+
+A miniatura (thumbnail) é buscada automaticamente do próprio YouTube (`img.youtube.com/vi/SEU_ID/maxresdefault.jpg`) — não precisa cadastrar nenhuma imagem em `assets/`. O player só carrega (cria o `<iframe>`) quando o visitante clica em assistir — sem autoplay, sem sair da página. O parâmetro `rel=0` é enviado ao YouTube para reduzir vídeos relacionados de outros canais ao final (o YouTube não permite removê-los por completo desde 2018).
 
 ---
 

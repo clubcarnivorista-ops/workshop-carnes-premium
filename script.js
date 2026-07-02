@@ -27,7 +27,8 @@
     vagasMax: 50,
     dataEvento: '29 de julho de 2026 (quarta-feira)', // Data oficial do evento
     horarioRecepcao: '19:00',                    // Horário de abertura/recepção
-    horarioWorkshop: '19:30'                     // Horário de início do workshop
+    horarioWorkshop: '19:30',                    // Horário de início do workshop
+    videoExperienciaId: ''                       // ID do vídeo do YouTube da seção "Conheça a Experiência" (vazio = seção mostra placeholder "em breve")
   };
 
   var VAGAS_MIN = 20;         // mínimo de participantes para o evento acontecer
@@ -525,6 +526,45 @@
     updateNavState();
   }
 
+  /* ========== VÍDEO DA EXPERIÊNCIA (SEÇÃO "CONHEÇA A EXPERIÊNCIA") ==========
+   * Mesmo princípio do carrossel de depoimentos: mostra uma miniatura
+   * clicável (sem custo de carregar o player do YouTube antecipadamente —
+   * só a imagem, que já é lazy) e cria o <iframe> apenas quando o usuário
+   * clica em assistir. Sem autoplay, sem abrir nova aba, com rel=0 para
+   * reduzir vídeos relacionados de outros canais ao final (parâmetro
+   * oficial do YouTube — não é possível removê-los por completo).
+   */
+  function setupExperienciaVideo() {
+    var wrapper = document.getElementById('videoExperiencia');
+    var trigger = document.getElementById('videoExperienciaTrigger');
+    var thumb = document.getElementById('videoExperienciaThumb');
+    var frame = document.getElementById('videoExperienciaFrame');
+
+    if (!wrapper || !trigger || !thumb || !frame) return;
+
+    if (!CONFIG.videoExperienciaId) {
+      wrapper.classList.add('featured-video--empty');
+      trigger.disabled = true;
+      trigger.setAttribute('aria-label', 'Vídeo em breve');
+      return;
+    }
+
+    thumb.src = 'https://img.youtube.com/vi/' + CONFIG.videoExperienciaId + '/maxresdefault.jpg';
+    thumb.hidden = false;
+
+    trigger.addEventListener('click', function () {
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + CONFIG.videoExperienciaId + '?rel=0';
+      iframe.title = 'Veja como será a experiência';
+      iframe.setAttribute('allow', 'accelerometer; encrypted-media; gyroscope; picture-in-picture');
+      iframe.allowFullscreen = true;
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.hidden = false;
+      trigger.hidden = true;
+    });
+  }
+
   /* ========== PATROCINADORES ==========
    * Objeto central com os logos de realização, patrocinador master, patrocinadores
    * e apoiadores. Para adicionar/remover um patrocinador ou apoiador, basta
@@ -734,6 +774,7 @@
     setupQuantitySelector();
     setupPixModal();
     setupVagasCounter();
+    setupExperienciaVideo();
     setupTestimonials();
     setupPatrocinadores();
     setupConversionTracking();

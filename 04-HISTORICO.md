@@ -2,9 +2,9 @@
 
 Registro resumido de cada versão publicada. Para o detalhe técnico completo de cada mudança, ver [CHANGELOG.md](CHANGELOG.md) — este arquivo é só o resumo executivo.
 
-## Versão atual: **v1.0.4**
+## Versão atual: **v1.0.5**
 
-QR Code PIX oficial integrado (gerado pelo próprio banco, validado por decodificação), com botão "Copiar PIX Copia e Cola" no modal de pagamento.
+Nova seção "Conheça a Experiência", com player de vídeo em destaque entre o Menu da Experiência e os Depoimentos. Vídeo ainda pendente de gravação — seção já publicada com placeholder, pronta para ativar assim que o ID do YouTube for cadastrado.
 
 ---
 
@@ -12,6 +12,7 @@ QR Code PIX oficial integrado (gerado pelo próprio banco, validado por decodifi
 
 | Versão | Resumo |
 |---|---|
+| **v1.0.5** | Nova seção "Conheça a Experiência" (player de vídeo em destaque + botão "Quero viver essa experiência") |
 | **v1.0.4** | QR Code PIX oficial funcionando (corrigido bug que impedia o carregamento) + botão "Copiar PIX Copia e Cola" |
 | **v1.0.3** | Dados oficiais do Clube Carnivorista publicados: WhatsApp, e-mail, Instagram, YouTube, Google Maps, PIX e Mercado Pago — fim dos placeholders |
 | **v1.0.2** | Repositório Git consolidado (estrutura de pastas duplicada corrigida) + correção de nomenclatura no cardápio ("Nachos" → "Farofa de Nachos") |
@@ -31,6 +32,6 @@ um resumo maior aqui embaixo. Mantenha o "Versão atual" no topo sempre
 atualizado — é a primeira coisa que qualquer pessoa (ou IA) vai ler.
 -->
 
-### v1.0.5 — (ainda não publicada)
+### v1.0.6 — (ainda não publicada)
 
 *Reservado para a próxima versão.*

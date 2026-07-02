@@ -425,7 +425,8 @@ ul, ol {
 .sponsor-logo:focus-visible,
 .faq-item__question:focus-visible,
 .footer__link:focus-visible,
-.footer__legal a:focus-visible {
+.footer__legal a:focus-visible,
+.featured-video__trigger:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
@@ -910,6 +911,96 @@ ul, ol {
   font-size: 0.8rem;
   color: var(--gray);
   line-height: 1.6;
+}
+
+/* ---------- CONHEÇA A EXPERIÊNCIA (PLAYER DE VÍDEO EM DESTAQUE) ---------- */
+.section__eyebrow {
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.featured-video {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.featured-video__trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.18), rgba(107, 26, 26, 0.18));
+  cursor: pointer;
+}
+
+.featured-video__trigger:disabled {
+  cursor: not-allowed;
+}
+
+.featured-video__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(201, 169, 97, 0.5);
+  color: var(--gold);
+  font-size: 1.8rem;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.featured-video__trigger:hover .featured-video__play {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.featured-video--empty .featured-video__play {
+  opacity: 0.4;
+}
+
+/* aspect-ratio reserva o espaço do vídeo antes do iframe existir — evita CLS */
+.featured-video__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--black);
+}
+
+.featured-video__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.featured-video__cta {
+  text-align: center;
+  margin-top: 32px;
 }
 
 /* ---------- QUEM JÁ VIVEU ESSA EXPERIÊNCIA (CARROSSEL DE DEPOIMENTOS) ---------- */

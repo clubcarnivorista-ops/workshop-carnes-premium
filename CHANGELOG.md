@@ -2,6 +2,27 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.5] — Seção "Conheça a Experiência" — 2026-07-02
+
+Nova seção com player de vídeo em destaque, entre "Menu da Experiência" e "Quem Já Viveu Essa Experiência". Nenhuma alteração no carrinho, modal PIX, botão Mercado Pago, SEO ou responsividade das seções existentes.
+
+### Adicionado
+- Nova seção `#experiencia` ("Veja como será a experiência"), com o mesmo tratamento visual das demais seções (eyebrow, título, subtítulo, `reveal` no scroll)
+- `CONFIG.videoExperienciaId` (`script.js`): ID do vídeo do YouTube. Enquanto vazio, a seção mostra um placeholder com o botão de assistir desabilitado — sem thumbnail quebrada, sem erro no console
+- `setupExperienciaVideo()`: mesmo padrão de carregamento sob demanda já usado nos depoimentos — a miniatura (buscada direto do YouTube, sem asset próprio) é a única coisa carregada até o clique; o `<iframe>` só é criado quando o visitante clica em assistir, sem autoplay, sem abrir nova aba, com `rel=0` para reduzir vídeos relacionados de outros canais ao final
+- Botão "Quero viver essa experiência" abaixo do player, com scroll suave para `#ingressos` (reaproveita `setupSmoothScroll()` já existente, sem código novo)
+- Classe utilitária `.section__eyebrow`, reutilizável em futuras seções que precisarem do mesmo rótulo pequeno acima do título
+
+### Verificado
+- Player responsivo (proporção 16:9 mantida) em desktop (1280px), tablet (768px) e mobile (375px), sem overflow horizontal
+- Placeholder (sem `videoExperienciaId`) renderiza corretamente, com o botão desabilitado
+- Carrinho, modal PIX (favorecido, chave, QR Code) e botão "Pagar com Cartão" testados após a mudança — nenhuma regressão
+- Console sem erros em todos os tamanhos de tela
+
+### Documentação
+- `README.md`: nova seção "Como ativar o vídeo da seção 'Conheça a Experiência'"
+- `CONFIG.md`: `videoExperienciaId` documentado
+
 ## [1.0.4] — QR Code PIX oficial — 2026-07-01
 
 Integração definitiva do QR Code PIX oficial e do código Copia e Cola. Nenhuma mudança de layout, identidade visual, UX, SEO ou performance — só a substituição do QR Code (antes ausente/quebrado) e uma nova forma de pagamento manual (Copia e Cola) no modal já existente.
