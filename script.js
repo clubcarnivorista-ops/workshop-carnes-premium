@@ -39,36 +39,38 @@
     },
     parceiros: {                                 // Seção "Patrocinadores" — cada chave é uma tier. Tier vazia (`[]`) não aparece na página.
       master: [
-        // { nome: '', logo: '', categoria: 'master', instagram: '#', site: '#', link: '', descricao: '' }
+        // { nome: '', logo: '', categoria: 'master', instagram: '#', whatsapp: '', site: '#', link: '', descricao: '' }
       ],
       ouro: [
-        // { nome: '', logo: '', categoria: 'ouro', instagram: '#', site: '#', link: '', descricao: '' }
+        // { nome: '', logo: '', categoria: 'ouro', instagram: '#', whatsapp: '', site: '#', link: '', descricao: '' }
       ],
       prata: [
-        // { nome: '', logo: '', categoria: 'prata', instagram: '#', site: '#', link: '', descricao: '' }
+        // { nome: '', logo: '', categoria: 'prata', instagram: '#', whatsapp: '', site: '#', link: '', descricao: '' }
       ],
       oficiais: [ // Parceiros por permuta — hoje todos os cadastrados ficam aqui
+        {
+          nome: 'Carvão Super-Fogo',
+          logo: 'assets/patrocinadores/carvao-superfogo.webp.png',
+          categoria: 'oficiais',
+          instagram: 'https://www.instagram.com/carvao_superfogo/',
+          whatsapp: '+55 42 98871-5565', // ainda não usado como link clicável (ver CONFIG.md)
+          site: '#', // pendente — site ainda não informado
+          link: '',
+          descricao: 'Carvão premium para um fogo intenso, estável e de alta performance.'
+        },
         {
           nome: 'Faroeste Beer Co.',
           logo: 'assets/patrocinadores/chopp-faroeste3.jpg',
           categoria: 'oficiais',
-          instagram: '#', // pendente — Instagram ainda não informado
-          site: '#',      // pendente — site ainda não informado
+          instagram: 'https://www.instagram.com/faroestebeer/',
+          whatsapp: '+55 47 99192-2875', // ainda não usado como link clicável (ver CONFIG.md)
+          site: '#', // pendente — site ainda não informado
           link: '',
-          descricao: ''
-        },
-        {
-          nome: 'Super Fogo',
-          logo: 'assets/patrocinadores/carvao-superfogo.webp.png',
-          categoria: 'oficiais',
-          instagram: '#', // pendente — Instagram ainda não informado
-          site: '#',      // pendente — site ainda não informado
-          link: '',
-          descricao: ''
+          descricao: 'Chopp artesanal que acompanha grandes momentos ao redor da brasa.'
         }
       ],
       apoio: [
-        // { nome: '', logo: '', categoria: 'apoio', instagram: '#', site: '#', link: '', descricao: '' }
+        // { nome: '', logo: '', categoria: 'apoio', instagram: '#', whatsapp: '', site: '#', link: '', descricao: '' }
       ]
     }
   };

@@ -158,8 +158,8 @@ parceiros: {
   ouro: [],
   prata: [],
   oficiais: [
-    { nome: 'Faroeste Beer Co.', logo: 'assets/patrocinadores/chopp-faroeste3.jpg', categoria: 'oficiais', instagram: '#', site: '#', link: '', descricao: '' },
-    { nome: 'Super Fogo', logo: 'assets/patrocinadores/carvao-superfogo.webp.png', categoria: 'oficiais', instagram: '#', site: '#', link: '', descricao: '' }
+    { nome: 'Carvão Super-Fogo', logo: 'assets/patrocinadores/carvao-superfogo.webp.png', categoria: 'oficiais', instagram: 'https://www.instagram.com/carvao_superfogo/', whatsapp: '+55 42 98871-5565', site: '#', link: '', descricao: 'Carvão premium para um fogo intenso, estável e de alta performance.' },
+    { nome: 'Faroeste Beer Co.', logo: 'assets/patrocinadores/chopp-faroeste3.jpg', categoria: 'oficiais', instagram: 'https://www.instagram.com/faroestebeer/', whatsapp: '+55 47 99192-2875', site: '#', link: '', descricao: 'Chopp artesanal que acompanha grandes momentos ao redor da brasa.' }
   ],
   apoio: []
 }
@@ -184,6 +184,7 @@ Cada item de uma tier aceita os mesmos campos:
 | `logo` | Caminho da logomarca. | Caminho relativo: `'assets/patrocinadores/xyz.png'` |
 | `categoria` | Apenas identifica a que tier o item pertence (informativo — quem decide onde ele aparece é a chave de `CONFIG.parceiros` em que o objeto está). | Texto: mesma chave da tier, ex: `'oficiais'` |
 | `instagram` | Link do Instagram. Use `'#'` enquanto não tiver sido informado — a logomarca não vira um link clicável até que `instagram`, `site` ou `link` tenham uma URL real. | URL completa, ou `'#'` |
+| `whatsapp` | Número de WhatsApp do parceiro, só para referência/registro — **hoje não é usado como link clicável** (a prioridade de clique continua sendo `link` → `site` → `instagram`, sem `whatsapp` nessa lista). Se um dia fizer sentido oferecer contato direto por WhatsApp na logomarca, é só incluir `whatsapp` na prioridade de `buildSponsorLink()`. | Texto: `'+55 DD 9NNNN-NNNN'`, ou `''` se não houver |
 | `site` | Link do site. Mesma regra do `instagram` acima. | URL completa, ou `'#'` |
 | `link` | Link de destino ao clicar na logomarca (opcional). Tem prioridade sobre `site` e `instagram` se os três forem preenchidos. | URL completa |
 | `descricao` | Descrição curta, opcional — some ao tooltip da logomarca (`"Nome — descrição"`). Deixe `''` se não houver. | Texto livre e curto |
@@ -195,7 +196,7 @@ A tier já existe vazia em `CONFIG.parceiros` — só insira o item no array cer
 ```js
 parceiros: {
   master: [
-    { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/master-xyz.png', categoria: 'master', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
+    { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/master-xyz.png', categoria: 'master', instagram: 'https://instagram.com/xyz', whatsapp: '+55 DD 9NNNN-NNNN', site: '#', link: '', descricao: '' }
   ],
   // ...
 }
@@ -209,7 +210,7 @@ Insira um novo objeto no array da tier certa, dentro de `CONFIG.parceiros`:
 
 ```js
 oficiais: [
-  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', categoria: 'oficiais', instagram: 'https://instagram.com/xyz', site: '#', link: '', descricao: '' }
+  { nome: 'Casa de Carnes XYZ', logo: 'assets/patrocinadores/xyz.png', categoria: 'oficiais', instagram: 'https://instagram.com/xyz', whatsapp: '+55 DD 9NNNN-NNNN', site: '#', link: '', descricao: '' }
 ]
 ```
 

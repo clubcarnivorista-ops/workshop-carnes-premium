@@ -2,6 +2,35 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.7.1] — Dados reais dos Parceiros Oficiais — 2026-07-02
+
+Atualização de dados dos dois Parceiros Oficiais já cadastrados (`CONFIG.parceiros.oficiais`, em `script.js`) — sem nenhuma mudança de estrutura, layout ou UX.
+
+### Alterado
+- **Carvão Super-Fogo** (antes "Super Fogo"): nome corrigido, `instagram` preenchido (`https://www.instagram.com/carvao_superfogo/`), `descricao` adicionada ("Carvão premium para um fogo intenso, estável e de alta performance.")
+- **Faroeste Beer Co.**: `instagram` preenchido (`https://www.instagram.com/faroestebeer/`), `descricao` adicionada ("Chopp artesanal que acompanha grandes momentos ao redor da brasa.")
+- Com `instagram` real preenchido nos dois, a logomarca de ambos os parceiros passa a ser clicável na Landing (antes não era, pois `instagram: '#'` não conta como link — regra já existente em `buildSponsorLink()`, sem mudança de código)
+
+### Adicionado
+- Novo campo `whatsapp` no objeto de cada parceiro (`+55 42 98871-5565` para Carvão Super-Fogo, `+55 47 99192-2875` para Faroeste Beer Co.) — guardado para referência, **não usado como link clicável** hoje (a prioridade de clique continua `link` → `site` → `instagram`, sem alteração de comportamento). Também adicionado como campo de exemplo nos templates comentados de `script.js` e `CONFIG.md` (master/ouro/prata/apoio), para manter o padrão consistente em cadastros futuros
+
+### Pendências
+- `site` de ambos os parceiros continua `'#'` — ainda não informado
+
+### Verificado
+- Console sem erros
+- Logomarcas de Carvão Super-Fogo e Faroeste Beer Co. agora abrem o Instagram real ao clicar (antes não tinham `href`)
+- Tooltip (`title`) de cada logomarca exibe nome + descrição corretamente
+- Sem overflow em mobile (375px)
+- Nenhuma mudança de layout, cor ou tipografia — só dados
+
+### Documentação
+- `README.md`: seção "Como adicionar vídeos, parceiros e patrocinadores" atualizada com os nomes reais e o novo campo `whatsapp`
+- `CONFIG.md`: exemplo de `CONFIG.parceiros.oficiais` atualizado com os dados reais; campo `whatsapp` documentado na tabela de referência e nos templates de exemplo
+- `assets/README.md`: referência a "Super Fogo" corrigida para "Carvão Super-Fogo"
+
+---
+
 ## [1.0.8] — Auditoria completa da Landing Page — 2026-07-02
 
 Auditoria completa (HTML, CSS, JS, SEO, performance, acessibilidade, responsividade, segurança, LGPD, links, imagens, CONFIG, organização do projeto). Nenhuma funcionalidade nova, nenhuma mudança de identidade visual ou UX — só oportunidades de melhoria, conforme escopo da missão. Achados classificados em Crítica/Alta/Média/Baixa; só Média e Baixa foram corrigidos automaticamente, Alta e Crítica ficam documentados para decisão futura.

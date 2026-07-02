@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.8** — auditoria completa da Landing Page (HTML/CSS/JS/SEO/performance/acessibilidade/segurança/LGPD). Limpeza de código morto e cache-busting corrigidos; um bug de CSP na barra de "Vagas" e outros achados de prioridade alta ficaram documentados para decisão futura. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.7.1** — dados reais dos Parceiros Oficiais (Carvão Super-Fogo e Faroeste Beer Co.): Instagram, WhatsApp e descrição atualizados no `CONFIG`. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -318,7 +318,9 @@ A seção **"Quem Já Viveu Essa Experiência"** exibe três grupos de vídeo la
 
 As miniaturas dos vídeos vêm automaticamente do próprio YouTube — não é preciso cadastrar nenhuma imagem em `assets/`.
 
-A partir da v1.0.7, `CONFIG.parceiros` é organizado **por tier**: hoje existe **Parceiros Oficiais** (com os primeiros dois parceiros, vindos de permuta) e três tiers já reservadas para o futuro — **Patrocinador Master**, **Patrocinadores Ouro** e **Patrocinadores Prata** — todas vazias até o primeiro fechamento em cada uma, mais **Apoio** para parcerias sem contrapartida financeira. A ordem de exibição na página é sempre **Master → Ouro → Prata → Parceiros Oficiais → Apoio** (definida em `CATEGORIAS_PARCEIROS`, logo abaixo do `CONFIG` em `script.js`); uma tier vazia simplesmente não aparece. Criar uma tier nova não exige tocar em `index.html`, só em `CONFIG.md`/`script.js`.
+A partir da v1.0.7, `CONFIG.parceiros` é organizado **por tier**: hoje existe **Parceiros Oficiais** — **Carvão Super-Fogo** e **Faroeste Beer Co.**, vindos de permuta, com Instagram real cadastrado desde a v1.0.7.1 — e três tiers já reservadas para o futuro — **Patrocinador Master**, **Patrocinadores Ouro** e **Patrocinadores Prata** — todas vazias até o primeiro fechamento em cada uma, mais **Apoio** para parcerias sem contrapartida financeira. A ordem de exibição na página é sempre **Master → Ouro → Prata → Parceiros Oficiais → Apoio** (definida em `CATEGORIAS_PARCEIROS`, logo abaixo do `CONFIG` em `script.js`); uma tier vazia simplesmente não aparece. Criar uma tier nova não exige tocar em `index.html`, só em `CONFIG.md`/`script.js`.
+
+Cada item de parceiro também aceita um campo `whatsapp` (número, só para referência) — hoje não é usado como link clicável; o clique na logomarca continua seguindo a prioridade `link` → `site` → `instagram`. Ver [CONFIG.md](CONFIG.md#patrocinadores--configrealizacao-e-configparceiros) para o campo completo.
 
 Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#vídeos-em-grupo--video_groups) e [CONFIG.md](CONFIG.md#patrocinadores--configrealizacao-e-configparceiros).
 
