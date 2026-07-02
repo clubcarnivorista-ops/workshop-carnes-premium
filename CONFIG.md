@@ -6,20 +6,21 @@ Não é preciso mexer em nenhum outro arquivo `.html` para alterar preço, vagas
 
 ```js
 const CONFIG = {
-  checkoutMercadoPago: '#',
-  pixKey: '00.000.000/0001-00',
-  pixName: 'Workshop Carnes Premium',
+  checkoutMercadoPago: 'https://link.mercadopago.com.br/workshopcanelinha001',
+  pixKey: '03362258905',
+  pixKeyType: 'CPF',
+  pixName: 'Juliomar Andrucho Meskiu',
   pixQRCode: 'assets/pix-qrcode.png',
   pixMaleValue: 250.00,
   pixFemaleValue: 220.00,
-  whatsappContact: '5547999999999',
-  whatsappGroup: '#',
-  instagram: '#',
-  youtube: '#',
-  maps: '#',
-  telefone: '+55 47 99999-9999',
-  email: 'contato@clubecarnivorista.com.br',
-  endereco: 'Canelinha/SC',
+  whatsappContact: '5547996681010',
+  whatsappGroup: 'https://chat.whatsapp.com/I5w3cW0bZzB5L8NfFd4rdq?s=cl&p=a&mlu=3',
+  instagram: 'https://www.instagram.com/clubcarnivorista?igsh=MWc5cHd0eHBnanFnaw==',
+  youtube: 'https://www.youtube.com/@ClubCarnivorista',
+  maps: 'https://maps.app.goo.gl/7mkaVDxP5CGRetEs6',
+  telefone: '+55 47 99668-1010',
+  email: 'clubcarnivorista@gmail.com',
+  endereco: 'Estrada Geral do Moura, Bairro Moura — Canelinha/SC',
   vagasAtuais: 32,
   vagasMax: 50,
   dataEvento: '29 de julho de 2026 (quarta-feira)',
@@ -28,12 +29,15 @@ const CONFIG = {
 };
 ```
 
+> **Dados oficiais do Clube Carnivorista, publicados na v1.0.3.** Não restam placeholders (`#`, números/e-mails genéricos) em nenhum campo do `CONFIG`.
+
 ## Tabela de referência
 
 | Chave | O que controla | Formato / exemplo |
 |---|---|---|
 | `checkoutMercadoPago` | Link de checkout do Mercado Pago. Usado no botão "Pagar com Cartão". | URL completa: `'https://mpago.la/xxxxxxx'` |
-| `pixKey` | Chave PIX exibida no modal de pagamento. | Texto livre: CPF/CNPJ, e-mail, telefone ou chave aleatória |
+| `pixKey` | Chave PIX usada para copiar (botão "Copiar Chave PIX") — **somente dígitos**, sem pontuação. | Texto: CPF/CNPJ, e-mail, telefone ou chave aleatória |
+| `pixKeyType` | Tipo da chave PIX, exibido no modal ("Tipo da chave"). Quando é `'CPF'` e a chave tem 11 dígitos, `formatPixKeyDisplay()` em `script.js` formata a **exibição** como `000.000.000-00` (o valor copiado continua sem pontuação). | Texto: `'CPF'`, `'CNPJ'`, `'E-mail'`, `'Telefone'` ou `'Aleatória'` |
 | `pixName` | Nome do favorecido, exibido no modal PIX. | Texto: `'Nome Completo ou Razão Social'` |
 | `pixQRCode` | Caminho da imagem do QR Code PIX. | Caminho relativo: `'assets/pix-qrcode.png'` |
 | `pixMaleValue` | Preço do ingresso masculino. Aparece no card de ingressos, no resumo da compra e no total do PIX. | Número: `250.00` (sem `R$`, use ponto para centavos) |
@@ -43,9 +47,9 @@ const CONFIG = {
 | `instagram` | Link do perfil do Instagram (rodapé). | URL completa: `'https://instagram.com/seuusuario'` |
 | `youtube` | Link do canal do YouTube (rodapé). | URL completa: `'https://youtube.com/@seucanal'` |
 | `maps` | Link do Google Maps com a localização do evento (rodapé). | URL completa do Google Maps |
-| `telefone` | Telefone institucional, exibido formatado no rodapé e usado no link `tel:`. | Texto: `'+55 47 99999-9999'` |
+| `telefone` | Telefone institucional, exibido formatado no rodapé e usado no link `tel:` (os caracteres não-numéricos são removidos automaticamente para o `tel:`). | Texto: `'+55 47 99999-9999'` |
 | `email` | E-mail institucional, exibido e usado no link `mailto:` (rodapé e páginas institucionais). | Texto: `'contato@seudominio.com.br'` |
-| `endereco` | Endereço institucional exibido como texto no rodapé. | Texto livre: `'Canelinha/SC'` |
+| `endereco` | Endereço institucional exibido como texto no rodapé. | Texto livre: `'Rua Exemplo, 123 — Bairro, Cidade/UF'` |
 | `vagasAtuais` | Número de inscritos já confirmados — alimenta a barra de progresso da seção "Vagas". | Número inteiro: `32` |
 | `vagasMax` | Capacidade máxima de vagas do evento. | Número inteiro: `50` |
 | `dataEvento` | Data do evento, exibida no topo da página e no FAQ. | Texto livre: `'29 de julho de 2026 (quarta-feira)'` |
@@ -58,7 +62,8 @@ const CONFIG = {
 - **Não existem `precoMasculino`/`precoFeminino` separados do preço do PIX.** `pixMaleValue` e `pixFemaleValue` são usados tanto para calcular o total do PIX quanto para exibir o preço nos cards de ingresso — um único valor, uma única fonte de verdade.
 - Depois de editar `CONFIG`, se você publicou as versões minificadas (`style.min.css` / `script.min.js`), rode o passo de "Atualizar a Landing" do [README.md](README.md#como-atualizar-a-landing-page) para regenerá-las.
 - `telefone` só precisa ser digitado no formato "bonito" (`'+55 47 99999-9999'`) — o link `tel:` do rodapé remove automaticamente os espaços/traços/parênteses, não precisa deixar dois campos (um formatado, um só com dígitos).
-- **Schema.org (SEO):** os telefones/e-mail/endereço também aparecem nos blocos `Organization` e `LocalBusiness` (JSON-LD) no `<head>` de `index.html`. Esses blocos são estáticos (não lêem o `CONFIG` via JavaScript, de propósito — ficam disponíveis a qualquer rastreador mesmo sem executar JS). Se alterar `telefone`, `email` ou `endereco` no `CONFIG`, atualize também os mesmos valores nesses blocos JSON-LD — ver comentário acima de cada bloco em `index.html`.
+- **Schema.org (SEO):** os telefones/e-mail/endereço/redes sociais também aparecem nos blocos `Organization` e `LocalBusiness` (JSON-LD) no `<head>` de `index.html`. Esses blocos são estáticos (não lêem o `CONFIG` via JavaScript, de propósito — ficam disponíveis a qualquer rastreador mesmo sem executar JS). Se alterar `telefone`, `email`, `endereco`, `instagram` ou `youtube` no `CONFIG`, atualize também os mesmos valores nesses blocos JSON-LD — ver comentário acima de cada bloco em `index.html`.
+- **Botão "Copiar Chave PIX":** usa a Clipboard API moderna e cai automaticamente para `document.execCommand('copy')` em navegadores mais antigos (função `copyPixKeyToClipboard()` em `script.js`). Sempre copia `CONFIG.pixKey` sem pontuação — é o formato mais compatível com apps bancários, mesmo que a exibição no modal mostre a chave formatada.
 
 ---
 

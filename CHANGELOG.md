@@ -2,6 +2,33 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.3] — Dados oficiais publicados — 2026-07-01
+
+Substituição definitiva de todos os placeholders pelos dados reais do Clube Carnivorista. Nenhuma informação de contato/pagamento fica duplicada em HTML — tudo centralizado no objeto `CONFIG` (`script.js`).
+
+### Adicionado
+- `CONFIG.pixKeyType` — tipo da chave PIX (`'CPF'`), exibido no modal
+- Modal PIX: campo "Tipo da chave" e botão **"Copiar Chave PIX"**, com feedback visual ("Chave PIX copiada.") por 2,5s. Usa a Clipboard API moderna com fallback automático (`document.execCommand('copy')`) para navegadores mais antigos ou por segurança contra falha de permissão
+- `formatPixKeyDisplay()` (`script.js`): formata a chave PIX do tipo CPF como `000.000.000-00` **apenas na exibição** — o valor copiado permanece sem pontuação (formato mais compatível com apps bancários)
+- Nota discreta ao lado do botão "Pagar com Cartão": "Compras parceladas poderão sofrer acréscimos conforme condições do Mercado Pago."
+- Schema.org `Organization`: adicionado `sameAs` com os links reais de Instagram e YouTube; `address.streetAddress` preenchido em `Organization` e `LocalBusiness`
+
+### Corrigido
+- Todos os placeholders do `CONFIG` substituídos pelos dados oficiais: `checkoutMercadoPago`, `pixKey`, `pixName`, `whatsappContact`, `whatsappGroup`, `instagram`, `youtube`, `maps`, `telefone`, `email`, `endereco` — propagados automaticamente para rodapé, modal PIX, botões de contato, botão Mercado Pago e página de obrigado
+- Botão "Entrar no Grupo do Evento" (`index.html` e `obrigado.html`) não abria em nova aba — faltava `target="_blank" rel="noopener"`
+- **Domínio incorreto em todo o SEO:** `workshopcarnespremium.vercel.app` (sem hífens) → `workshop-carnes-premium.vercel.app` (domínio real), corrigido em `index.html` (canonical, Open Graph, Twitter Card, 4 blocos Schema.org), `obrigado.html`, as 6 páginas institucionais, `sitemap.xml`, `robots.txt`, `README.md` e `CHECKLIST-PUBLICACAO.md`
+- `CHECKLIST-PUBLICACAO.md` referenciava `assets/sponsors/` (nome antigo, renomeado para `assets/patrocinadores/` na v1.0.0)
+
+### Verificado
+- Todos os links testados via `.href` renderizado (não o `href="#"` estático do HTML-fonte, que é só o valor inerte antes do JavaScript rodar): WhatsApp de contato, grupo do WhatsApp, Instagram, YouTube, Google Maps, telefone (`tel:`), e-mail (`mailto:`), Mercado Pago e mensagem do comprovante PIX — todos com os dados oficiais corretos
+- Console sem erros em `index.html` e `obrigado.html`
+- Os 4 blocos Schema.org (JSON-LD) validados como JSON bem-formado
+
+### Documentação
+- `CONFIG.md`: tabela atualizada com `pixKeyType`; nota sobre o botão "Copiar Chave PIX" e sobre manter o Schema.org sincronizado com `instagram`/`youtube`
+- `README.md`: versão atualizada para 1.0.3; seção "Como trocar o QR Code PIX" documenta `pixKeyType` e o botão de copiar
+- `CHECKLIST-PUBLICACAO.md`: itens de `CONFIG` atualizados (telefone, e-mail, endereço, YouTube, tipo de chave PIX) e referência a `assets/patrocinadores/` corrigida
+
 ## [1.0.2] — Repositório consolidado — 2026-07-01
 
 Auditoria da integração GitHub + Vercel (motivada pela pergunta "existe só uma fonte de verdade?"). Nenhuma mudança de código ou visual — só estrutura de repositório.

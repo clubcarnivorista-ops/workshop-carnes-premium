@@ -5,28 +5,29 @@ Use esta lista, em ordem, toda vez que for publicar a Landing em produção (pri
 ## 1. Conteúdo e configuração (`script.js`)
 
 - [ ] `CONFIG.checkoutMercadoPago` preenchido com o link real do Mercado Pago
-- [ ] `CONFIG.pixKey` e `CONFIG.pixName` preenchidos com dados reais
+- [ ] `CONFIG.pixKey`, `CONFIG.pixKeyType` e `CONFIG.pixName` preenchidos com dados reais
 - [ ] `CONFIG.whatsappContact` e `CONFIG.whatsappGroup` preenchidos
-- [ ] `CONFIG.instagram` e `CONFIG.maps` preenchidos
+- [ ] `CONFIG.instagram`, `CONFIG.youtube` e `CONFIG.maps` preenchidos
+- [ ] `CONFIG.telefone`, `CONFIG.email` e `CONFIG.endereco` preenchidos
 - [ ] `CONFIG.vagasAtuais` / `CONFIG.vagasMax` refletem o número real de inscritos
 - [ ] `CONFIG.dataEvento`, `horarioRecepcao`, `horarioWorkshop` conferidos
 - [ ] `TESTIMONIALS[].youtubeId` preenchido para cada depoimento que deve ficar ativo
 - [ ] `PATROCINADORES` (master, patrocinadores, apoiadores) preenchido conforme fechamentos comerciais
-- [ ] **Se qualquer um dos itens acima mudou a data, horário ou preço do evento**, atualizar também o bloco `Schema.org Event` (JSON-LD) no `<head>` de `index.html` — ver comentário `IMPORTANTE` ali mesmo
+- [ ] **Se qualquer um dos itens acima mudou a data, horário, preço, telefone, e-mail ou redes sociais**, atualizar também os blocos Schema.org (`Event`, `Organization`, `LocalBusiness`) no `<head>` de `index.html` — ver comentário `IMPORTANTE` acima de cada bloco
 
 ## 2. Imagens (`assets/`)
 
 - [ ] `assets/pix-qrcode.png` (400×400px, fundo branco)
 - [ ] `assets/og-image.jpg` (1200×630px, até 300KB) — preview do link no WhatsApp/Instagram/Facebook
 - [ ] `assets/videos/*.jpg` — uma miniatura por depoimento cadastrado em `TESTIMONIALS`
-- [ ] `assets/sponsors/*.png` — logos de realização/master/patrocinadores/apoiadores cadastrados
+- [ ] `assets/patrocinadores/*.png` — logos de realização/master/patrocinadores/apoiadores cadastrados
 - [ ] Todas as imagens comprimidas (ver [assets/README.md](assets/README.md))
 
 ## 3. URLs finais
 
 - [ ] `<link rel="canonical">` em `index.html` e `obrigado.html` apontam para a URL real de produção
 - [ ] Tags `og:url`, `og:image`, `twitter:image` em `index.html` apontam para a URL real
-- [ ] `robots.txt` e `sitemap.xml` apontam para o domínio real (troque `workshopcarnespremium.vercel.app` se o domínio final for outro)
+- [ ] `robots.txt` e `sitemap.xml` apontam para o domínio real (troque `workshop-carnes-premium.vercel.app` se o domínio final for outro)
 - [ ] URLs de `offers[].url` no Schema.org Event conferidas
 
 ## 4. Build (arquivos minificados)

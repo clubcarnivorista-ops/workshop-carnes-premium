@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.1** — operação definitiva do Clube Carnivorista, com os ativos visuais reais das proteínas integrados. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.3** — dados oficiais do Clube Carnivorista publicados (WhatsApp, e-mail, Instagram, YouTube, Google Maps, PIX e Mercado Pago). Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -217,11 +217,15 @@ var VAGAS_MIN = 20;
    ```js
    pixQRCode: 'assets/pix-qrcode.png',
    ```
-5. Aproveite também para preencher a chave e o nome do favorecido, que aparecem junto do QR Code no modal:
+5. Aproveite também para preencher a chave, o tipo da chave e o nome do favorecido, que aparecem junto do QR Code no modal:
    ```js
-   pixKey: '00.000.000/0001-00',
-   pixName: 'Workshop Carnes Premium',
+   pixKey: '03362258905',   // sem pontuação — é o valor copiado pelo botão "Copiar Chave PIX"
+   pixKeyType: 'CPF',       // 'CPF', 'CNPJ', 'E-mail', 'Telefone' ou 'Aleatória'
+   pixName: 'Nome Completo ou Razão Social',
    ```
+   Quando `pixKeyType` é `'CPF'` e a chave tem 11 dígitos, o modal formata a **exibição** automaticamente como `000.000.000-00` — não precisa digitar a pontuação em `pixKey`.
+
+O modal também tem um botão **"Copiar Chave PIX"**, que copia `pixKey` para a área de transferência (sem pontuação) e mostra a mensagem "Chave PIX copiada." por alguns segundos — útil para quem prefere colar a chave manualmente no app do banco em vez de escanear o QR Code.
 
 ---
 
@@ -291,7 +295,7 @@ Para valor 100% dinâmico no cartão, é necessário integrar a **API de Prefere
 
 ## SEO e compartilhamento
 
-- `robots.txt` e `sitemap.xml` já estão prontos — depois do primeiro deploy, atualize a URL neles (troque `workshopcarnespremium.vercel.app` pela URL real do seu projeto).
+- `robots.txt` e `sitemap.xml` já estão prontos — depois do primeiro deploy, atualize a URL neles (troque `workshop-carnes-premium.vercel.app` pela URL real do seu projeto).
 - As meta tags de Open Graph/Twitter Card (em `index.html`) controlam o preview do link quando compartilhado no WhatsApp, Instagram ou Facebook. Elas apontam para `assets/og-image.jpg` — adicione essa imagem (1200×630px) para o preview aparecer com foto. Sem ela, o link ainda funciona, só aparece sem imagem.
 - Depois de publicar na Vercel com a URL final, atualize também a tag `<link rel="canonical">` e as tags `og:url`/`og:image`/`twitter:image` no `<head>` do `index.html`.
 - Os vídeos de depoimento não usam `<iframe>` do YouTube na carga da página — só quando o usuário clica em "Assistir depoimento". Isso mantém o Lighthouse (Performance e Best Practices) alto mesmo com vários vídeos cadastrados em `TESTIMONIALS`.

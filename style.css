@@ -327,6 +327,13 @@ ul, ol {
   transform: none;
 }
 
+.payment-card__note {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
 /* ---------- CAIXA DE CONFIANÇA ---------- */
 .trust-box {
   display: flex;
@@ -477,6 +484,26 @@ ul, ol {
 
 .modal-pix__btn {
   width: 100%;
+}
+
+.modal-pix__btn + .modal-pix__btn {
+  margin-top: 10px;
+}
+
+.modal-pix__feedback {
+  height: 0;
+  overflow: hidden;
+  font-size: 0.8rem;
+  color: var(--gold);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.modal-pix__feedback.active {
+  height: auto;
+  opacity: 1;
+  margin-top: 8px;
 }
 
 /* ---------- MODAL VÍDEO DEPOIMENTO ---------- */
