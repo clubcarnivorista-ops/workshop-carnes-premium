@@ -2,6 +2,47 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.0.8] — Auditoria completa da Landing Page — 2026-07-02
+
+Auditoria completa (HTML, CSS, JS, SEO, performance, acessibilidade, responsividade, segurança, LGPD, links, imagens, CONFIG, organização do projeto). Nenhuma funcionalidade nova, nenhuma mudança de identidade visual ou UX — só oportunidades de melhoria, conforme escopo da missão. Achados classificados em Crítica/Alta/Média/Baixa; só Média e Baixa foram corrigidos automaticamente, Alta e Crítica ficam documentados para decisão futura.
+
+### Corrigido (Média — executado automaticamente)
+- **Cache-busting ausente em `style.min.css`/`script.min.js`**: os dois arquivos são servidos com `Cache-Control: max-age=86400` (24h) e sempre com o mesmo nome — depois de um deploy, quem já tinha visitado o site podia continuar vendo a versão antiga do CSS/JS por até 24h (isso já causou confusão real numa missão anterior, quando um ajuste visual pareceu "não ter ido ar"). Corrigido adicionando uma query string de versão (`?v=1.0.8`) em todo `<link rel="stylesheet">` e `<script src>` dos 10 arquivos HTML do projeto — a cada release que alterar CSS/JS, essa versão deve ser incrementada (documentado no README)
+
+### Corrigido (Baixa — executado automaticamente)
+- `style.css`: removida a variável `--red-accent`, declarada mas nunca usada em nenhuma regra
+- `style.css`: removido o seletor `.sponsors-master`, órfão desde a reestruturação de `PATROCINADORES` em v1.0.7 (o elemento HTML que o usava não existe mais)
+- `style.css`: removida uma linha em branco residual dentro de `@media (max-width: 1024px)`, sobra da mesma reestruturação
+- `index.html`: removida a tag `<meta name="keywords">`, obsoleta e ignorada por todos os buscadores relevantes desde 2009 (Google confirma publicamente que não usa esse campo para ranqueamento)
+
+### Documentado (Crítica — não corrigido automaticamente, aguardando decisão)
+- **CSP bloqueia a barra de progresso da seção "Vagas" em produção.** `vercel.json` define `style-src 'self' https://fonts.googleapis.com` (sem `'unsafe-inline'`). `setupVagasCounter()` (`script.js`) anima a barra via `elBar.style.width = pct + '%'` — um estilo inline. **Confirmado ao vivo em produção** (não é visível em dev local, que não aplica os headers do `vercel.json`): o atributo `style` chega a ser criado no DOM, mas o navegador recusa aplicá-lo (`getComputedStyle` continua em `0px`), sem lançar erro no console. Resultado: a barra de progresso nunca se move para o visitante real (o número "Inscritos" deve continuar animando normalmente, já que usa `textContent`, não `style`). Duas soluções possíveis, cada uma com um trade-off de segurança/arquitetura que vale uma decisão consciente antes de aplicar:
+  1. Adicionar `'unsafe-inline'` a `style-src` no `vercel.json` — mais simples, mas afrouxa a política de segurança para todo o site
+  2. Trocar `elBar.style.width` por uma classe CSS pré-definida (ex: `.vagas-counter__bar--pct-64`, um conjunto de classes em `style.css` cobrindo os incrementos necessários) — mantém a CSP estrita, mas exige adicionar essas classes e ajustar `setupVagasCounter()` para trocar de classe em vez de escrever `style` diretamente
+
+### Documentado (Alta — não corrigido automaticamente)
+- **`assets/og-image.jpg` não existe**, mas é referenciado em Open Graph, Twitter Card e no Schema.org LocalBusiness de `index.html` e `links.html`. Resultado: o preview de compartilhamento no WhatsApp/Instagram/Facebook/Twitter fica sem imagem. Precisa de uma arte real (1200×630px) — não é algo que dá para gerar automaticamente sem direção de marca
+- **Páginas legais ainda são placeholder** ("página em preparação"): `privacidade.html`, `lgpd.html`, `termos.html`, `cancelamento.html`, `reembolso.html`, `cookies.html`. Isso já estava documentado no README como pendência, mas reforçando aqui: não substituem revisão jurídica real antes de abrir vendas oficiais (a LGPD propriamente dita — coleta de dados — não é violada hoje porque o site não tem formulário próprio; o checkout roda no Mercado Pago e o comprovante é enviado via WhatsApp, ambos fora do domínio do site)
+- **Ícones SVG duplicados inline** (WhatsApp, Instagram, YouTube, Maps) repetidos em vários arquivos HTML estáticos (`index.html`, `obrigado.html`). Resolver isso direito exigiria um sprite SVG compartilhado (`<use href="#icon">`) ou um sistema de includes — o que colide com a decisão arquitetural deliberada de não ter build step. Peso extra é pequeno (poucos KB por página), então o ganho não compensa o risco de mexer em várias páginas ao mesmo tempo
+- **`script-src 'self' 'unsafe-inline'`** no CSP existe hoje só para suportar os pixels de analytics comentados (GA4, Meta Pixel, Google Ads, Clarity) quando forem ativados. Quando isso acontecer, vale reavaliar se dá para migrar para CSP baseado em nonce, mais restrito
+- **Fontes do Google carregadas via `<link>` síncrono** (`fonts.googleapis.com/css2?...`) — já usa `preconnect` e `display=swap`, mas ainda é uma requisição bloqueante extra no carregamento inicial. Auto-hospedar as fontes eliminaria essa dependência externa e o bloqueio, mas é uma mudança de infraestrutura (baixar, converter, versionar os arquivos de fonte) que vale uma decisão à parte
+
+### Verificado
+- Nenhum link interno quebrado (checado programaticamente em todos os `.html` do projeto)
+- Nenhuma âncora `#id` quebrada em `index.html`
+- `style.min.css`/`script.min.js` confirmados em dia com as fontes antes e depois das correções
+- Console sem erros após as correções, em `index.html` (local) e na Landing publicada
+- Regressão visual checada via preview (desktop + mobile) após as remoções de CSS morto — nenhuma mudança visível, como esperado
+
+### Pontuação geral do projeto: **8.7 / 10**
+Ver detalhamento por categoria no relatório da missão. Pontos fortes: zero dependência externa, CONFIG como fonte única de verdade, JSON-LD completo, responsividade e CLS bem tratados, código JS limpo e defensivo. Ponto mais importante a resolver: o bug de CSP na barra de vagas (Crítica).
+
+### Documentação
+- `README.md`: nota sobre versionamento manual do cache-busting (`?v=`) no processo de publicação
+- `04-HISTORICO.md`: versão atual atualizada para v1.0.8
+
+---
+
 ## [1.0.7] — Primeiros parceiros oficiais na seção Patrocinadores — 2026-07-02
 
 Cadastro dos dois primeiros parceiros do Clube Carnivorista (Faroeste Beer Co. e Super Fogo), vindos de permuta, e reestruturação de `PATROCINADORES` para um modelo por categorias que já aceita as tiers futuras (Patrocinador Master, Ouro, Prata) sem precisar tocar em `index.html` de novo.

@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.7** — primeiros parceiros oficiais cadastrados na seção "Patrocinadores" (Faroeste Beer Co. e Super Fogo), com `CONFIG.parceiros` organizado por tier (Master → Ouro → Prata → Parceiros Oficiais → Apoio). Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.0.8** — auditoria completa da Landing Page (HTML/CSS/JS/SEO/performance/acessibilidade/segurança/LGPD). Limpeza de código morto e cache-busting corrigidos; um bug de CSP na barra de "Vagas" e outros achados de prioridade alta ficaram documentados para decisão futura. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -153,13 +153,18 @@ Fluxo padrão para qualquer alteração (preço, texto, link, imagem):
    python tools/minify.py js script.js script.min.js
    ```
    Se esquecer esse passo, o site continua funcionando (os `.html` só carregam o `.min` que já existir), mas sua alteração **não vai aparecer em produção** até você regenerar e publicar os arquivos `.min` atualizados.
-4. Suba a alteração para o GitHub:
+4. **Se a alteração mexeu em `style.css` ou `script.js`**, incremente a versão no cache-busting: procure `?v=1.0.8` (ou a versão atual) em todos os `.html` do projeto e troque pela versão nova. Isso existe porque `style.min.css`/`script.min.js` são servidos com cache de 24h (`vercel.json`) e sempre com o mesmo nome de arquivo — sem trocar essa versão, quem já visitou o site pode continuar vendo o CSS/JS antigo por até 24h depois do deploy, mesmo depois de você já ter corrigido e publicado. Um jeito rápido de trocar em todos os arquivos de uma vez:
+   ```bash
+   # Windows (Git Bash) — troque X.X.X pela versão antiga e Y.Y.Y pela nova
+   for f in *.html; do sed -i 's/?v=X.X.X/?v=Y.Y.Y/g' "$f"; done
+   ```
+5. Suba a alteração para o GitHub:
    ```bash
    git add .
    git commit -m "Descreva a alteração aqui"
    git push
    ```
-5. Pronto — a Vercel publica a nova versão automaticamente.
+6. Pronto — a Vercel publica a nova versão automaticamente.
 
 ---
 

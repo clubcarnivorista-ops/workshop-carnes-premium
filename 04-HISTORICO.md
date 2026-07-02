@@ -2,9 +2,9 @@
 
 Registro resumido de cada versão publicada. Para o detalhe técnico completo de cada mudança, ver [CHANGELOG.md](CHANGELOG.md) — este arquivo é só o resumo executivo.
 
-## Versão atual: **v1.0.7**
+## Versão atual: **v1.0.8**
 
-Primeiros parceiros oficiais cadastrados na seção "Patrocinadores": Faroeste Beer Co. (chopp) e Super Fogo (carvão), ambos vindos de permuta e listados em "Parceiros Oficiais". A estrutura passou a viver dentro do próprio `CONFIG` (`CONFIG.realizacao` e `CONFIG.parceiros`), organizada por tier, com ordem fixa de exibição **Patrocinador Master → Patrocinadores Ouro → Patrocinadores Prata → Parceiros Oficiais → Apoio** — já preparada para as tiers futuras sem precisar mexer em HTML de novo.
+Auditoria completa da Landing Page: HTML, CSS, JS, SEO, performance, acessibilidade, responsividade, segurança, LGPD, links, imagens, CONFIG e organização do projeto. Achados classificados por severidade — só Baixa e Média foram corrigidos automaticamente (cache-busting no CSS/JS, limpeza de CSS morto, meta tag obsoleta). Alta e Crítica ficaram documentados no CHANGELOG para decisão futura, com destaque para um bug real de CSP que trava a barra de progresso da seção "Vagas" em produção. Pontuação geral do projeto: **8.7/10**.
 
 ---
 
@@ -12,6 +12,7 @@ Primeiros parceiros oficiais cadastrados na seção "Patrocinadores": Faroeste B
 
 | Versão | Resumo |
 |---|---|
+| **v1.0.8** | Auditoria completa da Landing (13 categorias) — correções Baixa/Média aplicadas, achados Alta/Crítica documentados (destaque: bug de CSP na barra de Vagas) |
 | **v1.0.7** | Primeiros parceiros oficiais (Faroeste Beer Co., Super Fogo) + `CONFIG.parceiros` organizado por tier (Master/Ouro/Prata/Oficiais/Apoio) |
 | **v1.0.6** | Página `links.html` (Link in Bio) para o Instagram, com 5 botões e `CONFIG.links` |
 | **v1.0.5** | Seção "Conheça a Experiência" (player em destaque) + 11 vídeos oficiais em 3 grupos (Mentor, Depoimentos, Reconhecimento) na seção de depoimentos |
@@ -34,6 +35,6 @@ um resumo maior aqui embaixo. Mantenha o "Versão atual" no topo sempre
 atualizado — é a primeira coisa que qualquer pessoa (ou IA) vai ler.
 -->
 
-### v1.0.8 — (ainda não publicada)
+### v1.0.9 — (ainda não publicada)
 
 *Reservado para a próxima versão.*
