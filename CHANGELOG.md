@@ -29,6 +29,11 @@ Nova página `links.html`, para uso no link da bio do Instagram, com os 5 links 
 - `CONFIG.md`: `links.garantirVaga` e `links.calculadora` documentados
 - `04-HISTORICO.md`: versão atual atualizada para v1.0.6
 
+### Ajustado (mesmo dia, após feedback visual)
+- Botões de `links.html` receberam acabamento "liquid glass" (vidro fosco, translúcido, com `backdrop-filter: blur()`), no estilo usado pela Apple — fundo semitransparente, brilho sutil no topo do botão, borda clara fina, sombra interna e externa. Botão principal ("Garanta sua vaga") mantém o dourado, agora com o mesmo tratamento de vidro
+- Fundo da página ganhou um terceiro gradiente radial (leve toque de vermelho escuro ao centro) para dar mais profundidade por trás do efeito de vidro
+- Nenhuma mudança de estrutura HTML ou de `CONFIG` — só CSS
+
 ---
 
 ## [1.0.5] — Seção "Conheça a Experiência" — 2026-07-02
