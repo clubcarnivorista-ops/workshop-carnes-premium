@@ -9,6 +9,7 @@ Auditoria da integração GitHub + Vercel (motivada pela pergunta "existe só um
 ### Corrigido
 - Achatada a estrutura do repositório: todos os arquivos estavam aninhados uma pasta a mais (`workshop-carnes-premium/` dentro do próprio repo, herança do primeiro upload manual). Agora a raiz do repositório = raiz do site, sem pasta extra
 - Eliminado o clone paralelo (`wcp-deploy-tmp`) usado como intermediário manual entre a pasta de trabalho e o GitHub — a pasta de trabalho **é** agora o repositório Git oficial, sem passo de cópia entre pastas
+- Cardápio: item de acompanhamento "Nachos" renomeado para **"Farofa de Nachos"**, em `index.html` (seção "Menu da Experiência → Acompanhamentos"). Única ocorrência no projeto — conferido em todo o repositório (HTML, CSS, JS, `.min`, `README.md`, `CONFIG.md`), sem nenhuma menção a "Nachos" isolado restante
 
 ### Documentação
 - `DEPLOY.md`: removida a seção de workaround (estrutura duplicada); adicionada nota histórica curta
