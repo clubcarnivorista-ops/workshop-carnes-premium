@@ -161,7 +161,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.min.css?v=1.0.8">
+  <link rel="stylesheet" href="style.min.css?v=1.1.0">
 
   <!-- ========== PIXELS / ANALYTICS (descomentar e preencher) ========== -->
 
@@ -290,6 +290,31 @@
       </div>
     </section>
 
+    <!-- ======================== QUEM SERÁ O SEU MENTOR NESTE WORKSHOP? ======================== -->
+    <section class="section section--light" id="mentor">
+      <div class="container">
+        <h2 class="section__title reveal">Quem será o seu mentor neste Workshop?</h2>
+        <p class="section__subtitle reveal">Conheça a trajetória de Juliomar Meskiu e descubra por que grandes artistas, empresas e apaixonados por churrasco confiam em seu trabalho.</p>
+
+        <div class="featured-video reveal" id="videoMentor">
+          <button type="button" class="featured-video__trigger" id="videoMentorTrigger" aria-label="Assistir: Quem será o seu mentor neste Workshop?">
+            <img class="featured-video__thumb" id="videoMentorThumb" src="" alt="" loading="lazy" decoding="async" hidden>
+            <span class="featured-video__play" aria-hidden="true">▶</span>
+          </button>
+          <div class="featured-video__frame" id="videoMentorFrame" hidden></div>
+        </div>
+
+        <div class="featured-video__caption reveal">
+          <p class="featured-video__caption-title" id="videoMentorSubtitulo"></p>
+          <p class="featured-video__caption-text" id="videoMentorDescricao"></p>
+        </div>
+
+        <div class="featured-video__cta reveal">
+          <a href="#ingressos" class="btn btn--outline" data-track-event="cta_mentor">Quero aprender com esse mentor</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ======================== MENU DA EXPERIÊNCIA ======================== -->
     <section class="section section--dark" id="menu">
       <div class="container">
@@ -402,46 +427,26 @@
       </div>
     </section>
 
-    <!-- ======================== QUEM JÁ VIVEU ESSA EXPERIÊNCIA ======================== -->
-    <section class="section section--light" id="depoimentos">
+    <!-- ======================== RECONHECIMENTO ======================== -->
+    <section class="section section--light" id="reconhecimento">
       <div class="container">
-        <h2 class="section__title reveal">Quem Já Viveu Essa Experiência</h2>
-        <p class="section__subtitle reveal">Depoimentos de quem já participou de uma edição do Clube Carnivorista</p>
+        <h2 class="section__title reveal">Reconhecimento</h2>
 
-        <!-- Preenchido por setupVideoGroups() (script.js) a partir de VIDEO_GROUPS —
-             um carrossel por grupo (Conheça seu Mentor, Depoimentos, Reconhecimento) -->
-        <div id="videoGroups"></div>
+        <!-- Preenchido por setupTestimonialsCarousel() (script.js) a partir de VIDEOS_RECONHECIMENTO —
+             carrossel Premium: autoplay, loop, pausa em hover/toque, swipe nativo, indicadores -->
+        <div id="reconhecimentoCarousel"></div>
       </div>
     </section>
 
-    <!-- ======================== O QUE ESTÁ INCLUSO ======================== -->
-    <section class="section section--light" id="incluso">
+    <!-- ======================== O QUE NOSSOS ALUNOS DIZEM ======================== -->
+    <section class="section section--light" id="depoimentos">
       <div class="container">
-        <h2 class="section__title reveal">O que está incluso</h2>
-        <p class="section__subtitle reveal">Tudo pensado para você aproveitar ao máximo</p>
+        <h2 class="section__title reveal">O que nossos alunos dizem</h2>
+        <p class="section__subtitle reveal">Depoimentos de quem já participou de uma edição do Clube Carnivorista</p>
 
-        <div class="incluso-grid">
-          <div class="incluso-item incluso-item--yes reveal">
-            <span class="incluso-check">✔</span>
-            <span>Open Food</span>
-          </div>
-          <div class="incluso-item incluso-item--yes reveal">
-            <span class="incluso-check">✔</span>
-            <span>Workshop Completo</span>
-          </div>
-          <div class="incluso-item incluso-item--yes reveal">
-            <span class="incluso-check">✔</span>
-            <span>Networking</span>
-          </div>
-          <div class="incluso-item incluso-item--yes reveal">
-            <span class="incluso-check">✔</span>
-            <span>Certificado Digital</span>
-          </div>
-          <div class="incluso-item incluso-item--no reveal">
-            <span class="incluso-x">✘</span>
-            <span>Bebidas (à la carte)</span>
-          </div>
-        </div>
+        <!-- Preenchido por setupTestimonialsCarousel() (script.js) a partir de VIDEOS_DEPOIMENTOS —
+             mesmo carrossel Premium da seção "Reconhecimento" (mesmo comportamento/visual/desempenho) -->
+        <div id="depoimentosCarousel"></div>
       </div>
     </section>
 
@@ -504,6 +509,37 @@
           <div class="order-summary__row order-summary__row--total">
             <span>Total</span>
             <span id="summaryTotal">R$ 0,00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== O QUE ESTÁ INCLUSO ======================== -->
+    <section class="section section--light" id="incluso">
+      <div class="container">
+        <h2 class="section__title reveal">O que está incluso</h2>
+        <p class="section__subtitle reveal">Tudo pensado para você aproveitar ao máximo</p>
+
+        <div class="incluso-grid">
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Open Food</span>
+          </div>
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Workshop Completo</span>
+          </div>
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Networking</span>
+          </div>
+          <div class="incluso-item incluso-item--yes reveal">
+            <span class="incluso-check">✔</span>
+            <span>Certificado Digital</span>
+          </div>
+          <div class="incluso-item incluso-item--no reveal">
+            <span class="incluso-x">✘</span>
+            <span>Bebidas (à la carte)</span>
           </div>
         </div>
       </div>
@@ -768,6 +804,6 @@
     </div>
   </div>
 
-  <script src="script.min.js?v=1.0.8"></script>
+  <script src="script.min.js?v=1.1.0"></script>
 </body>
 </html>

@@ -2,6 +2,76 @@
 
 Todas as mudanças relevantes da Landing Page são registradas aqui. Formato livre inspirado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
+## [1.1.0] — Reorganização da Landing + carrossel Premium — 2026-07-02
+
+Evolução da Landing para aumentar autoridade, retenção, tempo de permanência e conversão — sem alterar a identidade visual do Clube Carnivorista. Reorganização de seções, nova seção dedicada ao mentor, dois carrosséis "Premium" (autoplay/loop/swipe/indicadores) e eliminação de todos os nomes técnicos nos títulos de vídeo.
+
+### Nova ordem das seções
+`Hero → O que você vai aprender → Quem será o seu mentor neste Workshop? → Menu da Experiência → Veja como será a experiência → Reconhecimento → O que nossos alunos dizem → Patrocinadores → Ingressos → O que está incluso → Vagas → Pagamento → FAQ → Grupo → Rodapé`
+
+"O que está incluso" não fazia parte da nova ordem obrigatória (Hero…Ingressos) — reposicionada logo depois de "Ingressos", reforçando o valor da compra bem no momento da decisão, mantendo sua posição relativa às demais seções (Vagas, Pagamento, FAQ, Grupo) inalterada.
+
+### Adicionado
+- **Nova seção `#mentor`** — "Quem será o seu mentor neste Workshop?", com o subtítulo "Conheça a trajetória de Juliomar Meskiu e descubra por que grandes artistas, empresas e apaixonados por churrasco confiam em seu trabalho.", o mesmo vídeo do currículo de sempre (ID inalterado) com apresentação melhorada (legenda com subtítulo/descrição do próprio vídeo abaixo do player) e um botão discreto "Quero aprender com esse mentor" → rolagem suave até `#ingressos`
+- **Nova seção `#reconhecimento`** — carrossel Premium dedicado, extraído do antigo grupo "Reconhecimento" (4 vídeos: Fernando & Sorocaba ×2, Sampaio, Thauane)
+- **Seção "O que nossos alunos dizem"** (era "Quem Já Viveu Essa Experiência") — mesmo `id="depoimentos"`, carrossel Premium dedicado aos 6 depoimentos (Caroline, Edu Barbosa, Fábio, João Pedro, Mônica, Nogueira)
+- **Carrossel Premium** (`setupTestimonialsCarousel()` + `setupCarouselAutoplay()`, `script.js`), reaproveitado por Reconhecimento e O que nossos alunos dizem (mesmo comportamento, mesmo visual, mesmo desempenho — sem nenhuma biblioteca externa):
+  - Autoplay a cada 8s, loop infinito (volta ao início ao chegar no fim)
+  - Pausa ao passar o mouse (hover) e ao tocar na tela (touch), retomando ~3s depois
+  - Swipe nativo (scroll horizontal com `scroll-snap`, já existente — nenhum código novo necessário)
+  - Setas discretas (já existentes) + indicadores novos (bolinhas), recalculados dinamicamente conforme quantos cards cabem na tela
+- `VIDEO_MENTOR`, `VIDEOS_RECONHECIMENTO`, `VIDEOS_DEPOIMENTOS` (`script.js`) substituem `VIDEO_GROUPS` — cada vídeo agora tem `titulo`, `subtitulo` (opcional), `descricao`, `thumb`, `categoria`, `ordem` e `data`, prontos para uso futuro sem alterar HTML. `ordem` já é funcional hoje (os cards são ordenados por esse número antes de renderizar)
+- `setupFeaturedVideo()` (`script.js`): componente genérico de vídeo em destaque, reaproveitado agora pelas seções "Mentor" e "Conheça a Experiência" (antes só existia para uma)
+- `.btn--outline` (`style.css`): variante discreta de botão (borda dourada, fundo transparente), usada no CTA do mentor para não competir com o CTA principal dourado sólido
+- `.featured-video__caption` / `-title` / `-text` (`style.css`): legenda de texto abaixo do vídeo em destaque (hoje só a seção Mentor usa)
+- `.carousel-dots` / `.carousel-dot` / `.carousel-dot--active` (`style.css`): indicadores dos carrosséis Premium
+
+### Alterado — eliminação de nomes técnicos (todos os vídeos)
+Nenhum vídeo exibe mais um nome técnico. Títulos/descrições novos, exatamente como especificado:
+
+| Vídeo | Título novo |
+|---|---|
+| Mentor | "Quem será o seu mentor neste Workshop?" |
+| Caroline | "Uma experiência que surpreende do início ao fim." |
+| Edu Barbosa | "Muito além de um simples churrasco." |
+| Fábio | "Cada detalhe faz a diferença." |
+| João Pedro | "Uma experiência que vale cada minuto." |
+| Mônica | "Muito mais que aprender a assar carne." |
+| Nogueira | "Um Workshop para quem busca excelência." |
+| Fernando & Sorocaba (1) | "Nos bastidores com Fernando & Sorocaba." |
+| Fernando & Sorocaba (2) | "Quando a música encontra o churrasco." |
+| Sampaio | "O reconhecimento de quem entende de tradição." |
+| Thauane | "Sabores que conquistam logo na primeira experiência." |
+
+Todos os IDs de vídeo do YouTube permanecem exatamente os mesmos — só o texto de apresentação mudou.
+
+### Removido (código morto)
+- `.video-group` / `.video-group__title` (`style.css`) — não são mais usados, já que Mentor e Reconhecimento viraram seções próprias e "O que nossos alunos dizem" não precisa mais de sub-título de grupo dentro dela
+- `window.WORKSHOP_VIDEO_GROUPS` — substituído por `window.WORKSHOP_VIDEO_MENTOR`, `WORKSHOP_VIDEOS_RECONHECIMENTO` e `WORKSHOP_VIDEOS_DEPOIMENTOS`
+
+### Não alterado (conforme escopo da missão)
+SEO, Schema.org (JSON-LD), meta tags, `robots.txt`, `sitemap.xml`, LGPD, checkout/Mercado Pago, PIX, `CONFIG.parceiros` (dados e comportamento), identidade visual (cores, tipografia, componentes reaproveitados sem modificação).
+
+### Verificado
+- Nova ordem das seções confirmada via DOM (`Hero → aprender → mentor → menu → experiencia → reconhecimento → depoimentos → patrocinadores → ingressos → incluso → vagas → pagamento → faq → grupo → contato`)
+- Autoplay avança a cada 8s e faz loop (volta ao início suavemente ao chegar no fim) — testado nos dois carrosséis
+- Pausa em hover (desktop) e em touch (mobile) confirmada, com retomada automática depois de soltar
+- Setas de navegação, indicadores (contagem recalculada dinamicamente conforme cards visíveis) e clique num indicador testados
+- Nenhum nome técnico de vídeo aparece em lugar nenhum da página
+- Console sem erros
+- Desktop (1440px), tablet (768px) e mobile (375px): sem overflow horizontal
+- Fluxo de ingressos/PIX (seleção de quantidade, botão Pagar via PIX habilitando) testado após a reorganização — sem regressão
+- Schema.org (4 blocos JSON-LD), botão Mercado Pago e Parceiros Oficiais confirmados inalterados
+- Cache-busting (`?v=`) incrementado para `1.1.0` em todos os HTMLs, evitando CSS/JS antigo em cache
+
+### Documentação
+- `README.md`: seção "Como adicionar vídeos, parceiros e patrocinadores" reescrita para a nova arquitetura de vídeos; referências a `VIDEO_GROUPS` corrigidas
+- `CONFIG.md`: seção de vídeos totalmente reescrita (`VIDEO_MENTOR`/`VIDEOS_RECONHECIMENTO`/`VIDEOS_DEPOIMENTOS`, campos futuros, comportamento do carrossel Premium)
+- `assets/README.md`: referência a `VIDEO_GROUPS` corrigida
+- `04-HISTORICO.md`: versão atual atualizada para v1.1.0
+
+---
+
 ## [1.0.7.1] — Dados reais dos Parceiros Oficiais — 2026-07-02
 
 Atualização de dados dos dois Parceiros Oficiais já cadastrados (`CONFIG.parceiros.oficiais`, em `script.js`) — sem nenhuma mudança de estrutura, layout ou UX.

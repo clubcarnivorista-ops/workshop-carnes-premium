@@ -159,6 +159,22 @@ ul, ol {
   transform: translateY(-2px);
 }
 
+/* Botão discreto — usado quando um CTA secundário não deve competir com o
+   CTA principal dourado sólido (ex: "Quero aprender com esse mentor") */
+.btn--outline {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(201, 169, 97, 0.5);
+  padding: 14px 32px;
+  font-size: 0.85rem;
+}
+
+.btn--outline:hover {
+  background: rgba(201, 169, 97, 0.1);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
 .btn__icon {
   flex-shrink: 0;
 }
@@ -1002,21 +1018,26 @@ ul, ol {
   margin-top: 32px;
 }
 
-/* ---------- GRUPOS DE VÍDEO (um carrossel por grupo, dentro de "Quem Já Viveu Essa Experiência") ---------- */
-.video-group {
-  margin-bottom: 40px;
+/* Texto de apoio abaixo do vídeo em destaque (hoje só a seção "Mentor" usa) —
+   subtítulo/descrição vêm do próprio objeto de vídeo (VIDEO_MENTOR), não do CONFIG da seção */
+.featured-video__caption {
+  max-width: 600px;
+  margin: 24px auto 0;
+  text-align: center;
 }
 
-.video-group:last-child {
-  margin-bottom: 0;
-}
-
-.video-group__title {
+.featured-video__caption-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--gold);
-  margin-bottom: 16px;
+  margin-bottom: 6px;
+}
+
+.featured-video__caption-text {
+  font-size: 0.9rem;
+  color: var(--gray-light);
+  line-height: 1.6;
 }
 
 /* ---------- QUEM JÁ VIVEU ESSA EXPERIÊNCIA (CARROSSEL DE DEPOIMENTOS) ---------- */
@@ -1141,6 +1162,42 @@ ul, ol {
 .testimonials-nav:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+/* Indicadores do carrossel Premium (Reconhecimento / O que nossos alunos dizem) —
+   um ponto por "página" de cards visíveis, discreto, com o mesmo dourado do resto do site */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 97, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.carousel-dot:hover {
+  border-color: var(--gold);
+}
+
+.carousel-dot--active {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: scale(1.25);
+}
+
+.carousel-dot:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
 /* ---------- PATROCINADORES ---------- */

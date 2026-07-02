@@ -2,9 +2,9 @@
 
 Registro resumido de cada versão publicada. Para o detalhe técnico completo de cada mudança, ver [CHANGELOG.md](CHANGELOG.md) — este arquivo é só o resumo executivo.
 
-## Versão atual: **v1.0.8**
+## Versão atual: **v1.1.0**
 
-Auditoria completa da Landing Page: HTML, CSS, JS, SEO, performance, acessibilidade, responsividade, segurança, LGPD, links, imagens, CONFIG e organização do projeto. Achados classificados por severidade — só Baixa e Média foram corrigidos automaticamente (cache-busting no CSS/JS, limpeza de CSS morto, meta tag obsoleta). Alta e Crítica ficaram documentados no CHANGELOG para decisão futura, com destaque para um bug real de CSP que trava a barra de progresso da seção "Vagas" em produção. Pontuação geral do projeto: **8.7/10**.
+Evolução da Landing para aumentar autoridade, retenção, tempo de permanência e conversão, sem alterar a identidade visual. Nova ordem de seções (Hero → Benefícios → **Mentor** [nova] → Menu → Experiência → **Reconhecimento** [nova] → **O que nossos alunos dizem** [renomeada] → Parceiros → Ingressos → demais seções); Reconhecimento e O que nossos alunos dizem viraram carrosséis "Premium" (autoplay 8s, loop, pausa em hover/toque, swipe, indicadores — sem biblioteca externa); todos os vídeos perderam seus nomes técnicos e ganharam títulos/descrições de marketing, centralizados no `CONFIG`. SEO, Schema.org, LGPD, checkout, PIX e Parceiros não foram tocados.
 
 ---
 
@@ -12,6 +12,7 @@ Auditoria completa da Landing Page: HTML, CSS, JS, SEO, performance, acessibilid
 
 | Versão | Resumo |
 |---|---|
+| **v1.1.0** | Reorganização das seções + seção "Mentor" dedicada + carrossel Premium (Reconhecimento/Depoimentos) + eliminação de nomes técnicos nos vídeos |
 | **v1.0.8** | Auditoria completa da Landing (13 categorias) — correções Baixa/Média aplicadas, achados Alta/Crítica documentados (destaque: bug de CSP na barra de Vagas) |
 | **v1.0.7** | Primeiros parceiros oficiais (Faroeste Beer Co., Super Fogo) + `CONFIG.parceiros` organizado por tier (Master/Ouro/Prata/Oficiais/Apoio) |
 | **v1.0.6** | Página `links.html` (Link in Bio) para o Instagram, com 5 botões e `CONFIG.links` |
@@ -35,6 +36,6 @@ um resumo maior aqui embaixo. Mantenha o "Versão atual" no topo sempre
 atualizado — é a primeira coisa que qualquer pessoa (ou IA) vai ler.
 -->
 
-### v1.0.9 — (ainda não publicada)
+### v1.1.1 — (ainda não publicada)
 
 *Reservado para a próxima versão.*

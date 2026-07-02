@@ -79,68 +79,84 @@ Os outros três botões de `links.html` (Grupo do WhatsApp, YouTube, Instagram) 
 
 ---
 
-## Vídeos em grupo — `VIDEO_GROUPS`
+## Vídeos — `VIDEO_MENTOR`, `VIDEOS_RECONHECIMENTO`, `VIDEOS_DEPOIMENTOS`
 
-Seção "Quem Já Viveu Essa Experiência". Assim como o `CONFIG`, fica no topo de `script.js`, logo antes de `setupVideoModal()`. É um **array de grupos** — cada grupo vira um carrossel próprio, com seu próprio título, dentro da mesma seção. A seção inteira (título de cada grupo, carrossel, cards e modal) é gerada automaticamente a partir daqui.
+Desde a v1.1.0, os vídeos do site vivem em três estruturas separadas em `script.js` (logo antes de `setupVideoModal()`), uma para cada seção. Nenhum nome técnico (ex: "Vídeo 01", "Fernando e Sorocaba 01") é exibido na tela — cada vídeo tem seu próprio título e descrição de marketing, definidos aqui.
 
 ```js
-var VIDEO_GROUPS = [
-  {
-    titulo: 'Conheça seu Mentor',
-    items: [
-      { titulo: 'Vídeo Currículo', descricao: 'A trajetória por trás do Clube Carnivorista.', youtubeId: 'LggWGNBIojk', thumb: '' }
-    ]
-  },
-  {
-    titulo: 'Depoimentos',
-    items: [
-      { titulo: 'Caroline', descricao: 'Depoimento sobre a experiência.', youtubeId: '-Ve5ZvQKFvU', thumb: '' },
-      // ... mais 5 itens
-    ]
-  },
-  {
-    titulo: 'Reconhecimento',
-    items: [
-      { titulo: 'Fernando e Sorocaba 01', descricao: 'Reconhecimento ao Clube Carnivorista.', youtubeId: 'F_ejLw9n8Nc', thumb: '' },
-      // ... mais 3 itens
-    ]
-  }
-  // Novos grupos podem ser adicionados livremente, sem alterar HTML/CSS
+// Seção "Quem será o seu mentor neste Workshop?" — vídeo único, sem carrossel
+var VIDEO_MENTOR = {
+  titulo: 'Quem será o seu mentor neste Workshop?',
+  subtitulo: 'Conheça a trajetória de Juliomar Meskiu.',
+  descricao: 'Uma história construída através da paixão pelo churrasco, da busca pela excelência e do reconhecimento de grandes nomes da música brasileira.',
+  youtubeId: 'LggWGNBIojk',
+  thumb: '',
+  categoria: 'mentor',
+  ordem: 1,
+  data: ''
+};
+
+// Seção "Reconhecimento" — carrossel Premium
+var VIDEOS_RECONHECIMENTO = [
+  { titulo: 'Nos bastidores com Fernando & Sorocaba.', subtitulo: '', descricao: 'Um momento especial preparando cortes premium durante o evento.', youtubeId: 'F_ejLw9n8Nc', thumb: '', categoria: 'reconhecimento', ordem: 1, data: '' },
+  // ... mais 3 itens
+];
+
+// Seção "O que nossos alunos dizem" — carrossel Premium
+var VIDEOS_DEPOIMENTOS = [
+  { titulo: 'Uma experiência que surpreende do início ao fim.', subtitulo: '', descricao: 'Veja a opinião de quem viveu essa experiência.', youtubeId: '-Ve5ZvQKFvU', thumb: '', categoria: 'depoimento', ordem: 1, data: '' },
+  // ... mais 5 itens
 ];
 ```
 
-| Chave | Nível | O que controla | Formato / exemplo |
-|---|---|---|---|
-| `titulo` | grupo | Nome do grupo, exibido como subtítulo acima do carrossel. | Texto: `'Depoimentos'` |
-| `items` | grupo | Lista de vídeos daquele grupo — mesmo formato de item em qualquer grupo. | Array de objetos |
-| `titulo` | item | Nome exibido no card e no título do modal. | Texto: `'Caroline'` |
-| `descricao` | item | Texto curto abaixo do nome no card. | Texto livre, uma frase |
-| `youtubeId` | item | ID do vídeo no YouTube. Para links do tipo Shorts (`youtube.com/shorts/ID`), o ID é o trecho depois de `/shorts/`; para links normais (`youtube.com/watch?v=ID`), é o trecho depois de `v=`. | Texto: `'LggWGNBIojk'` |
-| `thumb` | item | Caminho de uma miniatura customizada. **Opcional** — deixe `''` (vazio) para usar automaticamente a miniatura oficial do próprio vídeo no YouTube, sem precisar cadastrar nenhum arquivo. | Caminho relativo ou `''` |
+Cada item (do mentor ou de qualquer vídeo dos carrosséis) aceita os mesmos campos:
 
-### Como adicionar um novo vídeo
+| Chave | O que controla | Formato / exemplo |
+|---|---|---|
+| `titulo` | Texto principal exibido no card (ou, no vídeo do mentor, como eyebrow/título da seção) e usado como título do modal. Nunca um nome técnico — sempre a frase de marketing. | Texto: `'Cada detalhe faz a diferença.'` |
+| `subtitulo` | Texto de apoio opcional, mais curto que a descrição. **Hoje só o vídeo do mentor usa** (exibido como legenda abaixo do player, na seção). Deixe `''` se não precisar. | Texto curto, ou `''` |
+| `descricao` | Texto curto abaixo do título — some no card (carrosséis) ou na legenda (mentor). | Texto livre, uma frase |
+| `youtubeId` | ID do vídeo no YouTube. Para links do tipo Shorts (`youtube.com/shorts/ID`), o ID é o trecho depois de `/shorts/`; para links normais (`youtube.com/watch?v=ID`), é o trecho depois de `v=`. | Texto: `'LggWGNBIojk'` |
+| `thumb` | Caminho de uma miniatura customizada. **Opcional** — deixe `''` para usar automaticamente a miniatura oficial do próprio vídeo no YouTube. | Caminho relativo ou `''` |
+| `categoria` | Identifica a que seção/grupo o vídeo pertence (informativo — hoje não filtra nada sozinho, mas já preparado para uso futuro). | Texto: `'mentor'`, `'reconhecimento'` ou `'depoimento'` |
+| `ordem` | Posição do vídeo dentro do carrossel — **já funcional hoje**: os itens são ordenados por este número antes de renderizar. | Número inteiro, começando em `1` |
+| `data` | Reservado para uso futuro (ex: data de gravação/publicação do vídeo). Não exibido em lugar nenhum ainda. | Texto livre, ou `''` |
 
-1. Abra `script.js` e encontre o array `VIDEO_GROUPS` (logo após o comentário `VÍDEOS EM GRUPO`).
-2. Encontre o grupo certo (ou crie um novo grupo, se for o caso) e copie um dos objetos existentes dentro de `items`, preenchendo `titulo`, `descricao`, `youtubeId` e, se quiser uma miniatura customizada, `thumb`.
-3. Salve. O card aparece automaticamente no carrossel do grupo certo — nada no HTML precisa ser tocado.
+### Como adicionar um novo vídeo num carrossel existente
 
-### Como criar um novo grupo
+1. Abra `script.js` e encontre `VIDEOS_RECONHECIMENTO` ou `VIDEOS_DEPOIMENTOS`.
+2. Copie um dos objetos existentes, preencha `titulo`, `descricao`, `youtubeId` e `ordem` (e `subtitulo`/`thumb`/`categoria`/`data` se fizer sentido).
+3. Salve. O card aparece automaticamente no carrossel, na posição definida por `ordem` — nada no HTML precisa ser tocado.
 
-Insira um novo objeto `{ titulo, items }` em `VIDEO_GROUPS`. Um carrossel novo, com seu próprio título e navegação independente, aparece automaticamente logo abaixo dos grupos existentes.
+### Como trocar o vídeo do mentor
+
+Edite os campos de `VIDEO_MENTOR` diretamente — `youtubeId` é o vídeo em si; `titulo`/`subtitulo`/`descricao` são o texto de apoio exibido na seção.
 
 ### Miniaturas (thumbnails)
 
-Por padrão, a miniatura de cada vídeo é buscada **automaticamente do YouTube** (`https://img.youtube.com/vi/ID/hqdefault.jpg`) — não é preciso cadastrar nenhuma imagem. Só preencha `thumb` com um caminho em `assets/videos/` se quiser uma miniatura diferente da oficial do YouTube (ver [assets/README.md](assets/README.md)).
+Por padrão, a miniatura de cada vídeo é buscada **automaticamente do YouTube** (`https://img.youtube.com/vi/ID/hqdefault.jpg`, ou `maxresdefault.jpg` no vídeo do mentor) — não é preciso cadastrar nenhuma imagem. Só preencha `thumb` com um caminho em `assets/videos/` se quiser uma miniatura diferente da oficial do YouTube (ver [assets/README.md](assets/README.md)).
 
 ### Enquanto `youtubeId` estiver vazio
 
-O botão "Assistir vídeo" daquele card fica **desabilitado automaticamente** (visual acinzentado, sem clique) até que um ID real seja preenchido — evita abrir um modal com vídeo quebrado.
+No mentor, a seção mostra um player desabilitado ("vídeo em breve" — mesmo tratamento da seção "Conheça a Experiência"). Nos carrosséis, o botão "Assistir vídeo" daquele card fica **desabilitado automaticamente** até que um ID real seja preenchido — evita abrir um modal com vídeo quebrado.
 
 ### Como funciona o modal de vídeo
 
 - O iframe do YouTube só é criado no momento em que o usuário clica em "Assistir vídeo" (sem `autoplay`), usando `youtube-nocookie.com` e o parâmetro `rel=0` (reduz vídeos relacionados de outros canais ao final — o YouTube não permite removê-los por completo).
 - Ao fechar o modal (X, ESC ou clique fora), o iframe é removido do DOM — isso interrompe a reprodução automaticamente, sem precisar de nenhuma biblioteca externa.
-- O mesmo modal é reaproveitado por qualquer grupo — não existe um modal por grupo, só um modal compartilhado.
+- O mesmo modal é reaproveitado pelos dois carrosséis — não existe um modal por seção, só um modal compartilhado.
+
+### Carrossel Premium (Reconhecimento e O que nossos alunos dizem)
+
+As duas seções usam exatamente o mesmo comportamento (`setupTestimonialsCarousel()` em `script.js`), sem nenhuma biblioteca externa:
+
+- **Autoplay**: avança um grupo de cards a cada 8 segundos
+- **Loop infinito**: ao chegar no fim, volta suavemente para o início
+- **Pausa em hover** (desktop) e **em toque** (mobile) — retoma ~3s depois de soltar
+- **Swipe**: nativo do navegador (o carrossel já é uma trilha com scroll horizontal + `scroll-snap`), nenhum código extra necessário
+- **Setas** (`‹`/`›`) e **indicadores** (bolinhas abaixo do carrossel, uma por "página" de cards visíveis) — clicar em qualquer um pausa o autoplay temporariamente
+
+Para criar um carrossel Premium novo (ex: uma seção futura), basta chamar `setupTestimonialsCarousel('idDoContainer', arrayDeVideos, openVideo)` — todo o comportamento acima vem de graça.
 
 ---
 

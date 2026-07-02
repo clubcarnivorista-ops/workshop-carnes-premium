@@ -1,6 +1,6 @@
 # Workshop de Carnes Premium — Landing Page
 
-**Versão: 1.0.7.1** — dados reais dos Parceiros Oficiais (Carvão Super-Fogo e Faroeste Beer Co.): Instagram, WhatsApp e descrição atualizados no `CONFIG`. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
+**Versão: 1.1.0** — reorganização das seções, nova seção "Quem será o seu mentor neste Workshop?", carrossel Premium (autoplay/loop/swipe) em "Reconhecimento" e "O que nossos alunos dizem", e eliminação de nomes técnicos em todos os vídeos. Ver [CHANGELOG.md](CHANGELOG.md) para o histórico completo.
 
 Landing page de vendas para o Workshop de Carnes Premium (Canelinha/SC), realização do Clube Carnivorista. Site estático — **HTML, CSS e JavaScript puros, sem framework, sem build, sem dependências**. Roda em qualquer hospedagem estática, e este guia usa a combinação 100% gratuita **GitHub + Vercel + Gmail**.
 
@@ -22,7 +22,7 @@ workshop-carnes-premium/
 ├── cookies.html                     → Uso de Cookies (página institucional, em preparação)
 ├── style.css                          → estilos (versão legível, para editar)
 ├── style.min.css                        → estilos minificados (para produção)
-├── script.js                              → toda a lógica do site + objetos CONFIG (com parceiros/patrocinadores) e VIDEO_GROUPS (para editar)
+├── script.js                              → toda a lógica do site + objetos CONFIG (com parceiros/patrocinadores), VIDEO_MENTOR, VIDEOS_RECONHECIMENTO e VIDEOS_DEPOIMENTOS (para editar)
 ├── script.min.js                            → script minificado (para produção)
 ├── favicon.svg                                → ícone do site em SVG (navegadores modernos)
 ├── favicon.ico                                  → ícone em formato .ico (compatibilidade ampla)
@@ -314,21 +314,23 @@ O rodapé também tem uma linha de links institucionais (Política de Privacidad
 
 ## Como adicionar vídeos, parceiros e patrocinadores
 
-A seção **"Quem Já Viveu Essa Experiência"** exibe três grupos de vídeo lado a lado — **Conheça seu Mentor**, **Depoimentos** e **Reconhecimento** — cada um com seu próprio carrossel. Isso e a seção **"Patrocinadores"** são geradas automaticamente a partir de `VIDEO_GROUPS` e `CONFIG.parceiros` (topo de `script.js`) — mesmo padrão do resto do `CONFIG`. Basta inserir um novo objeto no array/grupo correspondente para adicionar um vídeo, um grupo novo, um parceiro ou um patrocinador; nenhum HTML precisa ser tocado.
+Desde a v1.1.0, os vídeos vivem em três estruturas: `VIDEO_MENTOR` (vídeo único da seção "Quem será o seu mentor neste Workshop?"), `VIDEOS_RECONHECIMENTO` e `VIDEOS_DEPOIMENTOS` (carrosséis Premium das seções "Reconhecimento" e "O que nossos alunos dizem"). Isso e a seção "Patrocinadores" são geradas automaticamente a partir dessas estruturas e de `CONFIG.parceiros` (topo de `script.js`) — mesmo padrão do resto do `CONFIG`. Basta inserir um novo objeto no array certo para adicionar um vídeo ou um parceiro; nenhum HTML precisa ser tocado.
 
-As miniaturas dos vídeos vêm automaticamente do próprio YouTube — não é preciso cadastrar nenhuma imagem em `assets/`.
+Nenhum vídeo exibe nome técnico (ex: "Vídeo 01", "Fernando e Sorocaba 01") — cada um tem título, subtítulo (opcional) e descrição de marketing, definidos no próprio `CONFIG`. As miniaturas vêm automaticamente do próprio YouTube — não é preciso cadastrar nenhuma imagem em `assets/`.
+
+Os dois carrosséis (Reconhecimento e O que nossos alunos dizem) seguem o mesmo padrão **Premium**: autoplay a cada 8s, loop infinito, pausa ao passar o mouse ou tocar na tela, swipe nativo, setas discretas e indicadores — tudo sem nenhuma biblioteca externa.
 
 A partir da v1.0.7, `CONFIG.parceiros` é organizado **por tier**: hoje existe **Parceiros Oficiais** — **Carvão Super-Fogo** e **Faroeste Beer Co.**, vindos de permuta, com Instagram real cadastrado desde a v1.0.7.1 — e três tiers já reservadas para o futuro — **Patrocinador Master**, **Patrocinadores Ouro** e **Patrocinadores Prata** — todas vazias até o primeiro fechamento em cada uma, mais **Apoio** para parcerias sem contrapartida financeira. A ordem de exibição na página é sempre **Master → Ouro → Prata → Parceiros Oficiais → Apoio** (definida em `CATEGORIAS_PARCEIROS`, logo abaixo do `CONFIG` em `script.js`); uma tier vazia simplesmente não aparece. Criar uma tier nova não exige tocar em `index.html`, só em `CONFIG.md`/`script.js`.
 
 Cada item de parceiro também aceita um campo `whatsapp` (número, só para referência) — hoje não é usado como link clicável; o clique na logomarca continua seguindo a prioridade `link` → `site` → `instagram`. Ver [CONFIG.md](CONFIG.md#patrocinadores--configrealizacao-e-configparceiros) para o campo completo.
 
-Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#vídeos-em-grupo--video_groups) e [CONFIG.md](CONFIG.md#patrocinadores--configrealizacao-e-configparceiros).
+Guia completo, com todos os campos e exemplos, em [CONFIG.md](CONFIG.md#vídeos--video_mentor-videos_reconhecimento-videos_depoimentos) e [CONFIG.md](CONFIG.md#patrocinadores--configrealizacao-e-configparceiros).
 
 ---
 
 ## Como ativar o vídeo da seção "Conheça a Experiência"
 
-Entre "Menu da Experiência" e "Quem Já Viveu Essa Experiência" existe uma seção com um player de vídeo em destaque ("Veja como será a experiência"). Até o vídeo oficial ser gravado e publicado no YouTube, essa seção mostra um placeholder — o botão de assistir fica desabilitado, sem imagem quebrada.
+Entre "Menu da Experiência" e "Reconhecimento" existe uma seção com um player de vídeo em destaque ("Veja como será a experiência"). Até o vídeo oficial ser gravado e publicado no YouTube, essa seção mostra um placeholder — o botão de assistir fica desabilitado, sem imagem quebrada.
 
 Para ativar, preencha o ID do vídeo em `CONFIG` (`script.js`):
 ```js
@@ -373,7 +375,7 @@ Para valor 100% dinâmico no cartão, é necessário integrar a **API de Prefere
 - `robots.txt` e `sitemap.xml` já estão prontos — depois do primeiro deploy, atualize a URL neles (troque `workshop-carnes-premium.vercel.app` pela URL real do seu projeto).
 - As meta tags de Open Graph/Twitter Card (em `index.html`) controlam o preview do link quando compartilhado no WhatsApp, Instagram ou Facebook. Elas apontam para `assets/og-image.jpg` — adicione essa imagem (1200×630px) para o preview aparecer com foto. Sem ela, o link ainda funciona, só aparece sem imagem.
 - Depois de publicar na Vercel com a URL final, atualize também a tag `<link rel="canonical">` e as tags `og:url`/`og:image`/`twitter:image` no `<head>` do `index.html`.
-- Nenhum vídeo (dos três grupos, nem o da seção "Conheça a Experiência") usa `<iframe>` do YouTube na carga da página — só quando o usuário clica em "Assistir vídeo". Isso mantém o Lighthouse (Performance e Best Practices) alto mesmo com vários vídeos cadastrados em `VIDEO_GROUPS`.
+- Nenhum vídeo (mentor, carrosséis de Reconhecimento/Depoimentos, nem o da seção "Conheça a Experiência") usa `<iframe>` do YouTube na carga da página — só quando o usuário clica em "Assistir vídeo". Isso mantém o Lighthouse (Performance e Best Practices) alto mesmo com vários vídeos cadastrados.
 - `index.html` inclui dados estruturados **Schema.org Event** (JSON-LD, no `<head>`) para habilitar Rich Results do Google. Sempre que a data, o horário ou os preços mudarem no `CONFIG`, atualize também esse bloco — ele é estático de propósito (não é gerado por JavaScript) para ficar disponível a qualquer rastreador.
 
 ## Favicon completo
